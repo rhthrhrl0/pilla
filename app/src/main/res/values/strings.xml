@@ -3,5 +3,5 @@
     <string name="project_name">약쏙</string>
     <string name="login">로그인</string>
     <string name="join">회원가입</string>
-
+    <string name="logout">로그아웃</string>
 </resources>
