@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.ssu_contest_eighteen_pomise.App
+import com.example.ssu_contest_eighteen_pomise.BackKeyHandler
 import com.example.ssu_contest_eighteen_pomise.MainActivity
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityLoginBinding
@@ -15,6 +16,7 @@ import com.example.ssu_contest_eighteen_pomise.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val model: LoginViewModel by viewModels() // 코틀린 확장함수임.
+    private val backKeyHandler=BackKeyHandler(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         })
 
         model.failedLoginToast.observe(this@LoginActivity, {
-            Toast.makeText(this, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -56,4 +58,7 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    override fun onBackPressed() {
+        backKeyHandler.onBackPressed()
+    }
 }
