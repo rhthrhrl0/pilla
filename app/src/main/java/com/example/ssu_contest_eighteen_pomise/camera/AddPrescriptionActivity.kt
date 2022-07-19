@@ -6,6 +6,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAddPrescriptionBinding
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideNoneAndDownExit
+
 
 class AddPrescriptionActivity : AppCompatActivity() {
     private lateinit var binding:ActivityAddPrescriptionBinding
@@ -16,5 +18,10 @@ class AddPrescriptionActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
         binding.viewModel=viewModel
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        slideNoneAndDownExit()
     }
 }

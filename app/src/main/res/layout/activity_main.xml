@@ -62,7 +62,8 @@
                     android:src="@drawable/bell_bold_line"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{()->viewModel.alarmList()}"/>
             </FrameLayout>
         </LinearLayout>
 

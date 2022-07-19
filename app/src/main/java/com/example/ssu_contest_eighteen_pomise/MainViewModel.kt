@@ -16,6 +16,7 @@ class MainViewModel(application: Application) :AndroidViewModel(application) {
     var startHomeFragment=MutableLiveData<Boolean>()
     var startSettingFragment=MutableLiveData<Boolean>()
     var startAddPrescription=MutableLiveData<Boolean>()
+    var startAlarmList=MutableLiveData<Boolean>()
 
     fun replaceHome(){
         startHomeFragment.value=true
@@ -26,6 +27,10 @@ class MainViewModel(application: Application) :AndroidViewModel(application) {
 
     fun addPrescription(){
         startAddPrescription.value=true
+    }
+
+    fun alarmList(){
+        startAlarmList.value=true
     }
 
 }
