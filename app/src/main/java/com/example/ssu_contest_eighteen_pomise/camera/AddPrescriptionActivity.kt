@@ -18,6 +18,10 @@ class AddPrescriptionActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
         binding.viewModel=viewModel
 
+        viewModel.finishEvent.observe(this@AddPrescriptionActivity,{
+            onBackPressed()
+        })
+
     }
 
     override fun onBackPressed() {
