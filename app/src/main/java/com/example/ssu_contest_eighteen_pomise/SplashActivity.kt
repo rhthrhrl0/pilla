@@ -16,6 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class SplashActivity : AppCompatActivity() {
     private val viewModel:SplashViewModel by viewModels()
+    private val backKeyHandler = BackKeyHandler(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -31,6 +32,10 @@ class SplashActivity : AppCompatActivity() {
         })
 
         viewModel.isCanLogin(shPre)
+    }
+
+    override fun onBackPressed() {
+        backKeyHandler.onBackPressed()
     }
 
     fun AutoLogin() {
