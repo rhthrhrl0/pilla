@@ -28,9 +28,15 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
     val cycleTimeString = MutableLiveData<String>()
 
+    val morningEatTimeString=MutableLiveData<String>("")
+    val lunchEatTimeString=MutableLiveData<String>("")
+    val dinnerEatTimeString=MutableLiveData<String>("")
     init {
         startTimeInt = 12
         cycleTimeInt = 1
+        morningEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
+        lunchEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
+        dinnerEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
     }
 
     val selectedStateListener1 = object : Checkbox.SelectedListener {
