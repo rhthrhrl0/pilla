@@ -34,8 +34,12 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        //requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
+        onViewModelInit()
+    }
+
+    fun onViewModelInit(){
         viewModel.startHomeFragment.observe(this@MainActivity, {
             replaceHomeFragment()
         })
@@ -50,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             startAlarmListActivity()
         })
     }
-
 
     fun replaceHomeFragment() {
         if (findNavController(binding.fragmentContainerView.id).currentDestination?.id == R.id.settingFragment) {

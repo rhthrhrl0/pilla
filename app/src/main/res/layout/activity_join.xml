@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.yourssu.design.system.foundation.Icon"/>
         <variable
             name="viewModel"
             type="com.example.ssu_contest_eighteen_pomise.auth.JoinViewModel" />
@@ -13,48 +13,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".auth.JoinActivity">
+        tools:context=".auth.JoinActivity"
+        android:background="@color/white">
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->viewModel.backBtnClick()}"
-                android:src="@drawable/ic_baseline_arrow_back_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/join"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            <com.yourssu.design.system.component.TopBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                title="@{@string/join}"
+                startIcon="@{Icon.ic_arrow_left_line}"
+                onStartIconClick="@{()->viewModel.backBtnClick()}"/>
         </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/border"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#999999"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
         <TextView
             android:id="@+id/explainText"
@@ -68,7 +44,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/border" />
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
         <TextView
             android:id="@+id/explainNameText"
             android:layout_width="match_parent"

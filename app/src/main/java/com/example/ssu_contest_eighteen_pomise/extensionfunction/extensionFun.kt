@@ -12,7 +12,6 @@ fun Activity.slideNoneAndDownExit(){
 fun Activity.slideRightEnterAndNone(){
     overridePendingTransition(R.anim.slide_right_enter, R.anim.none)
 }
-
 fun Activity.slideNoneAndLeftExit(){
     overridePendingTransition(R.anim.none, R.anim.slide_right_exit)
 }

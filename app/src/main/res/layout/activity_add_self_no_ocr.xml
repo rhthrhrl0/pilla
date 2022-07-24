@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.yourssu.design.system.atom.BoxButton"/>
+        <import type="com.yourssu.design.system.foundation.Icon" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.AddSelfNoOcrViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.yourssu.design.system.component.TopBar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:onStartIconClick="@{()->viewModel.onClickFinish()}"
+            app:startIcon="@{Icon.ic_arrow_left_line}"
+            app:title="@{@string/prescription_hand_write}" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topbar"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                tools:context=".camera.self_add_no_ocr.AddSelfNoOcrActivity">
+
+                <com.yourssu.design.system.atom.Text
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{@string/pill_eat_time_category}"
+                    app:typo="subtitle2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/join_btn"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.yourssu.design.system.atom.Checkbox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:label="@{@string/periodic_time_standard}"
+                        app:isSelected="@{viewModel.isSelect1}"
+                        app:selectedListener="@{viewModel.selectedStateListener1}"
+                        app:size="@{viewModel.size}" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/join_btn"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+                        <com.yourssu.design.system.atom.BoxButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            type="@{BoxButton.LINE}"
+                            text="@{viewModel.startTimeString}"
+                            isDisabled="@{!viewModel.isSelect1}"
+                            size="@{BoxButton.Large}"
+                            />
+
+                        <com.yourssu.design.system.atom.Text
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="시부터"
+                            app:typo="subtitle1"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="16dp"/>
+
+                        <com.yourssu.design.system.atom.BoxButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            type="@{BoxButton.LINE}"
+                            text="@{viewModel.cycleTimeString}"
+                            isDisabled="@{!viewModel.isSelect1}"
+                            size="@{BoxButton.Large}"
+                            />
+                        <com.yourssu.design.system.atom.Text
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="시간 마다"
+                            app:typo="subtitle1"
+                            android:layout_gravity="center_vertical"/>
+
+
+                    </LinearLayout>
+
+                    <com.yourssu.design.system.atom.Checkbox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        app:label="@{@string/morning_lunch_dinner_standard}"
+                        app:isSelected="@{viewModel.isSelect2}"
+                        app:selectedListener="@{viewModel.selectedStateListener2}"
+                        app:size="@{viewModel.size}" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/join_btn"
+                        android:orientation="vertical"
+                        android:padding="2dp">
+
+
+                    </LinearLayout>
+
+                    <com.yourssu.design.system.atom.Checkbox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        app:label="@{@string/specific_time_standard}"
+                        app:isSelected="@{viewModel.isSelect3}"
+                        app:selectedListener="@{viewModel.selectedStateListener3}"
+                        app:size="@{viewModel.size}" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/join_btn"
+                        android:orientation="vertical"
+                        android:padding="2dp"
+                        android:layout_marginBottom="16dp">
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <com.yourssu.design.system.atom.Text
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="@{@string/pill_category_and_list_add}"
+                    app:typo="subtitle2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@drawable/join_btn"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mainColor"
+            android:onClick="@{()->viewModel.onClickAdd()}"
+            android:padding="8dp"
+            android:text="@{@string/prescription_alarm_add}"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

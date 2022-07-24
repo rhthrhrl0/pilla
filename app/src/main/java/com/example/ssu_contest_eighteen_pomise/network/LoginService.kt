@@ -11,7 +11,6 @@ interface LoginService {
     @POST("v1/signUp")
     suspend fun signUpRequest(@Body postDto: PostSignUpModel): Response<SignUpDTO>
 
-
     @POST("v1/reissue")
     suspend fun refreshTokenRequest(
         @Header("Authorization") headerToken: String,
@@ -22,7 +21,6 @@ interface LoginService {
 
     @POST("v1/logout")
     suspend fun logoutRequest(@Header("Authorization") headerToken: String):Response<Void>
-
 
     companion object {
         const val BASE_URL =

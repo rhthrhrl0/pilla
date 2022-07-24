@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".mainfragments.SettingFragment">
 
-
         <Button
             android:id="@+id/logoutBtn"
             android:layout_width="match_parent"

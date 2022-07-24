@@ -23,4 +23,5 @@ class TokenSharedPreferences(context:Context) {
     var name:String?
         get()=prefs.getString(key_name,"")
         set(value)=prefs.edit().putString(key_name,value).apply()
+
 }
