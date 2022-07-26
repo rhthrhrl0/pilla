@@ -161,7 +161,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/explainPwdText2" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBtn"
             android:textColor="@color/white"
             android:layout_width="match_parent"

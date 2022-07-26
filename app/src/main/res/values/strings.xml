@@ -17,4 +17,7 @@
     <string name="periodic_time_standard">주기적인 시간마다</string>
     <string name="morning_lunch_dinner_standard">아침,점심,저녁 기준</string>
     <string name="specific_time_standard">특정 시간에만</string>
+    <string name="expiration_date_time_select">약 복용 기한\n(복용 마지막 날을 선택해주세요)</string>
+    <string name="expiration_date_edit">날짜수정</string>
+    <string name="add_eat_pill_time">복용 시간 추가</string>
 </resources>

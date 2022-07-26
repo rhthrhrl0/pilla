@@ -13,6 +13,39 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val isSelect1: MutableLiveData<Boolean> = MutableLiveData(true)
     val isSelect2: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSelect3: MutableLiveData<Boolean> = MutableLiveData(false)
+    var expirationYearInt:Int=0
+        set(value){
+            field=value
+            expirationYear.value="$field"
+        }
+    var expirationMonthInt:Int=0
+        set(value){
+            field=value
+            expirationMonth.value="$field"
+        }
+    var expirationDayInt:Int=0
+        set(value){
+            field=value
+            expirationDay.value="$field"
+        }
+    val expirationYear=MutableLiveData<String>("")
+    val expirationMonth=MutableLiveData<String>("")
+    val expirationDay=MutableLiveData<String>("")
+
+    val specificTimeItemLiveData = MutableLiveData<MutableList<SpecificTime>>()
+    var specificTimeHourInt:Int = 0
+        set(value) {
+            field=value
+            specificTimeHourString.value="${field}"
+        }
+    val specificTimeHourString=MutableLiveData<String>()
+    var specificTimeMinutesInt:Int = 0
+        set(value) {
+            field=value
+            specificTimeMinutesString.value="${field}"
+        }
+    val specificTimeMinutesString=MutableLiveData<String>()
+
 
     var startTimeInt: Int = 0
         set(value) {
@@ -34,6 +67,9 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     init {
         startTimeInt = 12
         cycleTimeInt = 1
+        specificTimeHourInt=12
+        specificTimeMinutesInt=30
+        specificTimeItemLiveData.value=  mutableListOf<SpecificTime>()
         morningEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
         lunchEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
         dinnerEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
@@ -63,6 +99,10 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+
+
+
+
     fun resetExceptTrue(except: Int) {
         when (except) {
             1 -> {
@@ -83,6 +123,22 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    fun addSpecificTimeItem(){
+        specificTimeItemLiveData.value?.add(SpecificTime(specificTimeHourInt,specificTimeMinutesInt,0))
+        val newArray=specificTimeItemLiveData.value?.sortedWith(compareBy({ it.hour }, { it.minutes }))
+        val newSet= newArray?.toMutableSet()
+        // 관찰 당하고 있으므로 어댑터 쪽 업데이트 할거임.
+        if (newSet!=null) {
+            specificTimeItemLiveData.value = newSet.toMutableList()
+        }
+    }
+
+    fun specificTimeItemOnClick(position:Int){
+        if (isSelect3.value!!) {
+            specificTimeItemLiveData.value?.removeAt(position)
+            specificTimeItemLiveData.value = specificTimeItemLiveData.value
+        }
+    }
 
     fun onClickAdd() {
         //검증... 입력 다했나

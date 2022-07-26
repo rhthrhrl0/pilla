@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="com.yourssu.design.system.foundation.Icon" />
+
+        <variable
+            name="specificTime"
+            type="com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.SpecificTime" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/confirm_btn"
+        android:padding="8dp"
+        android:layout_margin="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            specificTimeText="@{specificTime}"
+            android:layout_gravity="center"/>
+        <com.yourssu.design.system.atom.IconView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            icon="@{Icon.ic_x_line}"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</layout>

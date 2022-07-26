@@ -1,13 +1,20 @@
 package com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr
 
+import android.app.DatePickerDialog
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAddSelfNoOcrBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideNoneAndDownExit
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.yourssu.design.system.atom.Picker
 import com.yourssu.design.system.atom.ToolTip
 import com.yourssu.design.system.foundation.Typo
@@ -16,10 +23,17 @@ import com.yourssu.design.system.language.picker
 import com.yourssu.design.system.language.setLayout
 import com.yourssu.design.system.language.text
 import com.yourssu.design.undercarriage.size.dpToIntPx
+import java.util.*
 
 class AddSelfNoOcrActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddSelfNoOcrBinding
     private val viewModel: AddSelfNoOcrViewModel by viewModels()
+    private val builder = MaterialDatePicker.Builder.datePicker()
+        .also {
+            title = "Pick Date"
+        }
+
+    val specificTimeAddadapter = SpecificTimeAddAdapter()
 
     private val onHopeStartTimeValueChangeListener = object : Picker.OnValueChangeListener {
         override fun onValueChange(
@@ -92,6 +106,28 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         }
     }
 
+    private val onSpecificHourTimeValueChangeListener = object : Picker.OnValueChangeListener {
+        override fun onValueChange(
+            firstValue: String,
+            secondValue: String,
+            thirdValue: String,
+            totalValue: String,
+        ) {
+            viewModel.specificTimeHourInt = timeList.indexOf(firstValue)
+        }
+    }
+
+    private val onSpecificMunutesTimeValueChangeListener = object : Picker.OnValueChangeListener {
+        override fun onValueChange(
+            firstValue: String,
+            secondValue: String,
+            thirdValue: String,
+            totalValue: String,
+        ) {
+            viewModel.specificTimeMinutesInt = minutesList.indexOf(firstValue) * 5
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_self_no_ocr)
@@ -115,6 +151,10 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
         viewModel.failedAddPrescriptionEvent.observe(this@AddSelfNoOcrActivity, {
             Toast.makeText(this, "내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.specificTimeItemLiveData.observe(this@AddSelfNoOcrActivity, {
+            specificTimeAddadapter.updateItems(it) //여기 안에 notifyDataSetChanged 있음.
         })
     }
 
@@ -183,8 +223,94 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             }
         }
 
+        binding.dateEditBtn.setOnClickListener {
+            val mcurrentTime = Calendar.getInstance()
+            val year = mcurrentTime.get(Calendar.YEAR)
+            val month = mcurrentTime.get(Calendar.MONTH)
+            val day = mcurrentTime.get(Calendar.DAY_OF_MONTH)
 
+            val datePicker = DatePickerDialog(
+                this,
+                R.style.MySpinnerDatePickerStyle,
+                object : DatePickerDialog.OnDateSetListener {
+                    override fun onDateSet(
+                        view: DatePicker?,
+                        year: Int,
+                        month: Int,
+                        dayOfMonth: Int
+                    ) {
+                        //selectedDate.setText(String.format("%d / %d / %d", dayOfMonth, month + 1, year))
+                        viewModel.expirationYearInt = year
+                        viewModel.expirationMonthInt = month + 1
+                        viewModel.expirationDayInt = dayOfMonth
+                    }
+                },
+                year,
+                month,
+                day
+            ).also {
+                it.datePicker.minDate = System.currentTimeMillis() - 1000
+            }
+            datePicker.show()
+            //datePicker.updateDate(2028,10,25)
+            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                .setTextColor(resources.getColor(R.color.mainColor, theme))
+            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                .setTextColor(resources.getColor(R.color.mainColor, theme))
+        }
+
+        binding.specificHourBtn.setOnClickListener {
+            bottomSheet {
+                text {
+                    text = "시"
+                    typo = Typo.SubTitle2
+
+                    setLayout(leftMarginPx = context.dpToIntPx(16f))
+                }
+                picker {
+                    setFirstRow(timeList)
+                    setFirstRowPosition(0)
+                    this.onValueChangeListener = onSpecificHourTimeValueChangeListener
+                }
+            }
+        }
+
+        binding.specificMinutesBtn.setOnClickListener {
+            bottomSheet {
+                text {
+                    text = "분"
+                    typo = Typo.SubTitle2
+
+                    setLayout(leftMarginPx = context.dpToIntPx(16f))
+                }
+                picker {
+                    setFirstRow(minutesList)
+                    setFirstRowPosition(0)
+                    this.onValueChangeListener = onSpecificMunutesTimeValueChangeListener
+                }
+            }
+        }
+
+        binding.specificTimeRecyclerView.apply {
+//            this.layoutManager =
+//                LinearLayoutManager(this@AddSelfNoOcrActivity, LinearLayoutManager.VERTICAL, false)
+            this.layoutManager = GridLayoutManager(applicationContext, 3)
+            this.adapter = specificTimeAddadapter
+        }
+        specificTimeAddadapter.updateItems(viewModel.specificTimeItemLiveData.value!!)
+
+        specificTimeAddadapter.setMyItemClickListener(object :
+            SpecificTimeAddAdapter.MyItemClickListener {
+            override fun onItemClick(position: Int) {
+                viewModel.specificTimeItemOnClick(position)
+            }
+
+            override fun onItemLongClick(position: Int) {
+
+            }
+        })
     }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -246,6 +372,11 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             timeStringIntList[23].first
         )
 
+        val minutesList = listOf<String>(
+            "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"
+        )
+
+
         val eatPillTimeList = listOf<String>(
             "복용 안함",
             "식전 30분",
@@ -253,4 +384,6 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             "식사 할때"
         )
     }
+
 }
+
