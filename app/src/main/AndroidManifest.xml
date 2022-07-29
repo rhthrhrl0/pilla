@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".App"
@@ -16,10 +17,20 @@
         android:roundIcon="@mipmap/ic_pill_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ssu_contest_eighteen_pomise">
+        <receiver
+            android:name=".pill_alarm_manager.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".pill_alarm_manager.PillAlarmReceiver"
+            android:exported="false"></receiver>
+
         <activity
             android:name=".camera.self_add_no_ocr.AddSelfNoOcrActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".alarm.AlarmActivity"
             android:exported="false"

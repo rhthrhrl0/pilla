@@ -3,6 +3,7 @@ package com.example.ssu_contest_eighteen_pomise.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -19,6 +20,8 @@ class JoinActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_join)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         viewModel.backBtn.observe(this@JoinActivity, {
             finish()

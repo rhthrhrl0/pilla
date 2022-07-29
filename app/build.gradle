@@ -73,4 +73,15 @@ dependencies {
 
     implementation "com.android.support:support-core-utils:28.0.0"
 
+    implementation 'androidx.room:room-ktx:2.3.0'
+    testImplementation 'junit:junit:4.+'
+
+    // 얘네가 있어야 다오객체의 추상클래스에 대해서도 컴파일이 잘 됨.
+    implementation("androidx.room:room-runtime:2.3.0")
+    // annotationProcessor는 코틀린에서는 kapt로 모두 바꿔줘라.
+    // 이게 없으면 컴파일이 다오 추상클래스 객체에 대해 안된다.
+    kapt("androidx.room:room-compiler:2.3.0")
+
+    implementation 'com.google.code.gson:gson:2.9.0'
+
 }

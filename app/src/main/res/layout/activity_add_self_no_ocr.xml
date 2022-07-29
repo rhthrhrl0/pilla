@@ -320,13 +320,69 @@
                     android:gravity="center"
                     android:text="@{@string/pill_category_and_list_add}"
                     app:typo="subtitle2" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:background="@drawable/join_btn"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="8dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.yourssu.design.system.atom.SimpleTextField
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="4"
+                            android:onTextChanged="@{viewModel.onPillNameTextChanged}"
+                            app:placeholderText="@{@string/register_pill_name}" />
+
+                        <com.yourssu.design.system.atom.BoxButton
+                            android:id="@+id/pill_category_btn"
+                            size="@{BoxButton.Medium}"
+                            text="@{viewModel.pillCategoryString}"
+                            type="@{BoxButton.LINE}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="2" />
+
+                        <com.yourssu.design.system.atom.BoxButton
+                            android:id="@+id/add_pill_btn"
+                            size="@{BoxButton.Medium}"
+                            text="@{@string/add_pill}"
+                            type="@{BoxButton.FILLED}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:onClick="@{()->viewModel.addSpecificTimeItem()}"
+                            isDisabled="@{viewModel.isPillAddButtonEnabled()}"/>
+                    </LinearLayout>
+
+                    <com.yourssu.design.system.atom.Divider
+                        direction="@{Divider.HORIZONTAL}"
+                        thickness="@{Divider.THIN}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:descendantFocusability="blocksDescendants">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/specific_pill_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/add_element_item_store" />
+                    </RelativeLayout>
 
                 </LinearLayout>
 

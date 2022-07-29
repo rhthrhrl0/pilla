@@ -2,10 +2,20 @@ package com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Room
+import com.example.ssu_contest_eighteen_pomise.App
+import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.PillDataBase
 import com.yourssu.design.system.atom.Checkbox
 
 class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(application) {
+    private val shPre= App.token_prefs
+    private val db = Room.databaseBuilder(
+        application,
+        PillDataBase::class.java, "pill-database-${shPre.email}"
+    ).build()
+
     val finishEvent = MutableLiveData<Boolean>()
     val addPrescriptionEvent = MutableLiveData<Boolean>()
     val failedAddPrescriptionEvent = MutableLiveData<Boolean>()
@@ -64,6 +74,29 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val morningEatTimeString=MutableLiveData<String>("")
     val lunchEatTimeString=MutableLiveData<String>("")
     val dinnerEatTimeString=MutableLiveData<String>("")
+
+    private var pillNameString:String=""
+    fun onPillNameTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        pillNameString = s.toString()
+        isCanPillAdd()
+    }
+    var pillCategoryInt:Int=0
+        set(value) {
+            field=value
+            pillCategoryString.value="변화"
+            isCanPillAdd()
+        }
+    var pillCategoryString=MutableLiveData<String>("")
+
+    val isPillAddButtonEnabled = MutableLiveData(true)
+    fun isCanPillAdd(){
+        if (pillNameString.isBlank() || pillCategoryInt==0) {
+            isPillAddButtonEnabled.value=true
+        } else {
+            isPillAddButtonEnabled.value=false
+        }
+    }
+
     init {
         startTimeInt = 12
         cycleTimeInt = 1
@@ -73,6 +106,9 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         morningEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
         lunchEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
         dinnerEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
+
+        pillCategoryInt=0
+
     }
 
     val selectedStateListener1 = object : Checkbox.SelectedListener {
@@ -143,6 +179,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     fun onClickAdd() {
         //검증... 입력 다했나
         //다했으면 실행.
+
         addPrescriptionEvent.value = true
     }
 

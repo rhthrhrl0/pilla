@@ -13,6 +13,7 @@ import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentSettingBinding
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideNoneAndLeftExit
 
 class SettingFragment : Fragment() {
     private lateinit var binding: FragmentSettingBinding
@@ -40,7 +41,6 @@ class SettingFragment : Fragment() {
         viewModel.logoutVar.observe(viewLifecycleOwner, {
             logoutAndStartLoginActivity()
         })
-
         viewModel.failedLogoutToast.observe(viewLifecycleOwner, {
             Toast.makeText(context, "로그아웃에 실패했습니다", Toast.LENGTH_SHORT).show()
         })
