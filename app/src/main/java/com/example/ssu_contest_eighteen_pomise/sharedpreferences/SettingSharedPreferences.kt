@@ -7,7 +7,7 @@ import com.example.ssu_contest_eighteen_pomise.App
 object SettingSharedPreferences {
 
     private val shPre = App.token_prefs
-    lateinit var prefs:SharedPreferences
+    private lateinit var prefs: SharedPreferences
     private val alarm_sound = "soundOn"
     private val alarm_vibrate = "vibrateOn"
     private val key_morningHour = "morningHour"
@@ -17,8 +17,9 @@ object SettingSharedPreferences {
     private val key_dinnerHour = "dinnerHour"
     private val key_dinnerMin = "dinnerMin"
 
-    fun setInstance(context: Context) {
-        prefs = context.getSharedPreferences("shpre-"+shPre.email, 0)
+    fun setInstance(context: Context):SettingSharedPreferences {
+        prefs = context.getSharedPreferences("shpre-${shPre.email}", 0)
+        return this
     }
 
     var sound: String?

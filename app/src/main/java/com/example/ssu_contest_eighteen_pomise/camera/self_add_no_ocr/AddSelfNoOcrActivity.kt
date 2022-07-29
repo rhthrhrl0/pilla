@@ -55,7 +55,11 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                     }
                     picker {
                         setFirstRow(timeList.slice(0..(23 - viewModel.startTimeInt)))
-                        setFirstRowPosition(timeList.indexOf("0"))
+                        if (((22 - viewModel.startTimeInt) / 2) == 0) {
+                            setFirstRowPosition(0)
+                        } else {
+                            setFirstRowPosition((22 - viewModel.startTimeInt) / 2)
+                        }
                         this.onValueChangeListener = onHopeCycleTimeValueChangeListener
                     }
                 }
@@ -157,7 +161,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         })
 
         viewModel.addPrescriptionEvent.observe(this@AddSelfNoOcrActivity, {
-
+            Toast.makeText(this, "성공적으로 처방내용이 추가됐습니다", Toast.LENGTH_SHORT).show()
         })
 
         viewModel.failedAddPrescriptionEvent.observe(this@AddSelfNoOcrActivity, {
@@ -171,6 +175,10 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         viewModel.pillNameCategoryListLiveData.observe(this@AddSelfNoOcrActivity, {
             pillNameCategoryAdapter.updateItems(it)
         })
+
+        viewModel.addErrorString.observe(this@AddSelfNoOcrActivity, {
+            Toast.makeText(this, viewModel.addErrorString.value?.reason, Toast.LENGTH_SHORT).show()
+        })
     }
 
     fun initView() {
@@ -183,8 +191,8 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                     setLayout(leftMarginPx = context.dpToIntPx(16f))
                 }
                 picker {
-                    setFirstRow(timeList)
-                    setFirstRowPosition(timeList.indexOf(viewModel.startTimeString.value))
+                    setFirstRow(timeList.slice(1..22))
+                    setFirstRowPosition(11) //timeList를 슬라이스해서 넘겨진 배열은 1시~23시의 배열임. 여기서 11번째 인덱스가 12시임.
                     this.onValueChangeListener = onHopeStartTimeValueChangeListener
                 }
             }
@@ -433,8 +441,8 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         val eatPillTimeList = listOf<String>(
             "복용 안함",
             "식전 30분",
-            "식후 30분",
-            "식사 할때"
+            "식사 할때",
+            "식후 30분"
         )
 
         val pillCategoryList = listOf<String>(
@@ -460,3 +468,14 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
 }
 
+enum class PillAddErrorType(val reason: String) {
+    ONE_CHOOSE_EAT_TIME("약 복용 시간을 등록해주세요"),
+    ONE_REGISTER_PILL_CATEGORY("약 종류 및 목록을 한개 이상 등록해주세요"),
+    REGISTER_PILL_DATE("약 복용 마감일을 선택해주세요")
+}
+
+enum class EatTime{
+    MORNING,
+    LUNCH,
+    DINNER
+}

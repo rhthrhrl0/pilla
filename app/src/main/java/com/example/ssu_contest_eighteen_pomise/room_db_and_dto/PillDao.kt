@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface PillDao {
     @Query("SELECT * FROM RegisteredPill")
-    fun getAll(): List<RegisteredPill>
+    suspend fun getAll(): List<RegisteredPill>
 
     @Insert
     suspend fun insert(pill:RegisteredPill)
