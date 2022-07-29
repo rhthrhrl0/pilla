@@ -2,18 +2,20 @@ package com.example.ssu_contest_eighteen_pomise.mainfragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.R
+import com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmActivity
+import com.example.ssu_contest_eighteen_pomise.myPage.SettingMealtimeActivity
+import com.example.ssu_contest_eighteen_pomise.myPage.SettingProtectorsActivity
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentSettingBinding
-import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideNoneAndLeftExit
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone
+
 
 class SettingFragment : Fragment() {
     private lateinit var binding: FragmentSettingBinding
@@ -37,13 +39,45 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        viewModel.getEmail()
 
         viewModel.logoutVar.observe(viewLifecycleOwner, {
             logoutAndStartLoginActivity()
         })
+
         viewModel.failedLogoutToast.observe(viewLifecycleOwner, {
             Toast.makeText(context, "로그아웃에 실패했습니다", Toast.LENGTH_SHORT).show()
         })
+
+        viewModel.startSettingAlarmActivity.observe(viewLifecycleOwner, {
+            startSettingAlarmActivity()
+        })
+
+        viewModel.startSettingMealtimeActivity.observe(viewLifecycleOwner, {
+            startSettingMealtimeActivity()
+        })
+
+        viewModel.startSettingProtectorsActivity.observe(viewLifecycleOwner, {
+            startProtectorsActivity()
+        })
+    }
+
+    fun startSettingMealtimeActivity() {
+        val intent = Intent(activity, SettingMealtimeActivity::class.java)
+        startActivity(intent)
+        activity?.slideRightEnterAndNone()
+    }
+
+    fun startSettingAlarmActivity() {
+        val intent = Intent(activity, SettingAlarmActivity::class.java)
+        startActivity(intent)
+        activity?.slideRightEnterAndNone()
+    }
+
+    fun startProtectorsActivity() {
+        val intent = Intent(activity, SettingProtectorsActivity::class.java)
+        startActivity(intent)
+        activity?.slideRightEnterAndNone()
     }
 
     fun logoutAndStartLoginActivity() {

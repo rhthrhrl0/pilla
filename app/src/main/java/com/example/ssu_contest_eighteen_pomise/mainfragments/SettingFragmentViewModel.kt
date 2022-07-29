@@ -1,6 +1,7 @@
 package com.example.ssu_contest_eighteen_pomise.mainfragments
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,6 +16,28 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class SettingFragmentViewModel(application: Application) : AndroidViewModel(application) {
     var logoutVar = MutableLiveData<Boolean>()
     var failedLogoutToast = MutableLiveData<Boolean>()
+    var startSettingAlarmActivity=MutableLiveData<Boolean>()
+    var startSettingMealtimeActivity=MutableLiveData<Boolean>()
+    var startSettingProtectorsActivity=MutableLiveData<Boolean>()
+    lateinit var userEmail:String
+
+    fun settingAlarm(){
+        startSettingAlarmActivity.value=true
+    }
+
+    fun settingMealtime() {
+        startSettingMealtimeActivity.value=true
+    }
+
+    fun settingProtectors() {
+        startSettingProtectorsActivity.value=true
+    }
+
+    fun getEmail() {
+        val shPre = App.token_prefs
+        Log.d("yb", shPre.email.toString())
+        userEmail = shPre.email.toString()
+    }
 
     fun logoutBtnClick() {
         val shPre = App.token_prefs
