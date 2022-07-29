@@ -304,7 +304,7 @@
                                 android:id="@+id/specific_time_recycler_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                tools:listitem="@layout/add_element_item_store" />
+                                tools:listitem="@layout/add_element_item_store"/>
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -323,7 +323,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/join_btn"
                     android:orientation="vertical"
                     android:padding="8dp">
@@ -355,14 +355,14 @@
 
                         <com.yourssu.design.system.atom.BoxButton
                             android:id="@+id/add_pill_btn"
+                            isDisabled="@{viewModel.isPillAddButtonisDisabled()}"
                             size="@{BoxButton.Medium}"
                             text="@{@string/add_pill}"
                             type="@{BoxButton.FILLED}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:onClick="@{()->viewModel.addSpecificTimeItem()}"
-                            isDisabled="@{viewModel.isPillAddButtonEnabled()}"/>
+                            android:onClick="@{()->viewModel.addPillNameCategoryItem()}" />
                     </LinearLayout>
 
                     <com.yourssu.design.system.atom.Divider
@@ -381,7 +381,7 @@
                             android:id="@+id/specific_pill_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            tools:listitem="@layout/add_element_item_store" />
+                            tools:listitem="@layout/add_pill_category_item" />
                     </RelativeLayout>
 
                 </LinearLayout>

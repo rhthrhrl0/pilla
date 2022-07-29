@@ -34,6 +34,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         }
 
     val specificTimeAddadapter = SpecificTimeAddAdapter()
+    val pillNameCategoryAdapter = PillNameCategoryAdapter()
 
     private val onHopeStartTimeValueChangeListener = object : Picker.OnValueChangeListener {
         override fun onValueChange(
@@ -128,6 +129,17 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         }
     }
 
+    private val onPillCategoryChangeListener = object : Picker.OnValueChangeListener {
+        override fun onValueChange(
+            firstValue: String,
+            secondValue: String,
+            thirdValue: String,
+            totalValue: String,
+        ) {
+            viewModel.pillCategoryInt = pillCategoryList.indexOf(firstValue)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_self_no_ocr)
@@ -137,7 +149,6 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         onViewModelInit()
 
         initView()
-
     }
 
     fun onViewModelInit() {
@@ -155,6 +166,10 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
         viewModel.specificTimeItemLiveData.observe(this@AddSelfNoOcrActivity, {
             specificTimeAddadapter.updateItems(it) //여기 안에 notifyDataSetChanged 있음.
+        })
+
+        viewModel.pillNameCategoryListLiveData.observe(this@AddSelfNoOcrActivity, {
+            pillNameCategoryAdapter.updateItems(it)
         })
     }
 
@@ -292,8 +307,6 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         }
 
         binding.specificTimeRecyclerView.apply {
-//            this.layoutManager =
-//                LinearLayoutManager(this@AddSelfNoOcrActivity, LinearLayoutManager.VERTICAL, false)
             this.layoutManager = GridLayoutManager(applicationContext, 3)
             this.adapter = specificTimeAddadapter
         }
@@ -309,6 +322,46 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
             }
         })
+
+
+        binding.pillCategoryBtn.setOnClickListener {
+            bottomSheet {
+                text {
+                    text = "약 종류"
+                    typo = Typo.SubTitle2
+
+                    setLayout(leftMarginPx = context.dpToIntPx(16f))
+                }
+                picker {
+                    setFirstRow(pillCategoryList)
+                    setFirstRowPosition(0)
+                    this.onValueChangeListener = onPillCategoryChangeListener
+                }
+            }
+        }
+        binding.specificPillRecyclerView.apply {
+            this.layoutManager =
+                LinearLayoutManager(this@AddSelfNoOcrActivity, LinearLayoutManager.VERTICAL, false)
+
+            this.adapter = pillNameCategoryAdapter
+        }
+        pillNameCategoryAdapter.setMyItemClickListener(object :
+            PillNameCategoryAdapter.MyItemClickListener {
+            override fun onItemDeleteClick(position: Int) {
+                viewModel.pillNameCategoryOnDeleteClick(position)
+            }
+
+            override fun onItemClick(position: Int) {
+
+            }
+
+            override fun onItemLongClick(position: Int) {
+
+            }
+
+        })
+        pillNameCategoryAdapter.updateItems(viewModel.pillNameCategoryListLiveData.value!!)
+
     }
 
 
@@ -382,6 +435,26 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             "식전 30분",
             "식후 30분",
             "식사 할때"
+        )
+
+        val pillCategoryList = listOf<String>(
+            "감기약",
+            "소화기계약",
+            "해열,진통,소염제",
+            "영양제",
+            "피부약",
+            "비뇨기과 약",
+            "연고류",
+            "외용제",
+            "안과약",
+            "이과약",
+            "비과약",
+            "치과약",
+            "신경정신과약",
+            "기타 외용제",
+            "시약류",
+            "한약",
+            "기타"
         )
     }
 

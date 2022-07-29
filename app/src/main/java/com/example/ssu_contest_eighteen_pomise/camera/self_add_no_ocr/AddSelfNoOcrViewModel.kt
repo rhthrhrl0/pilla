@@ -1,11 +1,14 @@
 package com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr
 
 import android.app.Application
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.ssu_contest_eighteen_pomise.App
+import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.PillDataBase
 import com.yourssu.design.system.atom.Checkbox
 
@@ -15,6 +18,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         application,
         PillDataBase::class.java, "pill-database-${shPre.email}"
     ).build()
+
 
     val finishEvent = MutableLiveData<Boolean>()
     val addPrescriptionEvent = MutableLiveData<Boolean>()
@@ -75,6 +79,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val lunchEatTimeString=MutableLiveData<String>("")
     val dinnerEatTimeString=MutableLiveData<String>("")
 
+    val pillNameCategoryListLiveData = MutableLiveData<MutableList<PillNameAndCategory>>()
     private var pillNameString:String=""
     fun onPillNameTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         pillNameString = s.toString()
@@ -83,17 +88,17 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     var pillCategoryInt:Int=0
         set(value) {
             field=value
-            pillCategoryString.value="변화"
+            pillCategoryString.value=AddSelfNoOcrActivity.pillCategoryList[value]
             isCanPillAdd()
         }
-    var pillCategoryString=MutableLiveData<String>("")
+    var pillCategoryString=MutableLiveData<String>("선택안함")
 
-    val isPillAddButtonEnabled = MutableLiveData(true)
+    val isPillAddButtonisDisabled = MutableLiveData(true)
     fun isCanPillAdd(){
-        if (pillNameString.isBlank() || pillCategoryInt==0) {
-            isPillAddButtonEnabled.value=true
+        if (pillNameString.isBlank() || pillCategoryString.value=="선택안함") {
+            isPillAddButtonisDisabled.value=true
         } else {
-            isPillAddButtonEnabled.value=false
+            isPillAddButtonisDisabled.value=false
         }
     }
 
@@ -107,8 +112,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         lunchEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
         dinnerEatTimeString.value=AddSelfNoOcrActivity.eatPillTimeList[0]
 
-        pillCategoryInt=0
-
+        pillNameCategoryListLiveData.value= mutableListOf<PillNameAndCategory>()
     }
 
     val selectedStateListener1 = object : Checkbox.SelectedListener {
@@ -134,10 +138,6 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
                 resetExceptTrue(3)
         }
     }
-
-
-
-
 
     fun resetExceptTrue(except: Int) {
         when (except) {
@@ -174,6 +174,19 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
             specificTimeItemLiveData.value?.removeAt(position)
             specificTimeItemLiveData.value = specificTimeItemLiveData.value
         }
+    }
+
+    fun addPillNameCategoryItem(){
+        pillNameCategoryListLiveData.value?.add(PillNameAndCategory(pillNameString,pillCategoryString.value!!))
+        val newSet=pillNameCategoryListLiveData.value?.toMutableSet()
+        if (newSet!=null){
+            pillNameCategoryListLiveData.value=newSet.toMutableList()
+        }
+    }
+
+    fun pillNameCategoryOnDeleteClick(position:Int){
+        pillNameCategoryListLiveData.value?.removeAt(position)
+        pillNameCategoryListLiveData.value=pillNameCategoryListLiveData.value
     }
 
     fun onClickAdd() {

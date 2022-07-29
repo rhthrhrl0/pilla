@@ -22,6 +22,7 @@
             specificTimeText="@{specificTime}"
             android:layout_gravity="center"/>
         <com.yourssu.design.system.atom.IconView
+            android:id="@+id/deleteIt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             icon="@{Icon.ic_x_line}"

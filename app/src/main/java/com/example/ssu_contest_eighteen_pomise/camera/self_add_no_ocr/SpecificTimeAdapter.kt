@@ -4,25 +4,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.compose.ui.platform.compositionContext
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.AddElementItemStoreBinding
 
 
-class SpecificTimeAddAdapter:RecyclerView.Adapter<SpecificTimeAddAdapter.SpecificTimeAddViewHolder>(){
+class SpecificTimeAddAdapter():RecyclerView.Adapter<SpecificTimeAddAdapter.SpecificTimeAddViewHolder>(){
     //아이템 뷰 정보를 가지고 있는 클래스임.
     inner class SpecificTimeAddViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding=AddElementItemStoreBinding.bind(itemView)
         init {
-            itemView.setOnClickListener {
-                myItemClickListener.onItemClick(adapterPosition) // adapterPosition을 통해 이 아이템의 위치를 알 수 있다.
-            }
-            itemView.setOnLongClickListener {
-                myItemClickListener.onItemLongClick(adapterPosition)
-                return@setOnLongClickListener true
+            binding.deleteIt.setOnClickListener {
+                myItemClickListener.onItemClick(adapterPosition)
             }
         }
-        val binding=AddElementItemStoreBinding.bind(itemView)
     }
 
     private var mItems: List<SpecificTime> = ArrayList<SpecificTime>() //초반에 그냥 초기화 해놓는게 널에러 안나고 좋음.
@@ -60,10 +60,9 @@ class SpecificTimeAddAdapter:RecyclerView.Adapter<SpecificTimeAddAdapter.Specifi
         notifyDataSetChanged() //UI 갱신
     }
 
-
 }
 
-@BindingAdapter("app:specificTimeText")
+@BindingAdapter("specificTimeText")
 fun setSpecificTimeText(textView: TextView, store: SpecificTime) {
     var specificTime = "${store.hour}시 ${store.minutes}분"
     textView.text=specificTime
