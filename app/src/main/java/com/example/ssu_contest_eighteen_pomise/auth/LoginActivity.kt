@@ -12,6 +12,7 @@ import com.example.ssu_contest_eighteen_pomise.BackKeyHandler
 import com.example.ssu_contest_eighteen_pomise.MainActivity
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityLoginBinding
+import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

@@ -15,6 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ssu_contest_eighteen_pomise">
         <activity
+            android:name=".myPage.SettingProtectorsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".myPage.SettingMealtimeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".myPage.SettingAlarmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".alarm.AlarmActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
