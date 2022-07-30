@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/item_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginLeft="8dp"
@@ -92,6 +93,7 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:id="@+id/more_pill_info"
                     pillNameThreeVisible="@{pillDTO}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

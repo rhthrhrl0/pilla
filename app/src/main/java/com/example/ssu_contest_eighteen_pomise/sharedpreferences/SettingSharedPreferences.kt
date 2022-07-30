@@ -32,22 +32,22 @@ object SettingSharedPreferences {
         get() = prefs.getString(alarm_vibrate, "off")
         set(value) = prefs.edit().putString(alarm_vibrate, value).apply()
     var morningHour: Int?
-        get() = prefs.getInt(key_morningHour, 0)
+        get() = prefs.getInt(key_morningHour, 7)
         set(value) = prefs.edit().putInt(key_morningHour, value!!).apply()
     var morningMin: Int?
-        get() = prefs.getInt(key_morningMin, 0)
+        get() = prefs.getInt(key_morningMin, 30)
         set(value) = prefs.edit().putInt(key_morningMin, value!!).apply()
     var lunchHour: Int?
-        get() = prefs.getInt(key_lunchHour, 0)
+        get() = prefs.getInt(key_lunchHour, 12)
         set(value) = prefs.edit().putInt(key_lunchHour, value!!).apply()
     var lunchMin: Int?
         get() = prefs.getInt(key_lunchMin, 0)
         set(value) = prefs.edit().putInt(key_lunchMin, value!!).apply()
     var dinnerHour: Int?
-        get() = prefs.getInt(key_dinnerHour, 0)
+        get() = prefs.getInt(key_dinnerHour, 17)
         set(value) = prefs.edit().putInt(key_dinnerHour, value!!).apply()
     var dinnerMin: Int?
-        get() = prefs.getInt(key_dinnerMin, 0)
+        get() = prefs.getInt(key_dinnerMin, 30)
         set(value) = prefs.edit().putInt(key_dinnerMin, value!!).apply()
 
     var birthYear:Int?

@@ -1,5 +1,6 @@
 package com.example.ssu_contest_eighteen_pomise.mainfragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,12 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.MainViewModel
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentHomeBinding
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone
+import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmActivity
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillListAdapter
+import com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmActivity
+import com.yourssu.design.system.atom.ToolTip
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModels()
     private val adapter=PillListAdapter()
+    var tooltipBuilders: ToolTip.Builder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +41,15 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner=this@HomeFragment
         binding.viewModel = viewModel
+
+        //툴팁 빌더 초기화.
+        context?.let {
+            activity?.let { it1 ->
+                tooltipBuilders =
+                    ToolTip.Builder(context = it, it1.windowManager, inflater)
+            }
+        }
+
         return binding.root
     }
 
@@ -48,7 +63,9 @@ class HomeFragment : Fragment() {
         Log.d("kmj","뷰모델옵저버 세팅")
         onViewModelInit()
         Log.d("kmj","뷰모델옵저버 세팅 끝")
-        //viewModel.refreshBtn()
+
+        onInitView()
+
     }
 
     fun onViewModelInit(){
@@ -68,9 +85,33 @@ class HomeFragment : Fragment() {
         })
     }
 
+    fun onInitView(){
+        adapter.setMyItemClickListener(object :PillListAdapter.MyItemClickListener{
+            override fun onItemClick(position: Int) {
+                Log.d("kmj","${position}번쨰입니다.")
+                val intent = Intent(activity, DetailAlarmActivity::class.java)
+                intent.putExtra(DetailAlarmActivity.KEY_PILL_NAME,viewModel.tooltipString(position))
+                startActivity(intent)
+            }
 
+            override fun onMorePillInfoClick(position: Int, view: View) {
+                val toolTip: ToolTip =
+                    tooltipBuilders
+                        ?.withIsNormal(true)
+                        ?.withStringContents(viewModel.tooltipString(position))
+                        ?.withHopeLocation(ToolTip.HopeLocation.BELOW)
+                        ?.withToastLength(
+                            ToolTip.Length.LONG
+                        )!!.build(view)
 
+                toolTip.show()
+            }
 
+            override fun onItemLongClick(position: Int) {
+
+            }
+        })
+    }
 
 
     companion object {

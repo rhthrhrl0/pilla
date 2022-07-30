@@ -9,11 +9,11 @@ interface PillDao {
     suspend fun getAll(): List<RegisteredPill>
 
     @Insert
-    suspend fun insert(pill:RegisteredPill)
+    suspend fun insert(pill: RegisteredPill)
 
     @Delete
-    suspend fun delete(pill:RegisteredPill)
+    suspend fun delete(pill: RegisteredPill)
 
     @Update
-    suspend fun update(pill:RegisteredPill)
+    suspend fun update(pill: RegisteredPill)
 }

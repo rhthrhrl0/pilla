@@ -37,4 +37,5 @@
     <string name="next_eat_alarm">다음 복용 알림</string>
     <string name="forecasted_eat_alarm">예견된 복용 알림</string>
     <string name="eat_time">복용 시간</string>
+    <string name="alarm_specific_information">알림 상세 정보</string>
 </resources>

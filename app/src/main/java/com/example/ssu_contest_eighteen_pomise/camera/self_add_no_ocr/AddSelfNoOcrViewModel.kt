@@ -86,9 +86,9 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
     val cycleTimeString = MutableLiveData<String>()
 
-    val morningEatTimeString = MutableLiveData<String>("")
-    val lunchEatTimeString = MutableLiveData<String>("")
-    val dinnerEatTimeString = MutableLiveData<String>("")
+    val morningEatTimeString = MutableLiveData<String>("복용 안함")
+    val lunchEatTimeString = MutableLiveData<String>("복용 안함")
+    val dinnerEatTimeString = MutableLiveData<String>("복용 안함")
 
     val pillNameCategoryListLiveData = MutableLiveData<MutableList<PillNameAndCategory>>()
     private var pillNameString: String = ""
@@ -217,7 +217,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         val morningIndex = AddSelfNoOcrActivity.eatPillTimeList.indexOf(morningEatTimeString.value)
         val lunchIndex = AddSelfNoOcrActivity.eatPillTimeList.indexOf(lunchEatTimeString.value)
         val dinnerIndex = AddSelfNoOcrActivity.eatPillTimeList.indexOf(dinnerEatTimeString.value)
-
+        Log.d("kmj", "인덱스: ${morningIndex},${lunchIndex},${dinnerIndex}")
         //검증... 입력 다했나
         if (isSelect1.value!! and (cycleTimeInt != 0)) {
             var start_time = startTimeInt
@@ -300,57 +300,55 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
 
         when (eatTime) {
             EatTime.MORNING -> {
-                var morningMinutes = settShrpe.morningMin ?: 30 + (index - 2) * 30
-                var morningHour = settShrpe.morningHour ?: 7
-                morningHour.run {
-                    if (morningMinutes < 0) {
-                        morningMinutes += 60
-                        this - 1
-                    } else if (morningMinutes >= 60) {
-                        morningMinutes -= 60
-                        this + 1
-                    } else {
-                        this
-                    }
+                var morningMinutes = settShrpe.morningMin!! + (index - 2) * 30
+                Log.d("kmj", "아침분: ${morningMinutes},인덱스: ${index}")
+                var morningHour = settShrpe.morningHour!!
+
+                if (morningMinutes < 0) {
+                    morningMinutes += 60
+                    morningHour -= 1
+                } else if (morningMinutes >= 60) {
+                    morningMinutes -= 60
+                    morningHour += 1
                 }
+
+                Log.d("kmj", "아침 시간: ${morningHour}")
                 adjSpecTime.hour = morningHour
                 adjSpecTime.minutes = morningMinutes
             }
             EatTime.LUNCH -> {
-                var lunchMinutes = settShrpe.lunchMin ?: 0 + (index - 2) * 30
-                var lunchHour = settShrpe.lunchHour ?: 12
-                lunchHour.run {
-                    if (lunchMinutes < 0) {
-                        lunchMinutes += 60
-                        this - 1
-                    } else if (lunchMinutes >= 60) {
-                        lunchMinutes -= 60
-                        this + 1
-                    } else {
-                        this
-                    }
+                var lunchMinutes = settShrpe.lunchMin!! + (index - 2) * 30
+                Log.d("kmj", "점심분: ${lunchMinutes},인덱스: ${index}")
+                var lunchHour = settShrpe.lunchHour!!
+
+                if (lunchMinutes < 0) {
+                    lunchMinutes += 60
+                    lunchHour -= 1
+                } else if (lunchMinutes >= 60) {
+                    lunchMinutes -= 60
+                    lunchHour += 1
                 }
+
+                Log.d("kmj", "점심 시간: ${lunchHour}")
                 adjSpecTime.hour = lunchHour
                 adjSpecTime.minutes = lunchMinutes
             }
             EatTime.DINNER -> {
-                var dinnerMinutes = settShrpe.dinnerMin ?: 30 + (index - 2) * 30
-                var dinnerHour = settShrpe.dinnerHour ?: 5
-                dinnerHour.run {
-                    if (dinnerMinutes < 0) {
-                        dinnerMinutes += 60
-                        this - 1
-                    } else if (dinnerMinutes >= 60) {
-                        dinnerMinutes -= 60
-                        this + 1
-                    } else {
-                        this
-                    }
+                var dinnerMinutes = settShrpe.dinnerMin!! + (index - 2) * 30
+                var dinnerHour = settShrpe.dinnerHour!!
+
+                if (dinnerMinutes < 0) {
+                    dinnerMinutes += 60
+                    dinnerHour -= 1
+                } else if (dinnerMinutes >= 60) {
+                    dinnerMinutes -= 60
+                    dinnerHour += 1
                 }
                 adjSpecTime.hour = dinnerHour
                 adjSpecTime.minutes = dinnerMinutes
             }
         }
+        Log.d("kmj", "조정된 시간: ${adjSpecTime.hour},${adjSpecTime.minutes}")
         return adjSpecTime
     }
 

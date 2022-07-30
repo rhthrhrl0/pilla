@@ -13,6 +13,7 @@ import com.example.ssu_contest_eighteen_pomise.mainfragments.list.AlarmListDTO
 import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.PillDataBase
 import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.RegisteredPill
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
+import com.yourssu.design.system.atom.ToolTip
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -26,6 +27,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
         PillDataBase::class.java, "pill-database-${shPre.email}"
     ).build()
     private val settShrpe = SettingSharedPreferences.setInstance(application)
+
     val refreshEndEvent = MutableLiveData<Boolean>()
     val refreshStartEvent = MutableLiveData<Boolean>()
     val refreshInitWithViewModel = MutableLiveData<Boolean>()
@@ -152,6 +154,15 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
             }
         }
 
+
+    fun tooltipString(position:Int):String{
+        val sb=StringBuilder()
+        for (item in pillListItems.value!![position].pillList){
+            sb.append("${item.pillCategory}, ")
+        }
+        sb.deleteCharAt(sb.lastIndexOf(", "))
+        return sb.toString()
+    }
 
     //생년월일 변경되면 홈프래그먼트 쪽에서 실행됨.
     fun changedNameAndBirth() {
