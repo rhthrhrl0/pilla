@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val shPre = App.token_prefs
@@ -105,14 +106,15 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
                     }
                 }
             }
+
+
             if(t_late_end_index+1==sortedListItmes.size){
                 sortedListItmes= mutableListOf<AlarmListDTO>()
             }
             else if(t_late_end_index!=-1){
-                val front_late_list=sortedListItmes.subList(0,t_late_end_index)
+                val front_late_list= ArrayList<AlarmListDTO>(sortedListItmes.subList(0,t_late_end_index))
                 sortedListItmes.removeAll(front_late_list)
                 sortedListItmes.addAll(front_late_list)
-                // 빼고 넣어서 뒤에 대기시키기.
             }
 
             if (sortedListItmes.size >= 1) {
