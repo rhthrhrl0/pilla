@@ -45,13 +45,14 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_intro.xml" value="0.140625" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_join.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_splash.xml" value="0.45" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/add_element_isdisabled_item_store.xml" value="0.1824074074074074" />
-        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/add_element_item_store.xml" value="0.165" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/add_element_item_store.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/add_pill_category_item.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/fragment_setting.xml" value="0.20625" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/pill_list_item.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/mipmap-anydpi-v26/ic_main.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/xml/network_security_config.xml" value="0.10729166666666666" />
       </map>

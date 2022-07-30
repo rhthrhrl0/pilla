@@ -16,6 +16,9 @@ object SettingSharedPreferences {
     private val key_lunchMin = "lunchMin"
     private val key_dinnerHour = "dinnerHour"
     private val key_dinnerMin = "dinnerMin"
+    private val key_birthYear="birthYear"
+    private val key_birthMonth="birthMonth"
+    private val key_birthDay="birthDay"
 
     fun setInstance(context: Context):SettingSharedPreferences {
         prefs = context.getSharedPreferences("shpre-${shPre.email}", 0)
@@ -47,4 +50,15 @@ object SettingSharedPreferences {
         get() = prefs.getInt(key_dinnerMin, 0)
         set(value) = prefs.edit().putInt(key_dinnerMin, value!!).apply()
 
+    var birthYear:Int?
+        get() = prefs.getInt(key_birthYear,0)
+        set(value) = prefs.edit().putInt(key_birthYear,value!!).apply()
+
+    var birthMonth:Int?
+        get() = prefs.getInt(key_birthMonth,0)
+        set(value) = prefs.edit().putInt(key_birthMonth,value!!).apply()
+
+    var birthDay:Int?
+        get() = prefs.getInt(key_birthDay,0)
+        set(value) = prefs.edit().putInt(key_birthDay,value!!).apply()
 }

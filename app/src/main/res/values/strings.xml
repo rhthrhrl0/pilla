@@ -33,4 +33,8 @@
     <string name="morning">아침식사</string>
     <string name="lunch">점심식사</string>
     <string name="dinner">저녁식사</string>
+    <string name="eat_alarm">알림</string>
+    <string name="next_eat_alarm">다음 복용 알림</string>
+    <string name="forecasted_eat_alarm">예견된 복용 알림</string>
+    <string name="eat_time">복용 시간</string>
 </resources>
