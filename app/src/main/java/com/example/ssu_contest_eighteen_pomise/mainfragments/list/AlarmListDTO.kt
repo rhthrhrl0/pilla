@@ -7,4 +7,8 @@ data class AlarmListDTO(
     var eatHour:Int,
     var eatMinutes:Int,
     var pillList:MutableList<PillNameAndCategory>
-)
+){
+    fun copy():AlarmListDTO{
+        return AlarmListDTO(isNextEatPill,eatHour,eatMinutes,pillList.toMutableList())
+    }
+}

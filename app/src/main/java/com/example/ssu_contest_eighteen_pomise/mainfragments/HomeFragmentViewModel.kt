@@ -58,6 +58,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
         val getListJob = viewModelScope.launch(Dispatchers.IO) {
             deleteExpireDatePill.join()
             val listRoomItems = db.pillDao().getAll()
+            Log.d("kmj", "얻는함수 내부 전체: ${listRoomItems}")
             val listItems = mutableListOf<AlarmListDTO>()
             val timeSet = mutableSetOf<SpecificTime>()
 
@@ -67,61 +68,50 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
                     timeSet.add(t)
                 }
             }
+            Log.d("kmj", "얻는함수의 시간 집합: ${timeSet}")
 
-            for (t in timeSet){
-                listItems.add(AlarmListDTO(false,t.hour,t.minutes, mutableListOf()))
+            for (t in timeSet) {
+                listItems.add(AlarmListDTO(false, t.hour, t.minutes, mutableListOf()))
             }
+            Log.d("kmj", "얻는함수의 리스트: ${listItems}")
 
-            for (lri in listRoomItems){
-                val pillNandC=PillNameAndCategory(lri.pillName,lri.pillCategory)
-                for ( t in lri.eatTime) {
+            for (lri in listRoomItems) {
+                val pillNandC = PillNameAndCategory(lri.pillName, lri.pillCategory)
+                for (t in lri.eatTime) {
                     for (ald in listItems) {
-                        if(ald.eatHour==t.hour && ald.eatMinutes == t.minutes){
+                        if (ald.eatHour == t.hour && ald.eatMinutes == t.minutes) {
                             ald.pillList.add(pillNandC)
                         }
                     }
                 }
             }
 
-
-//            listItems.add(AlarmListDTO(false, 3, 20, emptyList()))
-//            listItems.add(AlarmListDTO(false, 2, 30, emptyList()))
-//            listItems.add(AlarmListDTO(false, 2, 40, emptyList()))
-
             //시간 별로 일단 줄세우기
-            var sortedListItmes = listItems.sortedWith(compareBy({ it.eatHour }, { it.eatMinutes })).toMutableList()
-
+            var sortedListItmes =
+                listItems.sortedWith(compareBy({ it.eatHour }, { it.eatMinutes })).toMutableList()
+            Log.d("kmj", "얻는함수의 정렬된 리스트: ${sortedListItmes}")
             //현재 시간보다 늦은 시간의 알람들은 제거하고 다시 뒤에 추가함.
             val t_date = Date(System.currentTimeMillis())
-            var t_late_start_index=-1
-            var t_late_end_index=-1
+            Log.d("kmj", "현재 시각: ${t_date.hours},${t_date.minutes}")
+
+            val backToMove= mutableListOf<AlarmListDTO>()
+            var t_late_start_index = -1
+            var t_late_end_index = -1
             for (lri in sortedListItmes) {
-                if ((lri.eatHour < t_date.hours) || (lri.eatHour==t_date.hours && lri.eatMinutes<t_date.minutes)) {
-                    if(t_late_start_index==-1) { //아직 시작지점이 안나왔다면
-                        t_late_start_index = sortedListItmes.indexOf(lri)
-                    }
-                }
-                else{
-                    if(t_late_start_index!=-1){ //뒤로 리스트 순서를 바꿔야 하는 지난 시간이 잇다면,
-                        t_late_end_index=sortedListItmes.indexOf(lri)
-                        break
-                    }
+                if ((lri.eatHour < t_date.hours) || (lri.eatHour == t_date.hours && lri.eatMinutes < t_date.minutes)) {
+                    backToMove.add(lri.copy())
                 }
             }
+            Log.d("kmj","뒤로 가야 하는 놈들: ${backToMove}")
+            Log.d("kmj","개수: ${sortedListItmes.size}")
+            Log.d("kmj","인덱스들: ${t_late_start_index},${t_late_end_index}")
 
-
-            if(t_late_end_index+1==sortedListItmes.size){
-                sortedListItmes= mutableListOf<AlarmListDTO>()
-            }
-            else if(t_late_end_index!=-1){
-                val front_late_list= ArrayList<AlarmListDTO>(sortedListItmes.subList(0,t_late_end_index))
-                sortedListItmes.removeAll(front_late_list)
-                sortedListItmes.addAll(front_late_list)
-            }
-
+            sortedListItmes.removeAll(backToMove)
+            sortedListItmes.addAll(backToMove)
             if (sortedListItmes.size >= 1) {
                 sortedListItmes.elementAt(0).isNextEatPill = true
             }
+            Log.d("kmj", "얻는함수의 최종: ${sortedListItmes}")
             pillListItems.postValue(sortedListItmes)
         }
         runBlocking {
@@ -139,6 +129,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
     fun deleteExpireDate() =
         viewModelScope.launch(Dispatchers.IO) {
             val listRoomItems = db.pillDao().getAll()
+            Log.d("kmj", "삭제함수 내부 전체: ${listRoomItems}")
             val today = System.currentTimeMillis()
             for (lri in listRoomItems) {
                 val cal = Calendar.getInstance()
@@ -150,14 +141,15 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
                 cal.set(Calendar.SECOND, 0)
                 if (today > cal.timeInMillis) {
                     db.pillDao().delete(lri)
+                    Log.d("kmj", "삭제요소: ${lri}")
                 }
             }
         }
 
 
-    fun tooltipString(position:Int):String{
-        val sb=StringBuilder()
-        for (item in pillListItems.value!![position].pillList){
+    fun tooltipString(position: Int): String {
+        val sb = StringBuilder()
+        for (item in pillListItems.value!![position].pillList) {
             sb.append("${item.pillCategory}, ")
         }
         sb.deleteCharAt(sb.lastIndexOf(", "))

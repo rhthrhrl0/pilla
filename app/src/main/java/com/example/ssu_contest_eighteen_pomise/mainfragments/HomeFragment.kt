@@ -81,6 +81,7 @@ class HomeFragment : Fragment() {
 
         viewModel.refreshInitWithViewModel.observe(viewLifecycleOwner,{
             binding.refreshLayout.isRefreshing=false
+            Log.d("kmj","얻는함수의 시간 집합: ${viewModel.pillListItems.value?: emptyList()}")
             adapter.updateItems(viewModel.pillListItems.value?: emptyList())
         })
     }
