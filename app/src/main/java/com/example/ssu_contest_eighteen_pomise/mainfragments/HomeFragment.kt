@@ -8,17 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ssu_contest_eighteen_pomise.MainViewModel
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentHomeBinding
-import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmActivity
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillListAdapter
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmActivity
 import com.yourssu.design.system.atom.ToolTip
 
 class HomeFragment : Fragment() {

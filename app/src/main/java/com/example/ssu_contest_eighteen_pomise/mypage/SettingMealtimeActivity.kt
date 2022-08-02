@@ -1,4 +1,4 @@
-package com.example.ssu_contest_eighteen_pomise.myPage
+package com.example.ssu_contest_eighteen_pomise.mypage
 
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivitySettingMealtimeBinding
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
@@ -27,7 +26,7 @@ class SettingMealtimeActivity : AppCompatActivity() {
 
         SettingSharedPreferences.setInstance(applicationContext)
         setting_prefs = SettingSharedPreferences
-        setMealTime(binding)
+        viewModel.setMealTime(binding)
         val shPre = setting_prefs
         Log.d("kyb", shPre.morningHour.toString()+":"+shPre.morningMin.toString()+" "+shPre.lunchHour.toString()+":"+shPre.lunchMin.toString()+" "+shPre.dinnerHour.toString()+":"+shPre.dinnerMin.toString())
 
@@ -53,34 +52,34 @@ class SettingMealtimeActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun setMealTime(binding: ActivitySettingMealtimeBinding) {
-        val shPre = setting_prefs
-        val cal = Calendar.getInstance()
-
-        cal.set(Calendar.HOUR_OF_DAY, shPre.morningHour!!)
-        cal.set(Calendar.MINUTE, shPre.morningMin!!)
-        binding.btnMorning.text = SimpleDateFormat("HH:mm").format(cal.time)
-
-        cal.set(Calendar.HOUR_OF_DAY, shPre.lunchHour!!)
-        cal.set(Calendar.MINUTE, shPre.lunchMin!!)
-        binding.btnLunch.text = SimpleDateFormat("HH:mm").format(cal.time)
-
-        cal.set(Calendar.HOUR_OF_DAY, shPre.dinnerHour!!)
-        cal.set(Calendar.MINUTE, shPre.dinnerMin!!)
-        binding.btnDinner.text = SimpleDateFormat("HH:mm").format(cal.time)
-    }
 
     fun loadTimePicker(button: Button, timeWhen: String) {
 
         val shPre = setting_prefs
         val cal = Calendar.getInstance()
+        var hour = 0
+        var min = 0
+
+        //dialog가 떴을 때 값 받아오기
+        if(timeWhen.equals("morning")) {
+            hour = setting_prefs.morningHour!!
+            min = setting_prefs.morningMin!!
+        }
+        else if(timeWhen.equals("lunch")) {
+            hour = setting_prefs.lunchHour!!
+            min = setting_prefs.lunchMin!!
+        }
+        else if(timeWhen.equals("dinner")) {
+            hour = setting_prefs.dinnerHour!!
+            min = setting_prefs.dinnerMin!!
+        }
 
         val timeSetListener = TimePickerDialog.OnTimeSetListener {
-            timePicker, hour, min ->
+            _, hour, min ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, min)
 
-            button.text = SimpleDateFormat("HH:mm").format(cal.time)
+            button.text = SimpleDateFormat("HH:mm").format(cal.time) //버튼에 설정시간 보이도록
             if(timeWhen.equals("morning")) {
                 shPre.morningHour = hour
                 shPre.morningMin = min
@@ -93,9 +92,24 @@ class SettingMealtimeActivity : AppCompatActivity() {
                 shPre.dinnerHour = hour
                 shPre.dinnerMin = min
             }
-
         }
-
-        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+        CustomTimePickerDialog(this, timeSetListener, hour, min, false).show()
     }
+
+
+//    inner class CustomTimePickerDialog(
+//        context: Context?,
+//        listener: OnTimeSetListener?,
+//        hourOfDay: Int,
+//        minute: Int,
+//        is24HourView: Boolean
+//    ) : TimePickerDialog(context, listener, hourOfDay, minute/5, is24HourView) {
+//
+//        private lateinit var mTimePicker:TimePicker
+//
+//        override fun updateTime(hourOfDay: Int, minuteOfHour: Int) {
+//            mTimePicker.currentHour = hourOfDay
+//            mTimePicker.currentMinute = minuteOfHour/5
+//        }
+//    }
 }

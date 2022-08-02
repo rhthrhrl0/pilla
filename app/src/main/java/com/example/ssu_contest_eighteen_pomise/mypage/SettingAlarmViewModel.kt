@@ -1,13 +1,10 @@
-package com.example.ssu_contest_eighteen_pomise.myPage
+package com.example.ssu_contest_eighteen_pomise.mypage
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
-import com.yourssu.design.system.atom.ListToggleItem
 import com.yourssu.design.system.atom.Toggle
 
 class SettingAlarmViewModel(application: Application) : AndroidViewModel(application) {

@@ -37,15 +37,15 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myPage.SettingProtectorsActivity"
+            android:name=".mypage.SettingProtectorsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myPage.SettingMealtimeActivity"
+            android:name=".mypage.SettingMealtimeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myPage.SettingAlarmActivity"
+            android:name=".mypage.SettingAlarmActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

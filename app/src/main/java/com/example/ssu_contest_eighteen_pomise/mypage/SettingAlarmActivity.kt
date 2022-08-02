@@ -1,16 +1,13 @@
-package com.example.ssu_contest_eighteen_pomise.myPage
+package com.example.ssu_contest_eighteen_pomise.mypage
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivitySettingAlarmBinding
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
-import com.yourssu.design.system.atom.Toggle
 
 class SettingAlarmActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingAlarmBinding

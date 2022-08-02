@@ -7,11 +7,10 @@
 
         <import type="com.yourssu.design.system.component.TopBar"/>
         <import type="com.yourssu.design.system.foundation.Icon"/>
-        <import type="com.yourssu.design.system.atom.ListToggleItem"/>
 
         <variable
             name="viewModel"
-            type="com.example.ssu_contest_eighteen_pomise.myPage.SettingProtectorsViewModel" />
+            type="com.example.ssu_contest_eighteen_pomise.mypage.SettingProtectorsViewModel" />
     </data>
 
     <LinearLayout
@@ -31,10 +30,9 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lstUser"
+                android:id="@+id/protectors"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/protectors_view"/>
 
         </LinearLayout>

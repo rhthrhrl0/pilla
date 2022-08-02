@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmActivity
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingMealtimeActivity
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingProtectorsActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingAlarmActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingMealtimeActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingProtectorsActivity
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentSettingBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone

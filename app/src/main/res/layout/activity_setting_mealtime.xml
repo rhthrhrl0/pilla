@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.ssu_contest_eighteen_pomise.myPage.SettingMealtimeViewModel" />
+            type="com.example.ssu_contest_eighteen_pomise.mypage.SettingMealtimeViewModel" />
     </data>
 
     <LinearLayout

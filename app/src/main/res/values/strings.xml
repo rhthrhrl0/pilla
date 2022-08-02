@@ -23,6 +23,7 @@
     <string name="register_pill_name">약이름을 입력해주세요</string>
     <string name="add_pill">약추가</string>
     <string name="protectors">보호자 관리</string>
+    <string name="patients">환자 관리</string>
     <string name="mealtime">식사시간 설정</string>
     <string name="setAlarm">알람 설정</string>
     <string name="desc1">설정 관리</string>
