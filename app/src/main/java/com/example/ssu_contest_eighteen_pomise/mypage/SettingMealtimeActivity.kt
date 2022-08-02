@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -79,18 +80,33 @@ class SettingMealtimeActivity : AppCompatActivity() {
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, min)
 
-            button.text = SimpleDateFormat("HH:mm").format(cal.time) //버튼에 설정시간 보이도록
             if(timeWhen.equals("morning")) {
-                shPre.morningHour = hour
-                shPre.morningMin = min
+                if(hour*100+min<shPre.lunchHour!!*100+shPre.lunchMin!!) {
+                    shPre.morningHour = hour
+                    shPre.morningMin = min
+                    button.text = SimpleDateFormat("HH:mm").format(cal.time) //버튼에 설정시간 보이도록
+                }
+                else
+                    Toast.makeText(this, "아침시간은 점심시간보다 빨라야 합니다.", Toast.LENGTH_SHORT).show()
             }
             else if(timeWhen.equals("lunch")) {
-                shPre.lunchHour = hour
-                shPre.lunchMin = min
+                if(hour*100+min>shPre.morningHour!!*100+shPre.morningMin!! && hour*100+min<shPre.dinnerHour!!*100+shPre.dinnerMin!!) {
+                    shPre.lunchHour = hour
+                    shPre.lunchMin = min
+                    button.text = SimpleDateFormat("HH:mm").format(cal.time) //버튼에 설정시간 보이도록
+                }
+                else
+                    Toast.makeText(this, "점심시간은 아침시간보다 늦고 저녁시간보다 빨라야 합니다.", Toast.LENGTH_SHORT).show()
             }
             else if(timeWhen.equals("dinner")) {
-                shPre.dinnerHour = hour
-                shPre.dinnerMin = min
+                if(hour*100+min>shPre.lunchHour!!*100+shPre.lunchMin!!) {
+                    shPre.dinnerHour = hour
+                    shPre.dinnerMin = min
+                    button.text = SimpleDateFormat("HH:mm").format(cal.time) //버튼에 설정시간 보이도록
+                }
+                else
+                    Toast.makeText(this, "저녁시간은 점심시간보다 늦어야 합니다.", Toast.LENGTH_SHORT).show()
+
             }
         }
         CustomTimePickerDialog(this, timeSetListener, hour, min, false).show()
