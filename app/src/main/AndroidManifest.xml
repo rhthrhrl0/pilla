@@ -31,13 +31,16 @@
         <receiver
             android:name=".pill_alarm_manager.PillAlarmReceiver"
             android:exported="false" />
-
         <activity
             android:name=".camera.self_add_no_ocr.AddSelfNoOcrActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mypage.SettingProtectorsActivity"
+            android:name=".mypage.SettingProtegesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mypage.SettingGuardiansActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

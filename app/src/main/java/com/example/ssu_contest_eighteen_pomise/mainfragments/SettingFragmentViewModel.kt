@@ -18,7 +18,8 @@ class SettingFragmentViewModel(application: Application) : AndroidViewModel(appl
     var failedLogoutToast = MutableLiveData<Boolean>()
     var startSettingAlarmActivity=MutableLiveData<Boolean>()
     var startSettingMealtimeActivity=MutableLiveData<Boolean>()
-    var startSettingProtectorsActivity=MutableLiveData<Boolean>()
+    var startSettingGuardiansActivity=MutableLiveData<Boolean>()
+    var startSettingProtegesActivity=MutableLiveData<Boolean>()
     lateinit var userEmail:String
 
     fun settingAlarm(){
@@ -29,13 +30,17 @@ class SettingFragmentViewModel(application: Application) : AndroidViewModel(appl
         startSettingMealtimeActivity.value=true
     }
 
-    fun settingProtectors() {
-        startSettingProtectorsActivity.value=true
+    fun settingGuardians() {
+        startSettingGuardiansActivity.value=true
+    }
+
+    fun settingProteges() {
+        startSettingProtegesActivity.value=true
     }
 
     fun getEmail() {
         val shPre = App.token_prefs
-        Log.d("yb", shPre.email.toString())
+        Log.d("kyb", shPre.email.toString())
         userEmail = shPre.email.toString()
     }
 

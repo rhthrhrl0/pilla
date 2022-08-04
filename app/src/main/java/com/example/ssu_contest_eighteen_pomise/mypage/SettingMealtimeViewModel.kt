@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivitySettingMealtimeBinding
-import com.example.ssu_contest_eighteen_pomise.dto.ProtectorDTO
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
 import java.text.SimpleDateFormat
 import java.util.*
