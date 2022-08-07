@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 text="@{@string/sound}"
+                isSelected="@{viewModel.soundSelected}"
                 selectedListener="@{viewModel.soundToggleSelectedListener}"/>
 
             <com.yourssu.design.system.atom.ListToggleItem
@@ -41,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 text="@{@string/vibration}"
+                isSelected="@{viewModel.vibrateSelected}"
                 selectedListener="@{viewModel.vibrationToggleSelectedListener}"/>
 
         </LinearLayout>

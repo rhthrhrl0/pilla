@@ -26,6 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <com.yourssu.design.system.component.TopBar
                 onStartIconClick="@{()->viewModel.backBtnClick()}"
                 startIcon="@{Icon.ic_arrow_left_line}"
@@ -35,150 +36,106 @@
         </RelativeLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+            app:layout_constraintBottom_toTopOf="@id/loginBtn">
 
-            <TextView
-                android:id="@+id/explainText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="40dp"
-                android:text="기본 정보를 입력해주세요."
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/explainNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:text="이름"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/explainText" />
+                <TextView
+                    android:id="@+id/explainText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="16dp"
+                    android:text="기본 정보를 입력해주세요."
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/nameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="이름 입력"
-                android:maxLines="1"
-                android:text="@={viewModel.nameString}"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.781"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/explainNameText" />
+                <com.yourssu.design.system.atom.SimpleTextField
+                    android:id="@+id/nameText"
+                    fieldLabelText="@{@string/name}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onTextChanged="@{viewModel.onPillNameTextChanged}"
+                    app:placeholderText="@{@string/name_input}" />
 
-            <TextView
-                android:id="@+id/explainIdText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:text="아이디"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameText" />
+                <com.yourssu.design.system.atom.SimpleTextField
+                    android:id="@+id/phoneNumberText"
+                    fieldLabelText="@{@string/phone_number}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onTextChanged="@{viewModel.onPillPhoneNumberTextChanged}"
+                    app:placeholderText="@{@string/phone_number_input}" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/idText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="아이디 입력"
-                android:maxLines="1"
-                android:text="@={viewModel.idString}"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.781"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/explainIdText" />
+                <com.yourssu.design.system.atom.ListToggleItem
+                    isSelected="@{viewModel.isGuardian()}"
+                    selectedListener="@{viewModel.toggleSelectedListener}"
+                    text="@{viewModel.isGuardian() ? @string/guardian : @string/patient}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"/>
 
-            <TextView
-                android:id="@+id/explainPwdText1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:text="비밀번호"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idText" />
+                <com.yourssu.design.system.atom.SimpleTextField
+                    android:id="@+id/idText"
+                    fieldLabelText="@{@string/email}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onTextChanged="@{viewModel.onPillIdTextChanged}"
+                    app:placeholderText="@{@string/email_input}" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/pwdText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="비밀번호 입력"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:text="@={viewModel.pwd_1_string}"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/explainPwdText1" />
+                <com.yourssu.design.system.atom.PasswordTextField
+                    android:id="@+id/pwdText"
+                    fieldLabelText="@{@string/pwd}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onTextChanged="@{viewModel.onPillPwdTextChanged}"
+                    app:placeholderText="@{@string/pwd_input}" />
 
-            <TextView
-                android:id="@+id/explainPwdText2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:text="비밀번호 확인"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pwdText" />
+                <com.yourssu.design.system.atom.PasswordTextField
+                    android:id="@+id/pwdText2"
+                    fieldLabelText="@{@string/pwd_re_input}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onTextChanged="@{viewModel.onPillRePwdTextChanged}"
+                    app:placeholderText="@{@string/pwd_input}" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="비밀번호 확인"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:text="@={viewModel.pwd_2_string}"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/explainPwdText2" />
+            </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/mainColor"
+            android:background="@{viewModel.isJoinClickabled() ? @color/mainColor : @color/gray }"
+            android:clickable="@{viewModel.isJoinClickabled()}"
             android:onClick="@{()->viewModel.joinBtnClick()}"
             android:text="@string/join"
             android:textColor="@color/white"

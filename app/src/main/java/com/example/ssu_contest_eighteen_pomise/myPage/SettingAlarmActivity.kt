@@ -26,8 +26,6 @@ class SettingAlarmActivity : AppCompatActivity() {
         SettingSharedPreferences.setInstance(applicationContext)
         setting_prefs = SettingSharedPreferences
 
-        viewModel.initAlarmBtn()
-
         viewModel.btn_finish.observe(this, {
             backToPrevPage()
         })

@@ -331,7 +331,6 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             }
         })
 
-
         binding.pillCategoryBtn.setOnClickListener {
             bottomSheet {
                 text {

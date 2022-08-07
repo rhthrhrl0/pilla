@@ -20,6 +20,13 @@ object SettingSharedPreferences {
     private val key_birthMonth="birthMonth"
     private val key_birthDay="birthDay"
 
+//    fun getInstance(context: Context):SharedPreferences{
+//        if (prefs==null){
+//            prefs = context.getSharedPreferences("shpre-${shPre.email}", 0)
+//        }
+//        return prefs!!
+//    }
+
     fun setInstance(context: Context):SettingSharedPreferences {
         prefs = context.getSharedPreferences("shpre-${shPre.email}", 0)
         return this

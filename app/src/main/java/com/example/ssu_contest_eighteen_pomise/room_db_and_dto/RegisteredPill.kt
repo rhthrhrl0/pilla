@@ -17,15 +17,19 @@ data class RegisteredPill(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+
+    companion object {
+        class TimeConverters {
+            // 저장할때는 Json의 스트링형식으로
+            @TypeConverter
+            fun listToJson(value: List<SpecificTime>?) = Gson().toJson(value)
+
+            // 꺼낼때는 리스트로 다시 바꿈.
+            @TypeConverter
+            fun jsonToList(value: String) =
+                Gson().fromJson(value, Array<SpecificTime>::class.java).toList()
+
+        }
+    }
 }
 
-class TimeConverters{
-    // 저장할때는 Json의 스트링형식으로
-    @TypeConverter
-    fun listToJson(value: List<SpecificTime>?)= Gson().toJson(value)
-
-    // 꺼낼때는 리스트로 다시 바꿈.
-    @TypeConverter
-    fun jsonToList(value: String)=Gson().fromJson(value,Array<SpecificTime>::class.java).toList()
-
-}

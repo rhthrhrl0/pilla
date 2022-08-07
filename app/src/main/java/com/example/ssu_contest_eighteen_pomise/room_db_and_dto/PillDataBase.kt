@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [RegisteredPill::class],version = 1)
-@TypeConverters(TimeConverters::class)
+@TypeConverters(RegisteredPill.Companion.TimeConverters::class)
 abstract class PillDataBase:RoomDatabase() {
     abstract fun pillDao():PillDao
 }
