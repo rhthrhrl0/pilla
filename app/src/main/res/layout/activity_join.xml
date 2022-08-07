@@ -81,7 +81,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="16dp"
                     android:onTextChanged="@{viewModel.onPillPhoneNumberTextChanged}"
-                    app:placeholderText="@{@string/phone_number_input}" />
+                    app:placeholderText="@{@string/phone_number_input}"
+                    android:inputType="phone"/>
 
                 <com.yourssu.design.system.atom.ListToggleItem
                     isSelected="@{viewModel.isGuardian()}"

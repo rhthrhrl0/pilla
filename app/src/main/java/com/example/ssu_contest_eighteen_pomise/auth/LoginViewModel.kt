@@ -16,8 +16,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
-    val IdString = MutableLiveData<String>("")
-    val PwdString = MutableLiveData<String>("")
+    var idString = ""
+    var pwdString = ""
     val loginVar=MutableLiveData<Boolean>()
     val joinVar=MutableLiveData<Boolean>()
     val backVar=MutableLiveData<Boolean>()
@@ -25,11 +25,20 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var loginUser:LoginUserDTO
 
+    fun onPillIdTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        idString = s.toString()
+        //isCanPillAdd()
+    }
+    fun onPillPwdTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        pwdString = s.toString()
+        //isCanPillAdd()
+    }
+
     fun loginBtnClick(){
-        if (IdString.value!!.isEmpty()){
+        if (idString.isEmpty()){
             Toast.makeText(getApplication(),"Id를 입력해주세요",Toast.LENGTH_SHORT).show()
         }
-        else if(PwdString.value!!.isEmpty()){
+        else if(pwdString.isEmpty()){
             Toast.makeText(getApplication(),"비밀번호를 입력해주세요",Toast.LENGTH_SHORT).show()
         }
         else{
@@ -42,7 +51,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 //레트로핏 사용할 준비완료.
                 val service = retrofit.create(LoginService::class.java)
                 val response=service.signInRequest(
-                    PostLoginModel(IdString.value.toString(),PwdString.value.toString())
+                    PostLoginModel(idString.toString(),pwdString.toString())
                 )
 
                 Log.d("kmj", response.isSuccessful.toString())

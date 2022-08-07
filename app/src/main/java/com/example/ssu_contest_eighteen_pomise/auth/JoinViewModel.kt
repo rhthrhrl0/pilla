@@ -76,6 +76,9 @@ class JoinViewModel(application: Application) : AndroidViewModel(application) {
             phoneNumber.isEmpty() -> {
                 Toast.makeText(getApplication(), "휴대폰 번호를 입력해주세요", Toast.LENGTH_SHORT).show()
             }
+            !chkNum(phoneNumber)->{
+                Toast.makeText(getApplication(), "휴대폰 번호를 '-'를 제외하고\n숫자만 입력해주세요", Toast.LENGTH_SHORT).show()
+            }
             id.isEmpty() -> {
                 Toast.makeText(getApplication(), "아이디를 입력해주세요", Toast.LENGTH_SHORT).show()
             }
@@ -123,5 +126,20 @@ class JoinViewModel(application: Application) : AndroidViewModel(application) {
     fun isCanPillAdd() {
         isJoinClickabled.value =
             (nameString.isNotEmpty() && idString.isNotEmpty() && pwd_1_string.isNotEmpty() && pwd_2_string.isNotEmpty() && phoneNumberString.isNotEmpty())
+    }
+
+    fun chkNum(str: String) : Boolean {
+        var temp: Char
+
+        var result = true
+
+        for (i in 0 until str.length) {
+            temp = str.elementAt(i)
+            if (temp.toInt() < 48 || temp.toInt() > 57) {
+                result = false
+            }
+        }
+
+        return result
     }
 }
