@@ -18,12 +18,14 @@ import com.example.ssu_contest_eighteen_pomise.databinding.FragmentHomeBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmActivity
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillListAdapter
+import com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.PatientListAdapter
 import com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmActivity
 import com.yourssu.design.system.atom.ToolTip
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModels()
+    private val patientListAdapter=PatientListAdapter()
     private val adapter=PillListAdapter()
     var tooltipBuilders: ToolTip.Builder? = null
 
@@ -56,6 +58,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.patientListRv.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        binding.patientListRv.adapter=patientListAdapter
+
         binding.pillListRv.layoutManager=LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         binding.pillListRv.adapter=adapter
         binding.refreshLayout.setColorSchemeColors(resources.getColor(R.color.mainColor))
@@ -71,6 +76,16 @@ class HomeFragment : Fragment() {
     fun onViewModelInit(){
         viewModel.refreshStartEvent.observe(viewLifecycleOwner,{
             binding.refreshLayout.isRefreshing=true
+        })
+
+        viewModel.patientListItems.observe(viewLifecycleOwner,{
+            if(it.isNotEmpty()){
+                patientListAdapter.updateItems(it)
+            }
+        })
+
+        viewModel.curPatientEmail.observe(viewLifecycleOwner,{
+            viewModel.getListItem(true)
         })
 
         viewModel.refreshEndEvent.observe(viewLifecycleOwner,{
@@ -110,6 +125,13 @@ class HomeFragment : Fragment() {
 
             override fun onItemLongClick(position: Int) {
 
+            }
+        })
+
+        patientListAdapter.setMyItemClickListener(object :PatientListAdapter.MyItemClickListener{
+            override fun onItemClick(position: Int, email: String) {
+                Log.d("kmj","$position,$email")
+                viewModel.clickPatientIndex(position,email)
             }
         })
     }

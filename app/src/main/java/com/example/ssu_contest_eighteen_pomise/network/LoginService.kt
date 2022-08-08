@@ -1,6 +1,8 @@
 package com.example.ssu_contest_eighteen_pomise.network
 
 import com.example.ssu_contest_eighteen_pomise.dto.*
+import com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.PatientListResponse
+import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.RegisteredPill
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,9 +24,18 @@ interface LoginService {
     @POST("v1/logout")
     suspend fun logoutRequest(@Header("Authorization") headerToken: String):Response<Void>
 
+    @POST("v1/registerPill")
+    suspend fun registerPillRequest(@Header("Authorization") headerToken: String , @Body pills:List<RegisteredPill>):Response<List<Int>>
+
+    @GET("v1/getProtege")
+    suspend fun getPatientListRequest(@Header("Authorization") headerToken: String):Response<PatientListResponse>
+
+    @POST("v1/getProtegePillRecord")
+    suspend fun postGetProtegePillRecord(@Header("Authorization") headerToken: String,@Body email:String):Response<Void>
+
     companion object {
         const val BASE_URL =
-            "http://3.38.152.42:80/"
+            "http://43.200.98.211/"
         const val USER = "USER"
         const val ADMIN = "ADMIN"
     }

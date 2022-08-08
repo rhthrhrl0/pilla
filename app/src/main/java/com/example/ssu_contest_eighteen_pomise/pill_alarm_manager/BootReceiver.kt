@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.PillDataBase
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.TokenSharedPreferences
 
 class BootReceiver : BroadcastReceiver() {
@@ -15,10 +14,7 @@ class BootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         shPre= App.token_prefs
-        db = Room.databaseBuilder(
-            context,
-            PillDataBase::class.java, "pill-database-${shPre.email}"
-        ).build()
+
 
     }
 }

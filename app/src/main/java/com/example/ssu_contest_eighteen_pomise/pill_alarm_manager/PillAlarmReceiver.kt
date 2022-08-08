@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.PillDataBase
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.TokenSharedPreferences
 
 class PillAlarmReceiver : BroadcastReceiver() {
@@ -23,10 +22,7 @@ class PillAlarmReceiver : BroadcastReceiver() {
         //그리고 노티피케이션 클릭 시 발생할 펜딩인텐트 설정해주고 띄우기.
 
         shPre= App.token_prefs
-        db = Room.databaseBuilder(
-            context,
-            PillDataBase::class.java, "pill-database-${shPre.email}"
-        ).build()
+
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmManager = context.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
         // 룸 안에서 실행해야 할 시간 중에서 현재 시간 이후 가장 작은 시간을 찾아서 알람매니저에게 요청하기.

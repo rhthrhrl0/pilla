@@ -470,7 +470,8 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 enum class PillAddErrorType(val reason: String) {
     ONE_CHOOSE_EAT_TIME("약 복용 시간을 등록해주세요"),
     ONE_REGISTER_PILL_CATEGORY("약 종류 및 목록을 한개 이상 등록해주세요"),
-    REGISTER_PILL_DATE("약 복용 마감일을 선택해주세요")
+    REGISTER_PILL_DATE("약 복용 마감일을 선택해주세요"),
+    REGISTER_ERROR("등록하는 과정에서 문제가 발생했습니다.\n잠시후에 다시 시도해주세요.")
 }
 
 enum class EatTime{

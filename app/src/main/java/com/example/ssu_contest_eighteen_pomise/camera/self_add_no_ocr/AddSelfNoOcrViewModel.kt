@@ -1,33 +1,29 @@
 package com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr
 
 import android.app.Application
-import android.graphics.drawable.Drawable
 import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.R
-import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.PillDataBase
+import com.example.ssu_contest_eighteen_pomise.network.LoginService
 import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.RegisteredPill
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
 import com.yourssu.design.system.atom.Checkbox
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.*
-import kotlin.math.log
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(application) {
     private val shPre = App.token_prefs
-    private val db = Room.databaseBuilder(
-        application,
-        PillDataBase::class.java, "pill-database-${shPre.email}"
-    ).build()
     private val settShrpe = SettingSharedPreferences.setInstance(application)
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(LoginService.BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create())
+        .build()
+    val service = retrofit.create(LoginService::class.java)
 
     val finishEvent = MutableLiveData<Boolean>()
     val addPrescriptionEvent = MutableLiveData<Boolean>()
@@ -273,23 +269,6 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
 
         insert(registeredPill)
-
-
-//        val cal = Calendar.getInstance()
-//        cal.set(Calendar.YEAR, expirationYearInt)
-//        cal.set(Calendar.MONTH, expirationMonthInt-1)
-//        cal.set(Calendar.DAY_OF_MONTH, expirationDayInt)
-//        cal.set(Calendar.HOUR_OF_DAY, 0)
-//        cal.set(Calendar.MINUTE, 0)
-//        cal.set(Calendar.SECOND, 0)
-//
-//        if ( cal.timeInMillis < System.currentTimeMillis() ){
-//            addErrorString.value=PillAddErrorType.REGISTER_PILL_DATE
-//            return
-//        }
-
-
-        //addPrescriptionEvent.value = true
     }
 
 
@@ -355,20 +334,15 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     fun insert(pillAddContentList: List<RegisteredPill>) {
         //뷰모델에서 코루틴 사용할때는 viewModelScope를 사용함.
         val job = viewModelScope.launch(Dispatchers.IO) {
-
-            for (pill in pillAddContentList) {
-                db.pillDao().insert(pill)
+            val response=service.registerPillRequest(shPre.refreshToken!!,pillAddContentList)
+            if(response.isSuccessful){
+                runBlocking(Dispatchers.Main) {
+                    addPrescriptionEvent.value = true
+                    onClickFinish()
+                }
             }
-        }
-        viewModelScope.launch(Dispatchers.IO) {
-            job.join()
-            //
-            Log.d("kmj", db.pillDao().getAll().toString())
-
-            //UI변경은 여기서... 메인스레드가 하도록.
-            runBlocking(Dispatchers.Main) {
-                addPrescriptionEvent.value = true
-                onClickFinish()
+            else{
+                addErrorString.postValue(PillAddErrorType.REGISTER_ERROR)
             }
         }
     }

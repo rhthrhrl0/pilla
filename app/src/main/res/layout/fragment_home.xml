@@ -21,13 +21,19 @@
         tools:context=".mainfragments.HomeFragment"
         android:orientation="vertical">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/patient_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
         <com.yourssu.design.system.component.TopBar
+            android:id="@+id/name_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             endSecondIcon="@{Icon.ic_refresh_line}"
-            endFirstIcon="@{Icon.ic_pen_line}"
-            startText="@{viewModel.nameAndBirthString}"
-            onEndFirstClick="@{()->viewModel.editBirthDayBtn()}"
+            startText="@{viewModel.nameStringLiveData}"
             onEndSecondIconClick="@{()->viewModel.refreshBtn()}"
             />
 
