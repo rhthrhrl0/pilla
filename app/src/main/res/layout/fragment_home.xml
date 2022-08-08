@@ -24,10 +24,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/patient_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarSize="5dp"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbarThumbVertical="@color/black"
+            android:scrollbars="horizontal"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
+            android:scrollbarFadeDuration="10" />
+
+        <com.yourssu.design.system.atom.Divider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <com.yourssu.design.system.component.TopBar
             android:id="@+id/name_top_bar"
             android:layout_width="match_parent"
@@ -36,7 +44,9 @@
             startText="@{viewModel.nameStringLiveData}"
             onEndSecondIconClick="@{()->viewModel.refreshBtn()}"
             />
-
+        <com.yourssu.design.system.atom.Divider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"

@@ -2,12 +2,11 @@ package com.example.ssu_contest_eighteen_pomise.mainfragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
@@ -16,13 +15,21 @@ import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmAct
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillListAdapter
 import com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.PatientListAdapter
 import com.yourssu.design.system.atom.ToolTip
+import com.yourssu.design.undercarriage.size.dpToIntPx
+
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModels()
-    private val patientListAdapter=PatientListAdapter()
-    private val adapter=PillListAdapter()
+    private val patientListAdapter = PatientListAdapter()
+    private val adapter = PillListAdapter()
     var tooltipBuilders: ToolTip.Builder? = null
+    lateinit var wd: WindowManager
+    lateinit var d: Display
+    private val metrics = DisplayMetrics()
+    private var mWidthPixels = 0 // 화면 정보를 얻음
+    private var mHeightPixels = 0 // 화면 정보를 얻음
+    private var mWidthPatientItems = 0 // 환자 아이템 하나의 너비.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +43,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner=this@HomeFragment
+        binding.lifecycleOwner = this@HomeFragment
         binding.viewModel = viewModel
 
         //툴팁 빌더 초기화.
@@ -44,64 +51,75 @@ class HomeFragment : Fragment() {
             activity?.let { it1 ->
                 tooltipBuilders =
                     ToolTip.Builder(context = it, it1.windowManager, inflater)
+                wd = it1.windowManager
+                d = wd.defaultDisplay as Display
+                d.getMetrics(metrics) //현재 화면의 크기 구함.
+                mWidthPixels = metrics.widthPixels //현재화면의 너비 픽셀을 구함. 이것만 있으면 됨. 우리는.
+                mHeightPixels = metrics.heightPixels
             }
         }
-
+        mWidthPatientItems = context?.dpToIntPx(120f) ?: 0 //환자 아이템 하나의 너비의 픽셀값을 구함.
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.patientListRv.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        binding.patientListRv.adapter=patientListAdapter
+        binding.patientListRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.patientListRv.adapter = patientListAdapter
 
-        binding.pillListRv.layoutManager=LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        binding.pillListRv.adapter=adapter
+        //binding.patientListRv.verticalScrollbarPosition=View.SCROLLBAR_POSITION_LEFT
+        binding.pillListRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.pillListRv.adapter = adapter
         binding.refreshLayout.setColorSchemeColors(resources.getColor(R.color.mainColor))
 
-        Log.d("kmj","뷰모델옵저버 세팅")
+        Log.d("kmj", "뷰모델옵저버 세팅")
         onViewModelInit()
-        Log.d("kmj","뷰모델옵저버 세팅 끝")
+        Log.d("kmj", "뷰모델옵저버 세팅 끝")
 
         onInitView()
 
     }
 
-    fun onViewModelInit(){
-        viewModel.refreshStartEvent.observe(viewLifecycleOwner,{
-            binding.refreshLayout.isRefreshing=true
+    fun onViewModelInit() {
+        viewModel.refreshStartEvent.observe(viewLifecycleOwner, {
+            binding.refreshLayout.isRefreshing = true
         })
 
-        viewModel.patientListItems.observe(viewLifecycleOwner,{
-            if(it.isNotEmpty()){
-                patientListAdapter.updateItems(it)
+        viewModel.patientListItems.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                patientListAdapter.submitList(it)
             }
         })
 
-        viewModel.curPatientEmail.observe(viewLifecycleOwner,{
+        viewModel.curPatientEmail.observe(viewLifecycleOwner, {
             viewModel.getListItem(true)
         })
 
-        viewModel.refreshEndEvent.observe(viewLifecycleOwner,{
-            binding.refreshLayout.isRefreshing=false
-            adapter.updateItems(viewModel.pillListItems.value?: emptyList())
-            Toast.makeText(context,"알람목록을 갱신했습니다.", Toast.LENGTH_SHORT).show()
+        viewModel.refreshEndEvent.observe(viewLifecycleOwner, {
+            binding.refreshLayout.isRefreshing = false
+            adapter.updateItems(viewModel.pillListItems.value ?: emptyList())
+            Toast.makeText(context, "알람목록을 갱신했습니다.", Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.refreshInitWithViewModel.observe(viewLifecycleOwner,{
-            binding.refreshLayout.isRefreshing=false
-            Log.d("kmj","얻는함수의 시간 집합: ${viewModel.pillListItems.value?: emptyList()}")
-            adapter.updateItems(viewModel.pillListItems.value?: emptyList())
+        viewModel.refreshInitWithViewModel.observe(viewLifecycleOwner, {
+            binding.refreshLayout.isRefreshing = false
+            Log.d("kmj", "얻는함수의 시간 집합: ${viewModel.pillListItems.value ?: emptyList()}")
+            adapter.updateItems(viewModel.pillListItems.value ?: emptyList())
         })
     }
 
-    fun onInitView(){
-        adapter.setMyItemClickListener(object :PillListAdapter.MyItemClickListener{
+    fun onInitView() {
+        adapter.setMyItemClickListener(object : PillListAdapter.MyItemClickListener {
             override fun onItemClick(position: Int) {
-                Log.d("kmj","${position}번쨰입니다.")
+                Log.d("kmj", "${position}번쨰입니다.")
                 val intent = Intent(activity, DetailAlarmActivity::class.java)
-                intent.putExtra(DetailAlarmActivity.KEY_PILL_NAME,viewModel.tooltipString(position))
+                intent.putExtra(
+                    DetailAlarmActivity.KEY_PILL_NAME,
+                    viewModel.tooltipString(position)
+                )
                 startActivity(intent)
             }
 
@@ -123,14 +141,16 @@ class HomeFragment : Fragment() {
             }
         })
 
-        patientListAdapter.setMyItemClickListener(object :PatientListAdapter.MyItemClickListener{
+        patientListAdapter.setMyItemClickListener(object : PatientListAdapter.MyItemClickListener {
             override fun onItemClick(position: Int, email: String) {
-                Log.d("kmj","$position,$email")
-                viewModel.clickPatientIndex(position,email)
+                Log.d("kmj", "$position,$email")
+                viewModel.clickPatientIndex(position, email)
+                val offset = mWidthPixels / 2 - mWidthPatientItems / 2
+                val layoutManager = binding.patientListRv.layoutManager as LinearLayoutManager
+                layoutManager.scrollToPositionWithOffset(position, offset)
             }
         })
     }
-
 
     companion object {
         @JvmStatic

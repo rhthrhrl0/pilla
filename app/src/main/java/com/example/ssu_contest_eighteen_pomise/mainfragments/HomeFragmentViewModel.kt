@@ -47,10 +47,6 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
         refreshEndEvent.postValue(true)
     }
 
-    fun editBirthDayBtn() {
-
-    }
-
     init {
         // 이거 조건문 걸어서 보호자일때만 실행.
         getPatientList()
@@ -60,9 +56,13 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
         if (position == curPatientIndex) {
             getListItem(false)
         } else {
-            patientListItems.value!!.elementAt(curPatientIndex).isSelected=false
-            patientListItems.value!!.elementAt(position).isSelected=true
-            patientListItems.value=patientListItems.value
+            val copyList= mutableListOf<PatientListDTO>()
+            for (p in patientListItems.value!!){
+                copyList.add(p.copy())
+            }
+            copyList.elementAt(curPatientIndex).isSelected=false
+            copyList.elementAt(position).isSelected=true
+            patientListItems.value=copyList
             curPatientIndex = position
             getListItem(false)
         }
@@ -81,13 +81,11 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
                     for (p in patients) {
                         tempPatientsArray.add(PatientListDTO(p.username, p.email))
                     }
-                    tempPatientsArray.elementAt(0).isSelected = true
                     runBlocking(Dispatchers.Main) {
+                        tempPatientsArray.elementAt(0).isSelected = true
                         patientListItems.value=tempPatientsArray
                         curPatientIndex = 0 //초깃값은 0번 인덱스로.
                     }
-//                    patientListItems.postValue(tempPatientsArray)
-//                    curPatientIndex = 0 //초깃값은 0번 인덱스로.
                 }
             } else {
                 //
