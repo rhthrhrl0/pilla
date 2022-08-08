@@ -36,6 +36,6 @@ interface UserService {
 
     companion object {
         const val BASE_URL =
-            "http://3.38.152.42:80/"
+            "http://43.200.98.211/"
     }
 }
