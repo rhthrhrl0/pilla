@@ -1,9 +1,6 @@
 package com.example.ssu_contest_eighteen_pomise.network
 
-import com.example.ssu_contest_eighteen_pomise.dto.GuardianDTO
-import com.example.ssu_contest_eighteen_pomise.dto.PostAddProtegeModel
-import com.example.ssu_contest_eighteen_pomise.dto.PostDeleteProtegeModel
-import com.example.ssu_contest_eighteen_pomise.dto.ProtegeDTO
+import com.example.ssu_contest_eighteen_pomise.dto.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -26,7 +23,7 @@ interface UserService {
     suspend fun addProtege(
         @Header("Authorization") headerToken: String,
         @Body postDTO: PostAddProtegeModel
-    ): Response<PostAddProtegeModel>
+    ): Response<PostAddProtegeModelResponse>
 
     @POST("v1/deleteProtege")
     suspend fun deleteProtege(
@@ -36,6 +33,6 @@ interface UserService {
 
     companion object {
         const val BASE_URL =
-            "http://3.38.152.42:80/"
+            "http://43.200.98.211/"
     }
 }

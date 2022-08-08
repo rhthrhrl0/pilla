@@ -9,6 +9,7 @@ import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.dto.GuardianInfo
 import com.example.ssu_contest_eighteen_pomise.dto.PostLoginModel
 import com.example.ssu_contest_eighteen_pomise.network.UserService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

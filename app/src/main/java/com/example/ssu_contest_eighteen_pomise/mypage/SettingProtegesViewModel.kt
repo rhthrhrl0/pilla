@@ -43,7 +43,7 @@ class SettingProtegesViewModel(application: Application) : AndroidViewModel(appl
                 .build()
 
             val service = retrofit.create(UserService::class.java)
-            val response = service.addProtege(shPre.accessToken!! ,PostAddProtegeModel(email, phoneNum))
+            val response = service.addProtege(shPre.accessToken!! , PostAddProtegeModel(phoneNum, email))
             if(response.isSuccessful) {
                 succeedAddProtege.value = true
                 retrofit() //리사이클러뷰 업데이트?
