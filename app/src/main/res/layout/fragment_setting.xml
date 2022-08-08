@@ -79,12 +79,25 @@
                 app:text="@{@string/desc1}" />
 
             <com.yourssu.design.system.atom.ListItem
-                android:id="@+id/setting_protectors"
+                android:id="@+id/setting_protege"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:rightIcon="@{Icon.ic_arrow_right_line}"
-                android:onClick="@{()->viewModel.settingProtectors()}"
-                app:text="@{@string/protectors}" />
+                android:onClick="@{()->viewModel.settingProteges()}"
+                app:text="@{@string/proteges}" />
+
+            <com.yourssu.design.system.atom.Divider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray" />
+
+            <com.yourssu.design.system.atom.ListItem
+                android:id="@+id/setting_guardians"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rightIcon="@{Icon.ic_arrow_right_line}"
+                android:onClick="@{()->viewModel.settingGuardians()}"
+                app:text="@{@string/guardians}" />
 
             <com.yourssu.design.system.atom.Divider
                 android:layout_width="match_parent"

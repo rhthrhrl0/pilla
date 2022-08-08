@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.yourssu.design.system.component.TopBar"/>
+        <import type="com.yourssu.design.system.foundation.Icon"/>
+
+        <variable
+            name="viewModel"
+            type="com.example.ssu_contest_eighteen_pomise.mypage.SettingProtegesViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.yourssu.design.system.component.TopBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@{@string/proteges}"
+            app:startIcon="@{Icon.ic_arrow_left_line}"
+            app:endFirstIcon="@{Icon.ic_plus_line}"
+            onStartIconClick="@{()->viewModel.onClickFinish()}"
+            onEndFirstClick="@{()->viewModel.onClickPlus()}"/>
+
+        <com.yourssu.design.system.atom.Divider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/protege_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="7dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/proteges_view"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmViewModel" />
+            type="com.example.ssu_contest_eighteen_pomise.mypage.SettingAlarmViewModel" />
     </data>
 
     <ScrollView

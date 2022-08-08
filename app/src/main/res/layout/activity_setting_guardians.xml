@@ -7,11 +7,10 @@
 
         <import type="com.yourssu.design.system.component.TopBar"/>
         <import type="com.yourssu.design.system.foundation.Icon"/>
-        <import type="com.yourssu.design.system.atom.ListToggleItem"/>
 
         <variable
             name="viewModel"
-            type="com.example.ssu_contest_eighteen_pomise.myPage.SettingProtectorsViewModel" />
+            type="com.example.ssu_contest_eighteen_pomise.mypage.SettingGuardiansViewModel" />
     </data>
 
     <LinearLayout
@@ -22,20 +21,28 @@
         <com.yourssu.design.system.component.TopBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@{@string/protectors}"
+            app:title="@{@string/guardians}"
             app:startIcon="@{Icon.ic_arrow_left_line}"
             onStartIconClick="@{()->viewModel.onClickFinish()}"/>
+
+        <com.yourssu.design.system.atom.Divider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lstUser"
+                android:id="@+id/guardian_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="7dp"
+                android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/protectors_view"/>
+                tools:listitem="@layout/guardians_view"/>
 
         </LinearLayout>
 

@@ -31,21 +31,24 @@
         <receiver
             android:name=".pill_alarm_manager.PillAlarmReceiver"
             android:exported="false" />
-
         <activity
             android:name=".camera.self_add_no_ocr.AddSelfNoOcrActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myPage.SettingProtectorsActivity"
+            android:name=".mypage.SettingProtegesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myPage.SettingMealtimeActivity"
+            android:name=".mypage.SettingGuardiansActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myPage.SettingAlarmActivity"
+            android:name=".mypage.SettingMealtimeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mypage.SettingAlarmActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="protege"
+            type="com.example.ssu_contest_eighteen_pomise.dto.ProtegeInfo" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/protege"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f9f9f9"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/imgUser_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/user_icon" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#E6E6E6"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/protege_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/protege_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="#666666"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/protege_phoneNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="#666666"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

@@ -9,12 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingAlarmActivity
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingMealtimeActivity
-import com.example.ssu_contest_eighteen_pomise.myPage.SettingProtectorsActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingAlarmActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingMealtimeActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingGuardiansActivity
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentSettingBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone
+import com.example.ssu_contest_eighteen_pomise.mypage.SettingProtegesActivity
 
 
 class SettingFragment : Fragment() {
@@ -57,9 +58,25 @@ class SettingFragment : Fragment() {
             startSettingMealtimeActivity()
         })
 
-        viewModel.startSettingProtectorsActivity.observe(viewLifecycleOwner, {
-            startProtectorsActivity()
+        viewModel.startSettingGuardiansActivity.observe(viewLifecycleOwner, {
+            startSettingGuardiansActivity()
         })
+
+        viewModel.startSettingProtegesActivity.observe(viewLifecycleOwner, {
+            startSettingProtegesActivity()
+        })
+    }
+
+    private fun startSettingProtegesActivity() {
+        val intent = Intent(activity, SettingProtegesActivity::class.java)
+        startActivity(intent)
+        activity?.slideRightEnterAndNone()
+    }
+
+    fun startSettingGuardiansActivity() {
+        val intent = Intent(activity, SettingGuardiansActivity::class.java)
+        startActivity(intent)
+        activity?.slideRightEnterAndNone()
     }
 
     fun startSettingMealtimeActivity() {
@@ -70,12 +87,6 @@ class SettingFragment : Fragment() {
 
     fun startSettingAlarmActivity() {
         val intent = Intent(activity, SettingAlarmActivity::class.java)
-        startActivity(intent)
-        activity?.slideRightEnterAndNone()
-    }
-
-    fun startProtectorsActivity() {
-        val intent = Intent(activity, SettingProtectorsActivity::class.java)
         startActivity(intent)
         activity?.slideRightEnterAndNone()
     }
