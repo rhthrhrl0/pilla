@@ -18,7 +18,6 @@ class SettingProtegesViewModel(application: Application) : AndroidViewModel(appl
     val btn_finish = MutableLiveData<Boolean>()
     var protegeList = MutableLiveData<ArrayList<ProtegeInfo>>()
     var addProtege = MutableLiveData<Boolean>()
-    var closeAddProtegeDialog = MutableLiveData<Boolean>()
     val succeedAddProtege=MutableLiveData<Boolean>()
     val failedAddProtege=MutableLiveData<Boolean>()
 

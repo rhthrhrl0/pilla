@@ -12,7 +12,7 @@ class SettingProtegesAdapter:
     RecyclerView.Adapter<SettingProtegesAdapter.SettingProtegesViewHolder>() {
     var protegeList:ArrayList<ProtegeInfo> = ArrayList()
     private lateinit var settingItemClickListener: SettingItemClickListener
-    var pos = -1
+//    var pos = -1
 
     inner class SettingProtegesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
         View.OnCreateContextMenuListener {
@@ -46,6 +46,7 @@ class SettingProtegesAdapter:
         ) {
             (itemView.context as Activity).menuInflater.inflate(R.menu.protege_popup, p0)
         }
+
     }
 
     //클릭리스너들 관리
@@ -56,8 +57,6 @@ class SettingProtegesAdapter:
     fun setSettingItemClickListener(itemClickListener: SettingItemClickListener) {
         settingItemClickListener = itemClickListener
     }
-
-
 
     //리사이클러뷰 기본 호출 함수들
     //1. 사이즈
@@ -76,7 +75,6 @@ class SettingProtegesAdapter:
 //        holder.binding.protectors = store
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun updateItems(items: ArrayList<ProtegeInfo>) {
         protegeList = items
         this.notifyDataSetChanged()

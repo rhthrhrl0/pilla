@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -47,16 +48,12 @@ class SettingProtegesActivity:AppCompatActivity() {
     }
 
     //menu 아이템이 선택되었을 때 할 작업을 정의
+    //최종적으로 선택한 리사이클러뷰의 email을 레트로핏으로 전송해주면 됨
     override fun onContextItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId) {
-            R.id.menu_edit_protege -> {
-                Log.d("kyb", "수정버튼 클릭")
-                Toast.makeText(this, "수정버튼 클릭", Toast.LENGTH_SHORT).show()
-            }
             R.id.menu_delete_protege -> {
-                Log.d("kyb", "삭제버튼 클릭")
-                Toast.makeText(this, "삭제버튼 클릭", Toast.LENGTH_SHORT).show()
+                Log.d("kyb", findViewById<TextView>(R.id.protege_email).toString())
             }
         }
         return true
@@ -73,10 +70,6 @@ class SettingProtegesActivity:AppCompatActivity() {
 
         viewModel.addProtege.observe(this, {
             loadAddPage()
-        })
-
-        viewModel.closeAddProtegeDialog.observe(this, {
-            closeAddProtegeDialog()
         })
 
         viewModel.succeedAddProtege.observe(this, {
@@ -99,8 +92,7 @@ class SettingProtegesActivity:AppCompatActivity() {
             SettingProtegesAdapter.SettingItemClickListener {
 
             override fun onItemLongClick(position: Int) { //수정,삭제 팝업 띄우기
-                Log.d("kyb", "position : "+position.toString())
-                Log.d("kyb", "onItemLongClick works")
+                Log.d("kyb", "onItemLongClick position : "+position.toString())
             }
 
         })
