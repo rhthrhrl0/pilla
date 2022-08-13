@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentHomeBinding
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmActivity
-import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillListAdapter
+import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillAlarmListAdapter
 import com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.PatientListAdapter
 import com.yourssu.design.system.atom.ToolTip
 import com.yourssu.design.undercarriage.size.dpToIntPx
@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModels()
     private val patientListAdapter = PatientListAdapter()
-    private val adapter = PillListAdapter()
+    private val adapter = PillAlarmListAdapter()
     var tooltipBuilders: ToolTip.Builder? = null
     lateinit var wd: WindowManager
     lateinit var d: Display
@@ -80,10 +80,18 @@ class HomeFragment : Fragment() {
         Log.d("kmj", "뷰모델옵저버 세팅 끝")
 
         onInitView()
-
     }
 
     fun onViewModelInit() {
+        viewModel.isGuardianLiveData.observe(viewLifecycleOwner, {
+            // 초기화 작업...
+            if (it) {
+
+            } else {
+                binding.patientListRv.visibility = View.GONE
+            }
+        })
+
         viewModel.refreshStartEvent.observe(viewLifecycleOwner, {
             binding.refreshLayout.isRefreshing = true
         })
@@ -98,27 +106,39 @@ class HomeFragment : Fragment() {
             viewModel.getListItem(true)
         })
 
+        viewModel.pillListItems.observe(viewLifecycleOwner, {
+            adapter.updateItems(it ?: emptyList())
+            if (it.isEmpty()) {
+                binding.refreshLayout.visibility=View.GONE
+                binding.emptyListExplainText.visibility=View.VISIBLE
+            } else {
+                binding.refreshLayout.visibility=View.VISIBLE
+                binding.emptyListExplainText.visibility=View.GONE
+            }
+        })
+
         viewModel.refreshEndEvent.observe(viewLifecycleOwner, {
             binding.refreshLayout.isRefreshing = false
-            adapter.updateItems(viewModel.pillListItems.value ?: emptyList())
             Toast.makeText(context, "알람목록을 갱신했습니다.", Toast.LENGTH_SHORT).show()
         })
 
         viewModel.refreshInitWithViewModel.observe(viewLifecycleOwner, {
             binding.refreshLayout.isRefreshing = false
-            Log.d("kmj", "얻는함수의 시간 집합: ${viewModel.pillListItems.value ?: emptyList()}")
-            adapter.updateItems(viewModel.pillListItems.value ?: emptyList())
+        })
+
+        viewModel.refreshFailedEvent.observe(viewLifecycleOwner, {
+            binding.refreshLayout.isRefreshing = false
         })
     }
 
     fun onInitView() {
-        adapter.setMyItemClickListener(object : PillListAdapter.MyItemClickListener {
+        adapter.setMyItemClickListener(object : PillAlarmListAdapter.MyItemClickListener {
             override fun onItemClick(position: Int) {
                 Log.d("kmj", "${position}번쨰입니다.")
                 val intent = Intent(activity, DetailAlarmActivity::class.java)
                 intent.putExtra(
                     DetailAlarmActivity.KEY_PILL_NAME,
-                    viewModel.tooltipString(position)
+                    viewModel.pillListItems.value?.elementAt(position)
                 )
                 startActivity(intent)
             }

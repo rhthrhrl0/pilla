@@ -56,6 +56,7 @@ class SettingFragmentViewModel(application: Application) : AndroidViewModel(appl
 
             // 아직 리프레쉬 토큰으로 액세스토큰 유효한지 검증 검치지 않음.
             if ((shPre.accessToken != null) and !(shPre.accessToken!!.isEmpty())) {
+                service.deleteTokenRequest(shPre.refreshToken!!)
                 val response = service.logoutRequest(shPre.accessToken!!)
                 if (response.isSuccessful) {
                     logoutVar.postValue(true)

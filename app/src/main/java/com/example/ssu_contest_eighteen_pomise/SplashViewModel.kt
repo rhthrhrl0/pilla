@@ -41,13 +41,19 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
                     shPre.accessToken=refreshUser.accessToken
                     shPre.refreshToken=refreshUser.refreshToken
                     shPre.email=refreshUser.email
+
                     Log.d("kmj", "refresh후: "+refreshUser.refreshToken!!)
                     Log.d("kmj", "refresh후: "+refreshUser.accessToken!!)
                     Log.d("kmj", "refresh후: "+refreshUser.email!!)
                     canLogin.postValue(true)
-
                 } else {
                     Log.d("kmj","자동로그인 실패")
+                    shPre.refreshToken = ""
+                    shPre.accessToken = ""
+                    shPre.name = ""
+                    shPre.email = ""
+                    shPre.phoneNumber=""
+                    shPre.isGuardian=false
                     canNotLogin.postValue(true)
                 }
 

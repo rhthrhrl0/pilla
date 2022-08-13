@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1004662009528",
+    "project_id": "ssucontesteighteen",
+    "storage_bucket": "ssucontesteighteen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004662009528:android:aeb8c0c195b4912856ce4d",
+        "android_client_info": {
+          "package_name": "com.example.ssu_contest_eighteen_pomise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1004662009528-36i146ldggt20sk3lotkrfbacec09cjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXLBQyOFWNuQ3Yo0oADj2Pkq9_4Wxo4Co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004662009528-36i146ldggt20sk3lotkrfbacec09cjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,8 @@ import com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.Patien
 import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.RegisteredPill
 import retrofit2.Response
 import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Header
 
 interface LoginService {
     @POST("v1/signIn")
@@ -22,16 +24,25 @@ interface LoginService {
     ): Response<RefreshDTO>
 
     @POST("v1/logout")
-    suspend fun logoutRequest(@Header("Authorization") headerToken: String):Response<Void>
+    suspend fun logoutRequest(@Header("Authorization") headerToken: String): Response<Void>
+
+    @POST("v1/registerToken")
+    suspend fun registerTokenRequest(
+        @Header("Authorization") headerToken: String,
+        @Body token: String
+    ): Response<Token>
+
+    @POST("v1/deleteToken")
+    suspend fun deleteTokenRequest(@Header("Authorization") headerToken: String): Response<Token>
 
     @POST("v1/registerPill")
-    suspend fun registerPillRequest(@Header("Authorization") headerToken: String , @Body pills:List<RegisteredPill>):Response<List<Int>>
+    suspend fun registerPillRequest(
+        @Header("Authorization") headerToken: String,
+        @Body pills: List<RegisteredPill>
+    ): Response<List<Int>>
 
     @GET("v1/getProtege")
-    suspend fun getPatientListRequest(@Header("Authorization") headerToken: String):Response<PatientListResponse>
-
-    @POST("v1/getProtegePillRecord")
-    suspend fun postGetProtegePillRecord(@Header("Authorization") headerToken: String,@Body email:String):Response<Void>
+    suspend fun getPatientListRequest(@Header("Authorization") headerToken: String): Response<PatientListResponse>
 
     companion object {
         const val BASE_URL =

@@ -356,6 +356,7 @@
                         <com.yourssu.design.system.atom.BoxButton
                             android:id="@+id/add_pill_btn"
                             isDisabled="@{viewModel.isPillAddButtonisDisabled()}"
+                            android:clickable="@{!viewModel.isPillAddButtonisDisabled()}"
                             size="@{BoxButton.Medium}"
                             text="@{@string/add_pill}"
                             type="@{BoxButton.FILLED}"

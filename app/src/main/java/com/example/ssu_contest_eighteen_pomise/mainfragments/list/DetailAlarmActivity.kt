@@ -2,12 +2,15 @@ package com.example.ssu_contest_eighteen_pomise.mainfragments.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityDetailAlarmBinding
 
 class DetailAlarmActivity : AppCompatActivity() {
+    //https://www.data.go.kr/iim/api/selectAPIAcountView.do
+
     private lateinit var binding:ActivityDetailAlarmBinding
     private val viewModel:DetailAlarmViewModel by viewModels()
 
@@ -18,8 +21,10 @@ class DetailAlarmActivity : AppCompatActivity() {
         binding.viewModel=viewModel
 
         onViewModelInit()
-
-        viewModel.pillName= intent.getStringExtra(KEY_PILL_NAME).toString()
+        Log.d("kmj","여기됨.")
+        viewModel.pillAlarmDto= intent.getSerializableExtra(KEY_PILL_NAME) as AlarmListDTO
+        viewModel.getPillDetailInfo()
+        Log.d("kmj","여기됨.")
     }
 
     fun onViewModelInit() {

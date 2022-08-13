@@ -445,6 +445,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         )
 
         val pillCategoryList = listOf<String>(
+            "선택안함",
             "감기약",
             "소화기계약",
             "해열,진통,소염제",

@@ -97,6 +97,9 @@ class SettingFragment : Fragment() {
         shPre.accessToken = ""
         shPre.name = ""
         shPre.email = ""
+        shPre.phoneNumber=""
+        shPre.isGuardian=false
+        // 서버에 해당 fcm토큰 등록 취소 시키는 함수 호출해야 함.
         val intent = Intent(activity, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

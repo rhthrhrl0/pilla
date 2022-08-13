@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAlarmBinding
-import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideNoneAndLeftExit
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.justScaleUpAndLeftExit
 
 class AlarmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAlarmBinding
@@ -21,6 +21,6 @@ class AlarmActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        slideNoneAndLeftExit()
+        justScaleUpAndLeftExit()
     }
 }

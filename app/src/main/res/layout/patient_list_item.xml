@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:background="@{patient.isSelectedLiveData() ? @drawable/patient_selected_background : @drawable/patient_non_selected_background}"
+            android:background="@{patient.isSelectedLiveData() ? @drawable/is_selected_patient: @drawable/is_non_selected_patient}"
             android:ellipsize="marquee"
             android:gravity="center"
             android:singleLine="true"
