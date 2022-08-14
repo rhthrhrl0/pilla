@@ -44,6 +44,11 @@ class SettingFragmentViewModel(application: Application) : AndroidViewModel(appl
         userEmail = shPre.email.toString()
     }
 
+    fun controlGuardianProtege() {
+        val shPre = App.token_prefs
+        shPre.email.toString()
+    }
+
     fun logoutBtnClick() {
         val shPre = App.token_prefs
         viewModelScope.launch(Dispatchers.IO) {

@@ -11,6 +11,7 @@ import com.example.ssu_contest_eighteen_pomise.dto.ProtegeInfo
 class SettingProtegesAdapter:
     RecyclerView.Adapter<SettingProtegesAdapter.SettingProtegesViewHolder>() {
     var protegeList:ArrayList<ProtegeInfo> = ArrayList()
+    lateinit var clickPosition:String
     private lateinit var settingItemClickListener: SettingItemClickListener
 //    var pos = -1
 
@@ -24,6 +25,7 @@ class SettingProtegesAdapter:
         init { //리사이클러뷰 온클릭이벤트 설정
             binding.protege.setOnLongClickListener {
                 settingItemClickListener.onItemLongClick(adapterPosition)
+                clickPosition = adapterPosition.toString()
                 return@setOnLongClickListener false
             }
 //            itemView.setOnLongClickListener {

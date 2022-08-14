@@ -29,31 +29,31 @@ class SettingGuardiansActivity:AppCompatActivity() {
         viewModel.retrofit()
     }
 
-    //context menu 관리
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.guardian_popup, menu)
-    }
-
-    //아이템이 선택되었을 때 할 작업을 정의
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-
-        when(item.itemId) {
-            R.id.menu_edit_guardian -> {
-                Log.d("kyb", "수정버튼 클릭")
-                Toast.makeText(this, "수정버튼 클릭", Toast.LENGTH_SHORT).show()
-            }
-            R.id.menu_delete_guardian -> {
-                Log.d("kyb", "삭제버튼 클릭")
-                Toast.makeText(this, "삭제버튼 클릭", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return true
-    }
+//    //context menu 관리
+//    override fun onCreateContextMenu(
+//        menu: ContextMenu?,
+//        v: View?,
+//        menuInfo: ContextMenu.ContextMenuInfo?
+//    ) {
+//        super.onCreateContextMenu(menu, v, menuInfo)
+//        menuInflater.inflate(R.menu.guardian_popup, menu)
+//    }
+//
+//    //아이템이 선택되었을 때 할 작업을 정의
+//    override fun onContextItemSelected(item: MenuItem): Boolean {
+//
+//        when(item.itemId) {
+//            R.id.menu_edit_guardian -> {
+//                Log.d("kyb", "수정버튼 클릭")
+//                Toast.makeText(this, "수정버튼 클릭", Toast.LENGTH_SHORT).show()
+//            }
+//            R.id.menu_delete_guardian -> {
+//                Log.d("kyb", "삭제버튼 클릭")
+//                Toast.makeText(this, "삭제버튼 클릭", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//        return true
+//    }
 
     private fun onViewModelInit() {
         viewModel.btn_finish.observe(this, {
@@ -71,15 +71,14 @@ class SettingGuardiansActivity:AppCompatActivity() {
             this.adapter = this@SettingGuardiansActivity.adapter
         }
 
-        adapter.setSettingItemClickListener(object :
-            SettingGuardiansAdapter.SettingItemClickListener {
-
-            override fun onItemLongClick(position: Int) { //수정,삭제 팝업 띄우기
-                Log.d("kyb", "position : "+position.toString())
-                Log.d("kyb", "onItemLongClick works")
-            }
-
-        })
+//        adapter.setSettingItemClickListener(object :
+//            SettingGuardiansAdapter.SettingItemClickListener {
+//
+//            override fun onItemLongClick(position: Int) { //수정,삭제 팝업 띄우기
+//                Log.d("kyb", "position : "+position.toString())
+//                Log.d("kyb", "onItemLongClick works")
+//            }
+//        })
 
 //        adapter.updateItems(viewModel.protectorsList.value!!)
     }

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.dto.PostAddProtegeModel
+import com.example.ssu_contest_eighteen_pomise.dto.PostDeleteProtegeModel
 import com.example.ssu_contest_eighteen_pomise.dto.ProtegeInfo
 import com.example.ssu_contest_eighteen_pomise.network.UserService
 import com.squareup.moshi.Moshi
@@ -20,6 +21,8 @@ class SettingProtegesViewModel(application: Application) : AndroidViewModel(appl
     var addProtege = MutableLiveData<Boolean>()
     val succeedAddProtege=MutableLiveData<Boolean>()
     val failedAddProtege=MutableLiveData<Boolean>()
+    val succeedDeleteProtege=MutableLiveData<Boolean>()
+    val failedDeleteProtege=MutableLiveData<Boolean>()
 
     lateinit var protege:PostAddProtegeModel
 
@@ -29,6 +32,28 @@ class SettingProtegesViewModel(application: Application) : AndroidViewModel(appl
 
     fun onClickPlus() {
         addProtege.value = true
+    }
+
+    fun deleteProtege(email:String) {
+        val shPre = App.token_prefs
+
+        viewModelScope.launch {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(UserService.BASE_URL)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+
+            val service = retrofit.create(UserService::class.java)
+            val response = service.deleteProtege(shPre.accessToken!!, PostDeleteProtegeModel(email))
+            if(response.isSuccessful) {
+                succeedDeleteProtege.value = true
+                retrofit()
+            }
+            else {
+                Log.d("kyb", "환자 삭제 실패 : "+ (response.errorBody()?.string()))
+                failedDeleteProtege.value = true
+            }
+        }
     }
 
     fun addProtege(email:String, phoneNum:String) {

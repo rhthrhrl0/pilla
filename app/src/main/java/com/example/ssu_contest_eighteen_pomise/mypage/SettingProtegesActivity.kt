@@ -53,7 +53,8 @@ class SettingProtegesActivity:AppCompatActivity() {
 
         when(item.itemId) {
             R.id.menu_delete_protege -> {
-                Log.d("kyb", findViewById<TextView>(R.id.protege_email).toString())
+                Log.d("kyb", "deleteProtege request")
+                viewModel.deleteProtege(adapter.protegeList[Integer.parseInt(adapter.clickPosition)].email)
             }
         }
         return true
@@ -78,6 +79,14 @@ class SettingProtegesActivity:AppCompatActivity() {
 
         viewModel.failedAddProtege.observe(this, {
             Toast.makeText(this, "추가에 실패했습니다", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.succeedDeleteProtege.observe(this, {
+            Toast.makeText(this, "환자가 삭제되었습니다", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.failedDeleteProtege.observe(this, {
+            Toast.makeText(this, "삭제에 실패했습니다", Toast.LENGTH_SHORT).show()
         })
     }
 

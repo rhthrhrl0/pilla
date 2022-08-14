@@ -12,26 +12,23 @@ import com.example.ssu_contest_eighteen_pomise.dto.GuardianInfo
 class SettingGuardiansAdapter:
     RecyclerView.Adapter<SettingGuardiansAdapter.SettingGuardiansViewHolder>() {
     var guardianList:ArrayList<GuardianInfo> = ArrayList()
-    private lateinit var settingItemClickListener: SettingItemClickListener
     var pos = -1
 
-    inner class SettingGuardiansViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
-        View.OnCreateContextMenuListener {
+    inner class SettingGuardiansViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val binding = GuardiansViewBinding.bind(itemView)
         val guardianName = binding.guardianName
         val guardianEmail = binding.guardianEmail
         val guardianPhoneNum = binding.guardianPhoneNum
 
         init { //리사이클러뷰 온클릭이벤트 설정
-            binding.guardian.setOnLongClickListener {
-                settingItemClickListener.onItemLongClick(adapterPosition)
-                return@setOnLongClickListener false
-            }
+//            binding.guardian.setOnLongClickListener {
+//                return@setOnLongClickListener false
+//            }
 //            itemView.setOnLongClickListener {
 //                pos = layoutPosition
 //                return@setOnLongClickListener false
 //            }
-            itemView.setOnCreateContextMenuListener(this)
+//            itemView.setOnCreateContextMenuListener(this)
         }
 
         fun bind(guardianInfo: GuardianInfo) {
@@ -40,23 +37,23 @@ class SettingGuardiansAdapter:
             guardianPhoneNum.text = guardianInfo.phoneNumber //지금 phoneNumber 정보가 없어서 안뜨는듯
         }
 
-        override fun onCreateContextMenu(
-            p0: ContextMenu?,
-            p1: View?,
-            p2: ContextMenu.ContextMenuInfo?
-        ) {
-            (itemView.context as Activity).menuInflater.inflate(R.menu.guardian_popup, p0)
-        }
+//        override fun onCreateContextMenu(
+//            p0: ContextMenu?,
+//            p1: View?,
+//            p2: ContextMenu.ContextMenuInfo?
+//        ) {
+//            (itemView.context as Activity).menuInflater.inflate(R.menu.guardian_popup, p0)
+//        }
     }
 
-    //클릭리스너들 관리
-    interface SettingItemClickListener {
-        fun onItemLongClick(position: Int)
-    }
-    //액티비티에서 클릭리스너 구현체를 받아서 주입
-    fun setSettingItemClickListener(itemClickListener: SettingItemClickListener) {
-        settingItemClickListener = itemClickListener
-    }
+//    //클릭리스너들 관리
+//    interface SettingItemClickListener {
+//        fun onItemLongClick(position: Int)
+//    }
+//    //액티비티에서 클릭리스너 구현체를 받아서 주입
+//    fun setSettingItemClickListener(itemClickListener: SettingItemClickListener) {
+//        settingItemClickListener = itemClickListener
+//    }
 
 
 
