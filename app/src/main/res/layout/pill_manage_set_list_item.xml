@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.ssu_contest_eighteen_pomise.mainfragments.pill_manage.PillSetDTO" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/join_btn"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/pill_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/pill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pill_name"
+            pillName="@{item}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/pill_image"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/pill_category"
+            pillCategory="@{item}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/pill_image"
+            app:layout_constraintTop_toBottomOf="@id/pill_name"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/registered_count"
+            pillSetCount="@{item}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/pill_image"
+            app:layout_constraintTop_toBottomOf="@id/pill_category"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/registered_date"
+            pillSetRegisteredDate="@{item}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pill_image"
+            app:layout_constraintTop_toBottomOf="@id/registered_count"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/expire_date"
+            pillSetExpireDate="@{item}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/registered_date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

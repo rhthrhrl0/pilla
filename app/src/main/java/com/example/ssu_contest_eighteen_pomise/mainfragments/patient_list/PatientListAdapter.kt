@@ -1,26 +1,36 @@
 package com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.PatientListItemBinding
 import com.example.ssu_contest_eighteen_pomise.databinding.PillListItemBinding
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.AlarmListDTO
 
-class PatientListAdapter : RecyclerView.Adapter<PatientListAdapter.PatientListViewHolder>() {
+class PatientListAdapter :
+    ListAdapter<PatientListDTO, PatientListAdapter.PatientListViewHolder>(PatientCompator()) {
     //아이템 뷰 정보를 가지고 있는 클래스임.
-    inner class PatientListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = PatientListItemBinding.bind(itemView)
+    inner class PatientListViewHolder(private val binding: PatientListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: PatientListDTO) {
+            binding.patient = item
+            binding.executePendingBindings()
+        }
+    }
 
-        init {
-            binding.itemLinearLayout.setOnClickListener {
-                myItemClickListener?.onItemClick(
-                    adapterPosition,
-                    mItems.elementAt(adapterPosition).email
-                )
-            }
+    class PatientCompator:DiffUtil.ItemCallback<PatientListDTO>(){
+        override fun areItemsTheSame(oldItem: PatientListDTO, newItem: PatientListDTO): Boolean {
+            return oldItem.email == newItem.email
+        }
+
+        override fun areContentsTheSame(oldItem: PatientListDTO, newItem: PatientListDTO): Boolean {
+            return oldItem == newItem
         }
     }
 
@@ -34,24 +44,28 @@ class PatientListAdapter : RecyclerView.Adapter<PatientListAdapter.PatientListVi
         myItemClickListener = itemClickListener
     }
 
-    private var mItems: List<PatientListDTO> = ArrayList() //초반에 그냥 초기화 해놓는게 널에러 안나고 좋음.
-
+    //private var mItems: List<PatientListDTO> = ArrayList() //초반에 그냥 초기화 해놓는게 널에러 안나고 좋음.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientListViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.patient_list_item, parent, false)
-        return PatientListViewHolder(view)
+        val binding: PatientListItemBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.patient_list_item,
+            parent,
+            false
+        )
+        val viewHolder = PatientListViewHolder(binding)
+        binding.apply {
+            binding.itemLinearLayout.setOnClickListener {
+                myItemClickListener?.onItemClick(
+                    viewHolder.adapterPosition,
+                    currentList.elementAt(viewHolder.adapterPosition).email
+                )
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: PatientListViewHolder, position: Int) {
-        val store: PatientListDTO = mItems[position] //뷰홀더와 연결시킬 Store를 얻음.
-        holder.binding.patient = store //데이터바인딩을 위해 연결.
+        holder.bind(getItem(position))
     }
 
-    //외부에서 새로운 데이터를 주입해서 교체시킴.
-    fun updateItems(mItems: List<PatientListDTO>) {
-        this.mItems = mItems
-        notifyDataSetChanged() //UI 갱신
-    }
-
-    override fun getItemCount() = mItems.size
 }

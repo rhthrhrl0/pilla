@@ -2,7 +2,11 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdk 31
@@ -15,6 +19,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "SAMPLE_API_KEY", properties["PILL_API_KEY"]
     }
 
     buildTypes {
@@ -85,5 +91,18 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // fcm을 위해.
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.6'
+
+    // lottie 애니메이션
+    implementation 'com.airbnb.android:lottie:5.2.0'
+
+    // 오레오 이하 버전에서 시간관련데이터를 위해
+    implementation 'joda-time:joda-time:2.10.10'
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
 }

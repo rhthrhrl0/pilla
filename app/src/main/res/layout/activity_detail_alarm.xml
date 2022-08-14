@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.yourssu.design.system.foundation.Icon" />
 
         <import type="com.yourssu.design.system.atom.Divider" />
+
         <variable
             name="viewModel"
             type="com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmViewModel" />
@@ -15,8 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mainfragments.list.DetailAlarmActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".mainfragments.list.DetailAlarmActivity">
 
         <com.yourssu.design.system.component.TopBar
             android:id="@+id/topbar"
@@ -28,10 +30,7 @@
             app:onStartIconClick="@{()->viewModel.onClickFinish()}"
             app:startIcon="@{Icon.ic_arrow_left_line}"
             app:title="@{@string/alarm_specific_information}" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{viewModel.pillName}"/>
+
 
     </LinearLayout>
 </layout>

@@ -15,3 +15,10 @@ fun Activity.slideRightEnterAndNone(){
 fun Activity.slideNoneAndLeftExit(){
     overridePendingTransition(R.anim.none, R.anim.slide_right_exit)
 }
+fun Activity.slideRightEnterAndJustScaleDown(){
+    overridePendingTransition(R.anim.slide_right_enter, R.anim.just_scale_down)
+}
+fun Activity.justScaleUpAndLeftExit(){
+    overridePendingTransition(R.anim.just_scale_up, R.anim.slide_right_exit)
+}
+

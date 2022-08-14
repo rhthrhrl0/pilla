@@ -104,7 +104,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val isPillAddButtonisDisabled = MutableLiveData(true)
     fun isCanPillAdd() {
         isPillAddButtonisDisabled.value =
-            pillNameString.isBlank() || pillCategoryString.value == "선택안함"
+            pillNameString.isBlank() || pillCategoryInt==0
     }
 
     init {

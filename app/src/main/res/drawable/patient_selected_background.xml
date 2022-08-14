@@ -7,13 +7,13 @@
                 android:topLeftRadius="30dp"
                 android:topRightRadius="30dp" />
             <stroke
-                android:width="2dp"
+                android:width="0.5dp"
                 android:color="@color/gray" />
         </shape>
     </item>
     <item android:top="30dp"
-        android:left="2dp"
-        android:right="2dp">
+        android:left="0.5dp"
+        android:right="0.5dp">
         <shape android:shape="rectangle">
             <solid android:color="@color/white" />
         </shape>

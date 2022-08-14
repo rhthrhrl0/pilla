@@ -57,4 +57,5 @@
     <string name="add_protege">피보호자 추가</string>
     <string name="add_protege_phoneNum">추가할 환자 전화번호 입력</string>
     <string name="add_protege_email">추가할 환자 이메일 입력</string>
+    <string name="registered_pill_list_manage">등록된 약 목록 관리</string>
 </resources>

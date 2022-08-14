@@ -5,6 +5,8 @@ data class LoginUserDTO(
     var username: String,
     var role: String,
     var accessToken: String,
-    var refreshToken: String
+    var refreshToken: String,
+    var isGuardian:Boolean,
+    var phoneNumber:String
 )
 

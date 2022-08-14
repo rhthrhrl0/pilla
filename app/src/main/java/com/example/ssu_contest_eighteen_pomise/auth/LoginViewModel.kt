@@ -6,9 +6,12 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.dto.LoginUserDTO
 import com.example.ssu_contest_eighteen_pomise.dto.PostLoginModel
+import com.example.ssu_contest_eighteen_pomise.dto.Token
 import com.example.ssu_contest_eighteen_pomise.network.LoginService
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -19,9 +22,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     var idString = ""
     var pwdString = ""
     val loginVar=MutableLiveData<Boolean>()
+    val getFcmTokenVar=MutableLiveData<Boolean>()
     val joinVar=MutableLiveData<Boolean>()
     val backVar=MutableLiveData<Boolean>()
     val failedLoginToast=MutableLiveData<Boolean>()
+    val realLoginVar=MutableLiveData<Boolean>()
 
     lateinit var loginUser:LoginUserDTO
 
@@ -54,7 +59,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     PostLoginModel(idString.toString(),pwdString.toString())
                 )
 
-                Log.d("kmj", response.isSuccessful.toString())
+                Log.d("kmj", "로그인 여부:"+response.isSuccessful.toString())
                 if (response.isSuccessful){
                     loginUser= response.body()!!
                     loginVar.postValue(true)
@@ -63,6 +68,29 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     failedLoginToast.postValue(true)
                 }
 
+            }
+        }
+    }
+
+    fun postFcmToken(userToken:String,fcmToken:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(LoginService.BASE_URL)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+
+            val service = retrofit.create(LoginService::class.java)
+            Log.d("kmj","사람의 리프레쉬토큰:"+userToken)
+            Log.d("kmj","토큰:"+fcmToken)
+            val response=service.registerTokenRequest(userToken,fcmToken)
+
+            Log.d("kmj","토큰 보낸 여부:"+response.isSuccessful.toString())
+            if (response.isSuccessful){
+                realLoginVar.postValue(true)
+            }
+            else{
+                failedLoginToast.postValue(true)
+                Log.d("kmj","토큰 보내기 실패...:"+response.errorBody().toString())
             }
         }
     }

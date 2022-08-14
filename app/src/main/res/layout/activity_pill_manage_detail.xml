@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.yourssu.design.system.foundation.Icon" />
+
+        <import type="com.yourssu.design.system.atom.Divider" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ssu_contest_eighteen_pomise.mainfragments.pill_manage.PillManageDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".mainfragments.pill_manage.PillManageDetailActivity">
+
+        <com.yourssu.design.system.component.TopBar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onStartIconClick="@{()->viewModel.onClickFinish()}"
+            app:startIcon="@{Icon.ic_arrow_left_line}"
+            app:title="@{@string/registered_pill_list_manage}" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="8dp"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp"
+            />
+
+        <TextView
+            android:id="@+id/pill_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.pillName}"
+            app:layout_constraintStart_toStartOf="@id/left_guide_line"
+            app:layout_constraintEnd_toEndOf="@id/right_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/topbar"/>
+
+        <TextView
+            android:id="@+id/pill_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.pillCategory}"
+            app:layout_constraintStart_toStartOf="@id/left_guide_line"
+            app:layout_constraintEnd_toEndOf="@id/right_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/pill_name"/>
+
+        <TextView
+            android:id="@+id/pill_registered_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.pillRegisteredDate}"
+            app:layout_constraintStart_toStartOf="@id/left_guide_line"
+            app:layout_constraintEnd_toStartOf="@id/pill_expire_date"
+            app:layout_constraintTop_toBottomOf="@id/pill_category"/>
+
+        <TextView
+            android:id="@+id/pill_expire_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.pillExpireDate}"
+            app:layout_constraintStart_toEndOf="@id/pill_registered_date"
+            app:layout_constraintEnd_toEndOf="@id/right_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/pill_category"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/time_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pill_expire_date"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
