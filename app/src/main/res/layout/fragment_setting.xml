@@ -8,7 +8,11 @@
         <import type="com.yourssu.design.system.atom.ListItem" />
         <import type="com.yourssu.design.system.foundation.Icon"/>
         <import type="com.yourssu.design.system.atom.Divider"/>
+        <import type="android.view.View"/>
 
+        <variable
+            name="isGuardian"
+            type="Boolean" />
         <variable
             name="viewModel"
             type="com.example.ssu_contest_eighteen_pomise.mainfragments.SettingFragmentViewModel" />
@@ -84,6 +88,7 @@
                 android:layout_height="wrap_content"
                 app:rightIcon="@{Icon.ic_arrow_right_line}"
                 android:onClick="@{()->viewModel.settingProteges()}"
+                android:visibility="@{isGuardian?View.VISIBLE:View.GONE}"
                 app:text="@{@string/proteges}" />
 
             <com.yourssu.design.system.atom.Divider
@@ -97,6 +102,7 @@
                 android:layout_height="wrap_content"
                 app:rightIcon="@{Icon.ic_arrow_right_line}"
                 android:onClick="@{()->viewModel.settingGuardians()}"
+                android:visibility="@{isGuardian?View.GONE:View.VISIBLE}"
                 app:text="@{@string/guardians}" />
 
             <com.yourssu.design.system.atom.Divider

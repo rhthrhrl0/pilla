@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_edit_protege"
-        android:title="@string/edit_value"/>
     <item android:id="@+id/menu_delete_protege"
         android:title="@string/delete_value"/>
 </menu>

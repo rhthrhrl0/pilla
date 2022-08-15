@@ -33,8 +33,9 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val shPre = App.token_prefs
         binding = FragmentSettingBinding.inflate(inflater, container, false)
-        viewModel.controlGuardianProtege()
+        binding.isGuardian = (shPre.isGuardian==true)
         return binding.root
     }
 
@@ -66,6 +67,7 @@ class SettingFragment : Fragment() {
         viewModel.startSettingProtegesActivity.observe(viewLifecycleOwner, {
             startSettingProtegesActivity()
         })
+
     }
 
     private fun startSettingProtegesActivity() {
