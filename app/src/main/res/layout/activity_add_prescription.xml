@@ -12,26 +12,34 @@
             type="com.example.ssu_contest_eighteen_pomise.camera.AddPrescriptionViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical"
         tools:context=".camera.AddPrescriptionActivity">
 
         <com.yourssu.design.system.component.TopBar
+            android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:onStartIconClick="@{() -> viewModel.onClickFinish()}"
             app:startIcon="@{Icon.ic_arrow_left_line}"
             app:title="@{@string/prescription_add}" />
 
         <LinearLayout
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/find_picture_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_bar">
 
             <com.yourssu.design.system.atom.Text
                 android:layout_width="match_parent"
@@ -49,25 +57,36 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/find_picture_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mainColor"
+            android:onClick="@{()->viewModel.onClickOCR()}"
             android:padding="8dp"
             android:text="@{@string/ocr_camera_on}"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:onClick="@{()->viewModel.onClickOCR()}"/>
+            app:layout_constraintBottom_toTopOf="@+id/self_no_ocr_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/self_no_ocr_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#E5F9EE"
+            android:onClick="@{()->viewModel.onClickSelfAddAlarm()}"
             android:padding="8dp"
             android:text="@{@string/no_picture}"
             android:textColor="@color/mainColor"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:onClick="@{()->viewModel.onClickSelfAddAlarm()}"/>
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/find_picture_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

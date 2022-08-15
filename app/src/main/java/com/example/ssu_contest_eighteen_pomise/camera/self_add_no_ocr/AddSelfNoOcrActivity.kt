@@ -1,22 +1,18 @@
 package com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAddSelfNoOcrBinding
-import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideNoneAndDownExit
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.yourssu.design.system.atom.Picker
-import com.yourssu.design.system.atom.ToolTip
 import com.yourssu.design.system.foundation.Typo
 import com.yourssu.design.system.language.bottomSheet
 import com.yourssu.design.system.language.picker

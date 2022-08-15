@@ -80,7 +80,7 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
 
-        startActivityNextStep(resultCode)
+        startActivityNextStep(requestCode)
     }
 
     fun startActivityNextStep(requestCode:Int){

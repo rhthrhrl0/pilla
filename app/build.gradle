@@ -21,6 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "SAMPLE_API_KEY", properties["PILL_API_KEY"]
+        buildConfigField "String", "OCR_API_SECRET_KEY", properties["OCR_SECRET_KEY"]
     }
 
     buildTypes {
