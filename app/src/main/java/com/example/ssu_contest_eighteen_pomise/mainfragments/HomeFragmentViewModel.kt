@@ -53,7 +53,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     val patientListItems = MutableLiveData<List<PatientListDTO>>()
     val curPatientEmail = MutableLiveData<String>()
-    private var curPatientIndex = 0
+    var curPatientIndex = 0
         set(value) {
             field = value
             curPatientEmail.value = patientListItems.value?.elementAt(value)?.email ?: ""
@@ -75,7 +75,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
             getPatientList()
         } else {
             isGuardianLiveData.value = false
-            setMyData()
+            //setMyData()
         }
     }
 

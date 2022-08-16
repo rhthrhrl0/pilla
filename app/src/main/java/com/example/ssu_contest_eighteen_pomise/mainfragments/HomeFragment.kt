@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentHomeBinding
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmActivity
@@ -170,6 +171,15 @@ class HomeFragment : Fragment() {
                 layoutManager.scrollToPositionWithOffset(position, offset)
             }
         })
+    }
+
+    override fun onStart() {
+        Log.d("kmj","스타트")
+        val shPre = App.token_prefs
+        if (shPre.isGuardian != true) {
+            viewModel.setMyData()
+        }
+        super.onStart()
     }
 
     companion object {

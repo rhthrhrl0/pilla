@@ -95,7 +95,9 @@ class PillManageViewModel(application: Application) : AndroidViewModel(applicati
                 }
 
             } else {
-
+                runBlocking(Dispatchers.Main) {
+                    registeredPillList.value= emptyList()
+                }
             }
         }
     }
