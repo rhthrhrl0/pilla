@@ -9,7 +9,7 @@ import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityDetailAlarmBinding
 
 class DetailAlarmActivity : AppCompatActivity() {
-    //https://www.data.go.kr/iim/api/selectAPIAcountView.do
+    //https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15095677
 
     private lateinit var binding:ActivityDetailAlarmBinding
     private val viewModel:DetailAlarmViewModel by viewModels()

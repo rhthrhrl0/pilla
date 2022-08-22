@@ -20,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ssu_contest_eighteen_pomise">
         <activity
+            android:name=".mypage.UpdatePwdActivity"
+            android:exported="false"
+            android:screenOrientation="fullSensor" />
+        <activity
             android:name=".camera.add_by_ocr.OcrRegisterActivity"
             android:exported="false" />
         <activity

@@ -50,6 +50,12 @@ interface UserService {
         @Body ids: List<Int>
     ): Response<Void>
 
+    @POST("v1/updatePw")
+    suspend fun updatePassword(
+        @Header("Authorization") headerToken: String,
+        @Body postDTO:UpdatePwDTO
+    ): Response<Void>
+
 //    @Headers("Content-Type: application/json")
 //    @GET("getDrugPrdtPrmsnDtlInq01")
 //    suspend fun getPillDetailInfo(

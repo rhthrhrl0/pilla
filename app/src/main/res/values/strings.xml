@@ -15,6 +15,7 @@
     <string name="guardian">보호자</string>
     <string name="patient">환자</string>
     <string name="logout">로그아웃</string>
+    <string name="change_pwd">비밀번호 변경</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prescription_add">처방전 추가</string>
@@ -41,6 +42,10 @@
     <string name="desc2">계정</string>
     <string name="sound">소리</string>
     <string name="vibration">진동</string>
+    <string name="update_pwd">비밀번호 변경</string>
+    <string name="input_old_pwd">기존 비밀번호</string>
+    <string name="input_new_pwd">새 비밀번호</string>
+    <string name="input_new_pwd_re">새 비밀번호 재입력</string>
     <string name="colon">:</string>
     <string name="morning">아침식사</string>
     <string name="lunch">점심식사</string>

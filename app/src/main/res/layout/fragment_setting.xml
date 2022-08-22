@@ -45,10 +45,22 @@
                     android:background="@drawable/round_backgrond_border_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.3" />
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.userName}"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintBottom_toTopOf="@+id/userEmail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 <TextView
                     android:id="@+id/userEmail"
@@ -60,8 +72,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
-                    app:layout_constraintVertical_bias="0.4" />
+                    app:layout_constraintTop_toBottomOf="@+id/userName" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -116,6 +127,7 @@
                 android:layout_height="wrap_content"
                 app:rightIcon="@{Icon.ic_arrow_right_line}"
                 android:onClick="@{()->viewModel.settingMealtime()}"
+                android:visibility="@{isGuardian?View.GONE:View.VISIBLE}"
                 app:text="@{@string/mealtime}" />
 
             <com.yourssu.design.system.atom.Divider
@@ -148,10 +160,22 @@
                 app:text="@{@string/desc2}" />
 
             <com.yourssu.design.system.atom.ListItem
+                android:id="@+id/setting_updatePw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rightIcon="@{Icon.ic_arrow_right_line}"
+                android:onClick="@{()->viewModel.updatePwBtnClick()}"
+                app:text="@{@string/change_pwd}" />
+
+            <com.yourssu.design.system.atom.Divider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray" />
+
+            <com.yourssu.design.system.atom.ListItem
                 android:id="@+id/setting_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                rightIcon="@drawable/ic_arrow_right_line"
                 android:onClick="@{()->viewModel.logoutBtnClick()}"
                 app:text="@{@string/logout}" />
 

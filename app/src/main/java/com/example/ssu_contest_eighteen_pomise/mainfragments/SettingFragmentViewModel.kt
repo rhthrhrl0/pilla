@@ -20,8 +20,10 @@ class SettingFragmentViewModel(application: Application) : AndroidViewModel(appl
     var startSettingMealtimeActivity=MutableLiveData<Boolean>()
     var startSettingGuardiansActivity=MutableLiveData<Boolean>()
     var startSettingProtegesActivity=MutableLiveData<Boolean>()
+    var startUpdatePwdActivity=MutableLiveData<Boolean>()
     var isGuardian=MutableLiveData<Boolean>()
     lateinit var userEmail:String
+    lateinit var userName:String
 
     fun settingAlarm(){
         startSettingAlarmActivity.value=true
@@ -39,16 +41,27 @@ class SettingFragmentViewModel(application: Application) : AndroidViewModel(appl
         startSettingProtegesActivity.value=true
     }
 
+    fun updatePwBtnClick() {
+        startUpdatePwdActivity.value=true
+    }
+
     fun getEmail() {
         val shPre = App.token_prefs
         Log.d("kyb", shPre.email.toString())
         userEmail = shPre.email.toString()
     }
 
+    fun getName() {
+        val shPre = App.token_prefs
+        userName = shPre.name.toString()
+    }
+
     fun isGuardian(){
         val shPre = App.token_prefs
         isGuardian.value = (shPre.isGuardian==true)
     }
+
+
 
     fun logoutBtnClick() {
         val shPre = App.token_prefs
