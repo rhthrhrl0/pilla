@@ -11,6 +11,7 @@ import com.example.ssu_contest_eighteen_pomise.dto.LoginUserDTO
 import com.example.ssu_contest_eighteen_pomise.dto.PostLoginModel
 import com.example.ssu_contest_eighteen_pomise.dto.Token
 import com.example.ssu_contest_eighteen_pomise.network.LoginService
+import com.example.ssu_contest_eighteen_pomise.network.LoginService.Companion.getUnsafeOkHttpClient
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,14 +49,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         }
         else{
             viewModelScope.launch(Dispatchers.IO) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(LoginService.BASE_URL)
-                    .addConverterFactory(MoshiConverterFactory.create())
-                    .build()
-
                 //레트로핏 사용할 준비완료.
-                val service = retrofit.create(LoginService::class.java)
-                val response=service.signInRequest(
+                val response=App.loginService.signInRequest(
                     PostLoginModel(idString.toString(),pwdString.toString())
                 )
 

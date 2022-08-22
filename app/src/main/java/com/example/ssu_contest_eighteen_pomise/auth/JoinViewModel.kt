@@ -7,10 +7,12 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.dto.PostSignUpModel
 import com.example.ssu_contest_eighteen_pomise.dto.SignUpDTO
 import com.example.ssu_contest_eighteen_pomise.network.LoginService
+import com.example.ssu_contest_eighteen_pomise.network.LoginService.Companion.getUnsafeOkHttpClient
 import com.yourssu.design.system.atom.Toggle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -93,14 +95,8 @@ class JoinViewModel(application: Application) : AndroidViewModel(application) {
             }
             else -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val retrofit = Retrofit.Builder()
-                        .baseUrl(LoginService.BASE_URL)
-                        .addConverterFactory(MoshiConverterFactory.create())
-                        .build()
-
                     //레트로핏 사용할 준비완료.
-                    val service = retrofit.create(LoginService::class.java)
-                    val response = service.signUpRequest(
+                    val response = App.loginService.signUpRequest(
                         PostSignUpModel(
                             id,
                             isGuardian.value!!,
@@ -116,6 +112,7 @@ class JoinViewModel(application: Application) : AndroidViewModel(application) {
                         signUpUser = response.body()!!
                         joinBtn.postValue(true)
                     } else {
+                        Log.d("kmj", "회원가입 실패:"+response)
                         failedJoinToast.postValue(true)
                     }
                 }

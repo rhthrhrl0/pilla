@@ -23,11 +23,11 @@ class AddPrescriptionViewModel(application: Application) : AndroidViewModel(appl
     val selfAddPrescriptionEvent = MutableLiveData<Boolean>()
     val failedGetOcrPictureEvent=MutableLiveData<Boolean>()
 
-    val userRetrofit = Retrofit.Builder()
+    val ocrRetrofit = Retrofit.Builder()
         .baseUrl(UserService.OCR_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
-    val ocrService = userRetrofit.create(UserService::class.java)
+    val ocrService = ocrRetrofit.create(UserService::class.java)
 
     val successOcrAndImageData=MutableLiveData<OcrAndImageData>()
 

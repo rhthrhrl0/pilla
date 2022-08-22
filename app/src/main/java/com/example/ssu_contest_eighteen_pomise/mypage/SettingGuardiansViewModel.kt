@@ -25,14 +25,8 @@ class SettingGuardiansViewModel(application: Application) : AndroidViewModel(app
     fun retrofit() {
         val shPre = App.token_prefs
         viewModelScope.launch {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(UserService.BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build()
 
-            val service = retrofit.create(UserService::class.java)
-            val response = service.getGuardian(shPre.accessToken!!)
-
+            val response = App.userService.getGuardian(shPre.accessToken!!)
 
             if(response.isSuccessful) {
                 val guardianDTO = response.body()!!

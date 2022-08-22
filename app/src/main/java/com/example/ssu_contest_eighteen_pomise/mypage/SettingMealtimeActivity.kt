@@ -106,7 +106,6 @@ class SettingMealtimeActivity : AppCompatActivity() {
                 }
                 else
                     Toast.makeText(this, "저녁시간은 점심시간보다 늦어야 합니다.", Toast.LENGTH_SHORT).show()
-
             }
         }
         CustomTimePickerDialog(this, timeSetListener, hour, min, false).show()
