@@ -360,6 +360,7 @@ class OcrRegisterActivity : AppCompatActivity() {
             ocrPillSetAdapter.setMyItemClickListener(object :
                 OcrPillSetListAdapter.MyItemClickListener {
                 override fun onItemClick(view: View, position: Int) {
+                    Log.d("kmj","아이템 클릭:${viewModel.curIndex},${position}")
                     if (viewModel.curIndex != position) {
 
                     }

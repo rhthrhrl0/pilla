@@ -19,7 +19,7 @@ class OcrPillSetListAdapter:
             binding.item = item
             binding.executePendingBindings()
             binding.itemLinearLayout.setOnClickListener {
-
+                myItemClickListener?.onItemClick(binding.root,adapterPosition)
             }
         }
     }
