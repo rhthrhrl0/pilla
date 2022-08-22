@@ -41,18 +41,12 @@ class PillManageDetailViewModel(application: Application) : AndroidViewModel(app
     private val shPre = App.token_prefs
     private val settShrpe = SettingSharedPreferences.setInstance(application)
 
-    val userRetrofit = Retrofit.Builder()
-        .baseUrl(UserService.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-    val userService = userRetrofit.create(UserService::class.java)
-
     val registeredTimeList = MutableLiveData<List<PillTime>>()
 
     fun getRegisteredTimeList() {
         viewModelScope.launch(Dispatchers.IO) {
             val response =
-                userService.getMyPillRecord(shPre.refreshToken!!)
+                App.userService.getMyPillRecord(shPre.refreshToken!!)
 
             if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                 val idList = currentPillSetDTO?.id ?: emptyList()
@@ -78,7 +72,7 @@ class PillManageDetailViewModel(application: Application) : AndroidViewModel(app
     fun deleteTime(position: Int, id: Int) {
         if (id != -1) {
             viewModelScope.launch(Dispatchers.IO) {
-                val response = userService.deleteMyPillTime(shPre.refreshToken!!, listOf(id))
+                val response = App.userService.deleteMyPillTime(shPre.refreshToken!!, listOf(id))
 
                 if (response.isSuccessful) {
                     val temp = mutableListOf<PillTime>()

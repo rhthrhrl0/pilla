@@ -25,12 +25,6 @@ class PillManageViewModel(application: Application) : AndroidViewModel(applicati
     private val shPre = App.token_prefs
     private val settShrpe = SettingSharedPreferences.setInstance(application)
 
-    val userRetrofit = Retrofit.Builder()
-        .baseUrl(UserService.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-    val userService = userRetrofit.create(UserService::class.java)
-
     val registeredPillList = MutableLiveData<List<PillSetDTO>>()
 
     init {
@@ -40,7 +34,7 @@ class PillManageViewModel(application: Application) : AndroidViewModel(applicati
     fun getRegisteredPillList() {
         viewModelScope.launch(Dispatchers.IO) {
             val response =
-                userService.getMyPillRecord(shPre.refreshToken!!)
+                App.userService.getMyPillRecord(shPre.refreshToken!!)
 
             if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                 val set = mutableSetOf<TempPillSet>()

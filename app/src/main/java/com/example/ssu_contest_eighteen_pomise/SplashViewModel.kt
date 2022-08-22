@@ -23,14 +23,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
         if((shPre.refreshToken!=null) and (!shPre.refreshToken!!.isEmpty())){
             viewModelScope.launch(Dispatchers.IO) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(LoginService.BASE_URL)
-                    .addConverterFactory(MoshiConverterFactory.create())
-                    .build()
-
-                //레트로핏 사용할 준비완료.
-                val service = retrofit.create(LoginService::class.java)
-                val response = service.refreshTokenRequest(
+                val response = App.loginService.refreshTokenRequest(
                     shPre.refreshToken!!,shPre.email!!, LoginService.USER,shPre.refreshToken!!
                 )
 

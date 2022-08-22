@@ -63,6 +63,7 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_join.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_ocr_register.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_pill_manage.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_pill_manage_detail.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_splash.xml" value="0.45" />
@@ -71,6 +72,7 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/add_pill_category_item.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/fragment_home.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/fragment_setting.xml" value="0.20625" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/ocr_pill_set_list_item.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/patient_list_item.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/pill_eat_time_list_item.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/pill_list_item.xml" value="0.165" />

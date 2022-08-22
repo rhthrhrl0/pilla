@@ -1,10 +1,16 @@
 package com.example.ssu_contest_eighteen_pomise.network
 
 import com.example.ssu_contest_eighteen_pomise.dto.*
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.http.*
 import retrofit2.http.Body
 import retrofit2.http.Header
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 interface UserService {
 
@@ -71,10 +77,37 @@ interface UserService {
 
     companion object {
         const val BASE_URL =
-            "http://43.200.98.211/"
+            "https://taewoon.kro.kr/"
         const val PILL_OPEN_SOURCE_URL =
             "http://apis.data.go.kr/1471000/DrugPrdtPrmsnInfoService02/"
         const val OCR_URL =
             "https://w9stkrjgx4.apigw.ntruss.com/custom/"
+
+        fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
+            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+                override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+
+                }
+
+                override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+
+                }
+
+                override fun getAcceptedIssuers(): Array<X509Certificate> {
+                    return arrayOf()
+                }
+            })
+
+            val sslContext = SSLContext.getInstance("SSL")
+            sslContext.init(null, trustAllCerts, SecureRandom())
+
+            val sslSocketFactory = sslContext.socketFactory
+
+            val builder = OkHttpClient.Builder()
+            builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+            builder.hostnameVerifier { hostname, session -> true }
+
+            return builder
+        }
     }
 }

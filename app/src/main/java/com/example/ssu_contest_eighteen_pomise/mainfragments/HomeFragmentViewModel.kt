@@ -32,18 +32,6 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
     private val shPre = App.token_prefs
     private val settShrpe = SettingSharedPreferences.setInstance(application)
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(LoginService.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-    val service = retrofit.create(LoginService::class.java)
-
-    val userRetrofit = Retrofit.Builder()
-        .baseUrl(UserService.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-    val userService = userRetrofit.create(UserService::class.java)
-
     val refreshEndEvent = MutableLiveData<Boolean>()
     val refreshFailedEvent=MutableLiveData<Boolean>()
     val refreshStartEvent = MutableLiveData<Boolean>()
@@ -97,7 +85,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     fun getPatientList() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = service.getPatientListRequest(shPre.refreshToken!!)
+            val response = App.loginService.getPatientListRequest(shPre.refreshToken!!)
             if (response.isSuccessful) {
                 val count = response.body()?.protegesCount ?: 0
                 val patients = response.body()?.protegesInfos ?: emptyList()
@@ -140,7 +128,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
                 val curPatientIndex = curPatientIndex
 
                 val response =
-                    userService.postGetProtegePillRecord(shPre.refreshToken!!, Email(curPatient))
+                    App.userService.postGetProtegePillRecord(shPre.refreshToken!!, Email(curPatient))
 
                 if (response.isSuccessful && response.body()!!.pillCount > 0) {
                     Log.d(
@@ -157,7 +145,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
                 }
             } else {
                 val response =
-                    userService.getMyPillRecord(shPre.refreshToken!!)
+                    App.userService.getMyPillRecord(shPre.refreshToken!!)
 
                 if (response.isSuccessful) {
                     Log.d(

@@ -38,13 +38,7 @@ class SettingProtegesViewModel(application: Application) : AndroidViewModel(appl
         val shPre = App.token_prefs
 
         viewModelScope.launch {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(UserService.BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build()
-
-            val service = retrofit.create(UserService::class.java)
-            val response = service.deleteProtege(shPre.accessToken!!, PostDeleteProtegeModel(email))
+            val response = App.userService.deleteProtege(shPre.accessToken!!, PostDeleteProtegeModel(email))
             if(response.isSuccessful) {
                 succeedDeleteProtege.value = true
                 retrofit()

@@ -19,11 +19,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(application) {
     private val shPre = App.token_prefs
     private val settShrpe = SettingSharedPreferences.setInstance(application)
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(LoginService.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-    val service = retrofit.create(LoginService::class.java)
 
     val finishEvent = MutableLiveData<Boolean>()
     val addPrescriptionEvent = MutableLiveData<Boolean>()
@@ -66,7 +61,6 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
             specificTimeMinutesString.value = "${field}"
         }
     val specificTimeMinutesString = MutableLiveData<String>()
-
 
     var startTimeInt: Int = 0
         set(value) {
@@ -334,7 +328,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     fun insert(pillAddContentList: List<RegisteredPill>) {
         //뷰모델에서 코루틴 사용할때는 viewModelScope를 사용함.
         val job = viewModelScope.launch(Dispatchers.IO) {
-            val response=service.registerPillRequest(shPre.refreshToken!!,pillAddContentList)
+            val response=App.loginService.registerPillRequest(shPre.refreshToken!!,pillAddContentList)
             if(response.isSuccessful){
                 runBlocking(Dispatchers.Main) {
                     addPrescriptionEvent.value = true
