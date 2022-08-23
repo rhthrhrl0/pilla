@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.yourssu.design.system.foundation.Typo" />
+
         <import type="com.yourssu.design.system.atom.BoxButton" />
 
         <import type="com.yourssu.design.system.foundation.Icon" />
@@ -21,18 +23,72 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <com.yourssu.design.system.component.TopBar
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/topbar"
-            endFirstText="@{@string/alarm_add}"
-            onEndFirstClick="@{()->viewModel.onClickAdd()}"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/bgElevated"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.yourssu.design.system.atom.Text
+                android:id="@+id/topBarStartText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:onClick="@{()->viewModel.onClickFinish()}"
+                android:text="@{@string/cancel}"
+                android:textColor="@color/mainColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:typo="@{Typo.Button0}"
+                tools:text="취소"
+                android:gravity="center"/>
+
+            <com.yourssu.design.system.atom.Text
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{@string/prescription_by_ocr}"
+                android:textColor="@color/textPrimary"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:typo="subtitle2"
+                android:gravity="center"/>
+
+            <com.yourssu.design.system.atom.Text
+                android:id="@+id/topBarEndText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:onClick="@{()->viewModel.onClickAdd()}"
+                android:text="@{@string/alarm_add}"
+                android:textColor="@color/mainColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:typo="@{Typo.Button0}"
+                tools:text="알람추가"
+                android:gravity="center"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.yourssu.design.system.atom.Divider
+            android:id="@+id/divider_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:onStartIconClick="@{()->viewModel.onClickFinish()}"
-            startText="@{@string/cancel}"
-            app:title="@{@string/prescription_by_ocr}" />
+            app:layout_constraintTop_toBottomOf="@id/topbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pill_set_rv"
@@ -45,10 +101,9 @@
             android:scrollbarStyle="outsideInset"
             android:scrollbarThumbVertical="@color/black"
             android:scrollbars="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topbar" />
+            app:layout_constraintTop_toBottomOf="@id/divider_top_bar" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -113,7 +168,7 @@
                             type="@{BoxButton.LINE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:clickable="@{viewModel.isSelect1}" />
+                            android:clickable="@{viewModel.isSelect1}"/>
 
                         <com.yourssu.design.system.atom.Text
                             android:layout_width="wrap_content"

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.yourssu.design.system.foundation.Icon" />
+
+        <variable
+            name="item"
+            type="com.example.ssu_contest_eighteen_pomise.camera.add_by_ocr.AddRegisterOcrViewModel.OcrRegisterDTO" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/item_linear_layout"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/patient_non_selected_background"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="@{item.pillEatMethod}"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            tools:text="먹는법"
+            android:layout_gravity="center"
+            android:focusable="true"/>
+
+        <com.yourssu.design.system.atom.IconView
+            android:id="@+id/deleteIt"
+            icon="@{Icon.ic_x_line}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
+</layout>

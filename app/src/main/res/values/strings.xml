@@ -57,8 +57,11 @@
     <string name="delete_value">삭제</string>
     <string name="add">추가</string>
     <string name="close">닫기</string>
+    <string name="confirm">확인</string>
     <string name="add_protege">피보호자 추가</string>
     <string name="add_protege_phoneNum">추가할 환자 전화번호 입력</string>
     <string name="add_protege_email">추가할 환자 이메일 입력</string>
     <string name="registered_pill_list_manage">등록된 약 목록 관리</string>
+    <string name="title_for_ask_want_to_finish">정말 복용 등록을 종료할까요?</string>
+    <string name="message_for_warning_about_ocr">주의: 해당 처방전의 사진이 없다면 신중히 선택해주세요.</string>
 </resources>

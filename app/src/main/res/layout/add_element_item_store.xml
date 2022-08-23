@@ -13,14 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/confirm_btn"
+        android:background="@drawable/pill_name_and_category_item"
         android:padding="8dp"
         android:layout_margin="4dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             specificTimeText="@{specificTime}"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:textColor="@color/black"/>
         <com.yourssu.design.system.atom.IconView
             android:id="@+id/deleteIt"
             android:layout_width="wrap_content"

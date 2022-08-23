@@ -25,6 +25,7 @@
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/protectors_view.xml" value="0.275" />
+        <entry key="..\:/Users/rhthr/.gradle/caches/transforms-3/9b1360e1c98a87f51f98a0b33a116a2f/transformed/jetified-YDS-Android-2.1.3/res/drawable/ic_arrow_down_line.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/.gradle/caches/transforms-3/9b1360e1c98a87f51f98a0b33a116a2f/transformed/jetified-YDS-Android-2.1.3/res/drawable/ic_dots_horizontal_line.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable-anydpi-v24/ic_stat_name.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable-v24/bell.xml" value="0.1" />
@@ -38,6 +39,7 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable-v24/vd_vector.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/circle_image_background.xml" value="0.125" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/confirm_btn.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/gray_stroke_background.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
@@ -51,8 +53,16 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/patient_non_selected_background.xml" value="0.101" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/patient_selected_background.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/pill_bottle.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/pill_category_spinner_background.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/pill_list_item_for_name.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/pill_name_and_category_item.xml" value="0.122" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/plus_non_selected_background.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/round_backgrond_border_black.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/selector_non_selected.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/selector_non_selected_item_gray_white.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/selector_plus_item_green_white.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/selector_selected.xml" value="0.1" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable/selector_selected_item_white_gray.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_add_prescription.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_add_protege.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_add_self_no_ocr.xml" value="0.125" />
@@ -63,7 +73,7 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_join.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_ocr_register.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_ocr_register.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_pill_manage.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_pill_manage_detail.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/activity_splash.xml" value="0.45" />
@@ -72,11 +82,16 @@
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/add_pill_category_item.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/fragment_home.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/fragment_setting.xml" value="0.20625" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/ocr_non_selected_set_list_item.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/ocr_pill_set_list_item.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/ocr_pill_set_selected_list_item.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/ocr_plus_object_item.xml" value="0.18888888888888888" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/ocr_selected_set_list_item.xml" value="0.10555555555555556" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/patient_list_item.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/pill_eat_time_list_item.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/pill_list_item.xml" value="0.165" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/pill_manage_set_list_item.xml" value="0.335" />
+        <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/layout/proteges_view.xml" value="0.13518518518518519" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/mipmap-anydpi-v26/ic_main.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/xml/network_security_config.xml" value="0.10729166666666666" />
       </map>

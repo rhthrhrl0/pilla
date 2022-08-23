@@ -16,28 +16,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/confirm_btn"
+        android:background="@drawable/pill_name_and_category_item"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@{pill.pillName}" />
+            android:layout_gravity="center_vertical|left"
+            android:layout_weight="5"
+            android:text="@{pill.pillName}"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
 
-        <com.yourssu.design.system.atom.Divider
-            direction="@{Divider.VERTICAL}"
-            thickness="@{Divider.THIN}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/pill_category_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@{pill.pillCategory}" />
+            android:layout_marginRight="8dp"
+            android:layout_weight="3"
+            android:background="@drawable/join_btn"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:layout_weight="1"
+                android:text="@{pill.pillCategory}"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <com.yourssu.design.system.atom.IconView
+                icon="@{Icon.ic_arrow_down_line}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <com.yourssu.design.system.atom.IconView
             android:id="@+id/deleteIt"

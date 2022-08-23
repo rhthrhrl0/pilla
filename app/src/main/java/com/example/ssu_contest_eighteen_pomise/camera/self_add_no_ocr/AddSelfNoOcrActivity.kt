@@ -39,27 +39,8 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             thirdValue: String,
             totalValue: String,
         ) {
-            viewModel.startTimeInt = timeList.indexOf(firstValue)
+            viewModel.startTimeInt = AddSelfNoOcrActivity.timeList.indexOf(firstValue)
             viewModel.cycleTimeInt = 0
-            binding.periodicTime.setOnClickListener {
-                bottomSheet {
-                    text {
-                        text = "시간 주기"
-                        typo = Typo.SubTitle2
-
-                        setLayout(leftMarginPx = context.dpToIntPx(16f))
-                    }
-                    picker {
-                        setFirstRow(timeList.slice(0..(23 - viewModel.startTimeInt)))
-                        if (((22 - viewModel.startTimeInt) / 2) == 0) {
-                            setFirstRowPosition(0)
-                        } else {
-                            setFirstRowPosition((22 - viewModel.startTimeInt) / 2)
-                        }
-                        this.onValueChangeListener = onHopeCycleTimeValueChangeListener
-                    }
-                }
-            }
         }
     }
 
@@ -140,6 +121,17 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         }
     }
 
+    private val onCurPillCategoryChangeListener = object : Picker.OnValueChangeListener {
+        override fun onValueChange(
+            firstValue: String,
+            secondValue: String,
+            thirdValue: String,
+            totalValue: String,
+        ) {
+            viewModel.curCategoryChange(pillCategoryList.indexOf(firstValue), firstValue)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_self_no_ocr)
@@ -187,12 +179,29 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                     setLayout(leftMarginPx = context.dpToIntPx(16f))
                 }
                 picker {
-                    setFirstRow(timeList.slice(1..22))
-                    setFirstRowPosition(11) //timeList를 슬라이스해서 넘겨진 배열은 1시~23시의 배열임. 여기서 11번째 인덱스가 12시임.
+                    setFirstRow(timeList.slice(0..22))
+                    setFirstRowPosition(timeList.indexOf(viewModel.startTimeString.value)) //timeList를 슬라이스해서 넘겨진 배열은 1시~23시의 배열임. 여기서 11번째 인덱스가 12시임.
                     this.onValueChangeListener = onHopeStartTimeValueChangeListener
                 }
             }
         }
+
+        binding.periodicTime.setOnClickListener {
+            bottomSheet {
+                text {
+                    text = "시간 주기"
+                    typo = Typo.SubTitle2
+
+                    setLayout(leftMarginPx = context.dpToIntPx(16f))
+                }
+                picker {
+                    setFirstRow(viewModel.cycleTimeList.value!!)
+                    setFirstRowPosition(timeList.indexOf(viewModel.cycleTimeString.value))
+                    this.onValueChangeListener = onHopeCycleTimeValueChangeListener
+                }
+            }
+        }
+
 
         binding.morningBtn.setOnClickListener {
             bottomSheet {
@@ -204,7 +213,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(eatPillTimeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(eatPillTimeList.indexOf(viewModel.morningEatTimeString.value))
                     this.onValueChangeListener = onHopeMorningEatTimeValueChangeListener
                 }
             }
@@ -220,7 +229,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(eatPillTimeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(eatPillTimeList.indexOf(viewModel.lunchEatTimeString.value))
                     this.onValueChangeListener = onHopeLunchEatTimeValueChangeListener
                 }
             }
@@ -236,7 +245,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(eatPillTimeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(eatPillTimeList.indexOf(viewModel.dinnerEatTimeString.value))
                     this.onValueChangeListener = onHopeDinnerEatTimeValueChangeListener
                 }
             }
@@ -288,7 +297,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(timeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(timeList.indexOf(viewModel.specificTimeHourString.value))
                     this.onValueChangeListener = onSpecificHourTimeValueChangeListener
                 }
             }
@@ -304,7 +313,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(minutesList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(minutesList.indexOf(viewModel.specificTimeMinutesString.value))
                     this.onValueChangeListener = onSpecificMunutesTimeValueChangeListener
                 }
             }
@@ -337,7 +346,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(pillCategoryList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(pillCategoryList.indexOf(viewModel.pillCategoryString.value))
                     this.onValueChangeListener = onPillCategoryChangeListener
                 }
             }
@@ -358,10 +367,26 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
             }
 
-            override fun onItemLongClick(position: Int) {
+            override fun onPillCategoryChangeClick(position: Int) {
 
+                val curCategoryString =
+                    viewModel.pillNameCategoryListLiveData.value!![position].pillCategory
+                val curCategoryIndex = pillCategoryList.indexOf(curCategoryString)
+                viewModel.changeCategoryPosition = position
+                bottomSheet {
+                    text {
+                        text = "약 종류 재 선택"
+                        typo = Typo.SubTitle2
+
+                        setLayout(leftMarginPx = context.dpToIntPx(16f))
+                    }
+                    picker {
+                        setFirstRow(pillCategoryList)
+                        setFirstRowPosition(curCategoryIndex)
+                        this.onValueChangeListener = onCurPillCategoryChangeListener
+                    }
+                }
             }
-
         })
         pillNameCategoryAdapter.updateItems(viewModel.pillNameCategoryListLiveData.value!!)
 
@@ -471,7 +496,7 @@ enum class PillAddErrorType(val reason: String) {
     REGISTER_ERROR("등록하는 과정에서 문제가 발생했습니다.\n잠시후에 다시 시도해주세요.")
 }
 
-enum class EatTime{
+enum class EatTime {
     MORNING,
     LUNCH,
     DINNER

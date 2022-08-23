@@ -1,5 +1,6 @@
 package com.example.ssu_contest_eighteen_pomise.camera.add_by_ocr
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,9 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
@@ -16,8 +20,9 @@ import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.AddSelfNoO
 import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.PillNameCategoryAdapter
 import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.SpecificTimeAddAdapter
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityOcrRegisterBinding
+import com.example.ssu_contest_eighteen_pomise.databinding.OcrNonSelectedSetListItemBinding
+import com.example.ssu_contest_eighteen_pomise.databinding.OcrSelectedSetListItemBinding
 import com.example.ssu_contest_eighteen_pomise.dto.OcrAndImageData
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.yourssu.design.system.atom.Picker
 import com.yourssu.design.system.foundation.Typo
 import com.yourssu.design.system.language.bottomSheet
@@ -25,6 +30,8 @@ import com.yourssu.design.system.language.picker
 import com.yourssu.design.system.language.setLayout
 import com.yourssu.design.system.language.text
 import com.yourssu.design.undercarriage.size.dpToIntPx
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class OcrRegisterActivity : AppCompatActivity() {
@@ -44,25 +51,6 @@ class OcrRegisterActivity : AppCompatActivity() {
         ) {
             viewModel.startTimeInt = AddSelfNoOcrActivity.timeList.indexOf(firstValue)
             viewModel.cycleTimeInt = 0
-            binding.periodicTime.setOnClickListener {
-                bottomSheet {
-                    text {
-                        text = "시간 주기"
-                        typo = Typo.SubTitle2
-
-                        setLayout(leftMarginPx = context.dpToIntPx(16f))
-                    }
-                    picker {
-                        setFirstRow(AddSelfNoOcrActivity.timeList.slice(0..(23 - viewModel.startTimeInt)))
-                        if (((22 - viewModel.startTimeInt) / 2) == 0) {
-                            setFirstRowPosition(0)
-                        } else {
-                            setFirstRowPosition((22 - viewModel.startTimeInt) / 2)
-                        }
-                        this.onValueChangeListener = onHopeCycleTimeValueChangeListener
-                    }
-                }
-            }
         }
     }
 
@@ -144,6 +132,20 @@ class OcrRegisterActivity : AppCompatActivity() {
         }
     }
 
+    private val onCurPillCategoryChangeListener = object : Picker.OnValueChangeListener {
+        override fun onValueChange(
+            firstValue: String,
+            secondValue: String,
+            thirdValue: String,
+            totalValue: String,
+        ) {
+            viewModel.curCategoryChange(
+                AddSelfNoOcrActivity.pillCategoryList.indexOf(firstValue),
+                firstValue
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_ocr_register)
@@ -159,19 +161,12 @@ class OcrRegisterActivity : AppCompatActivity() {
     }
 
     fun onViewModelInit() {
-        viewModel.finishEvent.observe(this, {
-            onBackPressed()
-        })
-
-        viewModel.addPrescriptionEvent.observe(this, {
-            Toast.makeText(this, "성공적으로 처방내용이 추가됐습니다", Toast.LENGTH_SHORT).show()
-        })
-
-//        viewModel.failedAddPrescriptionEvent.observe(this, {
-//            Toast.makeText(this, "내용을 입력해주세요", Toast.LENGTH_SHORT).show()
-//        })
-
         viewModel.pillSetList.observe(this, {
+            if (it.size == 1) {
+                viewModel.sendEvent(AddRegisterOcrViewModel.MyEvent.EmptySetEvent)
+            } else {
+                viewModel.sendEvent(AddRegisterOcrViewModel.MyEvent.NotEmptySetEvent)
+            }
             ocrPillSetAdapter.submitList(it)
         })
 
@@ -183,9 +178,11 @@ class OcrRegisterActivity : AppCompatActivity() {
             pillNameCategoryAdapter.updateItems(it)
         })
 
-//        viewModel.addErrorString.observe(this, {
-//            Toast.makeText(this, viewModel.addErrorString.value?.reason, Toast.LENGTH_SHORT).show()
-//        })
+        repeatOnStart {
+            viewModel.eventFlow.collect {
+                handleEvent(it)
+            }
+        }
     }
 
     fun initView() {
@@ -198,9 +195,25 @@ class OcrRegisterActivity : AppCompatActivity() {
                     setLayout(leftMarginPx = context.dpToIntPx(16f))
                 }
                 picker {
-                    setFirstRow(AddSelfNoOcrActivity.timeList.slice(1..22))
-                    setFirstRowPosition(11) //timeList를 슬라이스해서 넘겨진 배열은 1시~23시의 배열임. 여기서 11번째 인덱스가 12시임.
+                    setFirstRow(AddSelfNoOcrActivity.timeList.slice(0..22))
+                    setFirstRowPosition(AddSelfNoOcrActivity.timeList.indexOf(viewModel.startTimeString.value))
                     this.onValueChangeListener = onHopeStartTimeValueChangeListener
+                }
+            }
+        }
+
+        binding.periodicTime.setOnClickListener {
+            bottomSheet {
+                text {
+                    text = "시간 주기"
+                    typo = Typo.SubTitle2
+
+                    setLayout(leftMarginPx = context.dpToIntPx(16f))
+                }
+                picker {
+                    setFirstRow(viewModel.cycleTimeList.value!!)
+                    setFirstRowPosition(AddSelfNoOcrActivity.timeList.indexOf(viewModel.cycleTimeString.value))
+                    this.onValueChangeListener = onHopeCycleTimeValueChangeListener
                 }
             }
         }
@@ -215,7 +228,7 @@ class OcrRegisterActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(AddSelfNoOcrActivity.eatPillTimeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(AddSelfNoOcrActivity.eatPillTimeList.indexOf(viewModel.morningEatTimeString.value))
                     this.onValueChangeListener = onHopeMorningEatTimeValueChangeListener
                 }
             }
@@ -231,7 +244,7 @@ class OcrRegisterActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(AddSelfNoOcrActivity.eatPillTimeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(AddSelfNoOcrActivity.eatPillTimeList.indexOf(viewModel.lunchEatTimeString.value))
                     this.onValueChangeListener = onHopeLunchEatTimeValueChangeListener
                 }
             }
@@ -247,7 +260,7 @@ class OcrRegisterActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(AddSelfNoOcrActivity.eatPillTimeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(AddSelfNoOcrActivity.eatPillTimeList.indexOf(viewModel.dinnerEatTimeString.value))
                     this.onValueChangeListener = onHopeDinnerEatTimeValueChangeListener
                 }
             }
@@ -299,7 +312,7 @@ class OcrRegisterActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(AddSelfNoOcrActivity.timeList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(AddSelfNoOcrActivity.timeList.indexOf(viewModel.specificTimeHourString.value))
                     this.onValueChangeListener = onSpecificHourTimeValueChangeListener
                 }
             }
@@ -315,7 +328,7 @@ class OcrRegisterActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(AddSelfNoOcrActivity.minutesList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(AddSelfNoOcrActivity.minutesList.indexOf(viewModel.specificTimeMinutesString.value))
                     this.onValueChangeListener = onSpecificMinutesTimeValueChangeListener
                 }
             }
@@ -346,7 +359,7 @@ class OcrRegisterActivity : AppCompatActivity() {
                 }
                 picker {
                     setFirstRow(AddSelfNoOcrActivity.pillCategoryList)
-                    setFirstRowPosition(0)
+                    setFirstRowPosition(AddSelfNoOcrActivity.pillCategoryList.indexOf(viewModel.pillCategoryString.value))
                     this.onValueChangeListener = onPillCategoryChangeListener
                 }
             }
@@ -359,12 +372,41 @@ class OcrRegisterActivity : AppCompatActivity() {
             this.adapter = ocrPillSetAdapter
             ocrPillSetAdapter.setMyItemClickListener(object :
                 OcrPillSetListAdapter.MyItemClickListener {
-                override fun onItemClick(view: View, position: Int) {
-                    Log.d("kmj","아이템 클릭:${viewModel.curIndex},${position}")
-                    if (viewModel.curIndex != position) {
+                override fun onSelectedItemClick(
+                    binding: OcrSelectedSetListItemBinding,
+                    position: Int
+                ) {
+                    // 딱히 여기선 할거 없음.
+                    Log.d("kmj", "이미 선택된 아이템 선택.${position}")
+                }
 
+                override fun onDeleteItemSelectedClick(position: Int) {
+                    showAskDialog(
+                        "정말 해당 약 목록을 삭제하시겠습니까?",
+                        "\n"
+                    ) {
+                        viewModel.onDeleteItemSelectedClick(position)
                     }
-                    viewModel.curIndex = position
+                }
+
+                override fun onNonSelectedItemClick(
+                    binding: OcrNonSelectedSetListItemBinding,
+                    position: Int
+                ) {
+                    viewModel.onNonSelectedItemClick(position)
+                }
+
+                override fun onDeleteItemNonSelectedClick(position: Int) {
+                    showAskDialog(
+                        "정말 해당 약 목록을 삭제하시겠습니까?",
+                        "\n"
+                    ) {
+                        viewModel.onDeleteItemNonSelectedClick(position)
+                    }
+                }
+
+                override fun onPlusItemClick(position: Int) {
+                    viewModel.onPlusItemClick(position)
                 }
             })
         }
@@ -385,16 +427,96 @@ class OcrRegisterActivity : AppCompatActivity() {
 
             }
 
-            override fun onItemLongClick(position: Int) {
+            override fun onPillCategoryChangeClick(position: Int) {
+                if (viewModel.curIndex != -1) {
+                    val curCategoryString =
+                        viewModel.pillSetList.value!![viewModel.curIndex].pillNameCategoryList[position].pillCategory
+                    val curCategoryIndex =
+                        AddSelfNoOcrActivity.pillCategoryList.indexOf(curCategoryString)
+                    viewModel.changeCategoryPosition = position
+                    bottomSheet {
+                        text {
+                            text = "약 종류 재 선택"
+                            typo = Typo.SubTitle2
 
+                            setLayout(leftMarginPx = context.dpToIntPx(16f))
+                        }
+                        picker {
+                            setFirstRow(AddSelfNoOcrActivity.pillCategoryList)
+                            setFirstRowPosition(curCategoryIndex)
+                            this.onValueChangeListener = onCurPillCategoryChangeListener
+                        }
+                    }
+                }
             }
-
         })
     }
 
+    fun repeatOnStart(block: suspend CoroutineScope.() -> Unit) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED, block)
+        }
+    }
+
+    fun handleEvent(event: AddRegisterOcrViewModel.MyEvent) {
+        when (event) {
+            is AddRegisterOcrViewModel.MyEvent.EmptySetEvent -> {
+                binding.scrollView.visibility = View.GONE
+            }
+            is AddRegisterOcrViewModel.MyEvent.NotEmptySetEvent -> {
+                binding.scrollView.visibility = View.VISIBLE
+            }
+            is AddRegisterOcrViewModel.MyEvent.FinishEvent -> {
+                showAskDialog(
+                    getString(R.string.title_for_ask_want_to_finish),
+                    getString(R.string.message_for_warning_about_ocr),
+                    { finish() }
+                )
+            }
+            is AddRegisterOcrViewModel.MyEvent.AddSuccessEvent -> {
+                Toast.makeText(this, "성공적으로 처방내용이 추가됐습니다", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            is AddRegisterOcrViewModel.MyEvent.AddFailedNoListEvent -> {
+                Toast.makeText(
+                    this,
+                    "등록할 내용이 없습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.addNow = false
+            }
+            is AddRegisterOcrViewModel.MyEvent.AddFailedEvent -> {
+                Toast.makeText(
+                    this,
+                    "${event.position + 1}번째의 ${event.pillEatMethod}에서 ${event.failedReason}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.addNow = false
+            }
+            is AddRegisterOcrViewModel.MyEvent.AddFailedFromServer -> {
+                Toast.makeText(
+                    this,
+                    "서버로부터 등록하는데 실패했습니다.\n 잠시 후 다시 시도해주세요.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.addNow = false
+            }
+        }
+    }
+
+    private fun showAskDialog(title: String, message: String, onFunc: () -> Unit) {
+        AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(message)
+            .setNegativeButton(R.string.close) { _, _ -> }
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                onFunc()
+            }.setCancelable(false)
+            .show()
+    }
+
     override fun onBackPressed() {
-        super.onBackPressed()
-        //slideNoneAndDownExit()
+        viewModel.sendEvent(AddRegisterOcrViewModel.MyEvent.FinishEvent)
     }
 
     companion object {

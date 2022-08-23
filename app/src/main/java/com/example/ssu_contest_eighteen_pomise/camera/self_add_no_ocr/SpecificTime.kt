@@ -5,5 +5,5 @@ import java.io.Serializable
 data class SpecificTime(
     var hour:Int,
     var minutes:Int,
-    var sec:Int
+    var sec:Int=0
 ):Serializable

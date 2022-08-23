@@ -62,13 +62,15 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
     val specificTimeMinutesString = MutableLiveData<String>()
 
-    var startTimeInt: Int = 0
+    var startTimeInt: Int = 12
         set(value) {
             field = value
             startTimeString.value = ("$field")
+            cycleTimeList.value=AddSelfNoOcrActivity.timeList.slice(0..23-startTimeInt)
         }
     val startTimeString = MutableLiveData<String>()
 
+    var cycleTimeList=MutableLiveData(AddSelfNoOcrActivity.timeList.slice(0..11))
     var cycleTimeInt: Int = 0
         set(value) {
             field = value
@@ -80,6 +82,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val lunchEatTimeString = MutableLiveData<String>("복용 안함")
     val dinnerEatTimeString = MutableLiveData<String>("복용 안함")
 
+    var changeCategoryPosition=0
     val pillNameCategoryListLiveData = MutableLiveData<MutableList<PillNameAndCategory>>()
     private var pillNameString: String = ""
     fun onPillNameTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -238,6 +241,11 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
             return
         }
 
+        if(timeList.isEmpty()){
+            addErrorString.value = PillAddErrorType.ONE_CHOOSE_EAT_TIME
+            return
+        }
+
         if (pillNameCategoryListLiveData.value?.isEmpty() == true) {
             addErrorString.value = PillAddErrorType.ONE_REGISTER_PILL_CATEGORY
             return
@@ -268,7 +276,6 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
 
     //아침<점심<저녁 시간이 보장된다는 기준임.
     fun adjustSpecificTime(eatTime: EatTime, index: Int): SpecificTime {
-
         val adjSpecTime = SpecificTime(0, 0, 0)
 
         when (eatTime) {
@@ -341,9 +348,13 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    fun curCategoryChange(changeIndex: Int, changeValue: String) {
+        pillNameCategoryListLiveData.value!![changeCategoryPosition].pillCategory =
+            changeValue
+        pillNameCategoryListLiveData.value = pillNameCategoryListLiveData.value!!
+    }
+
     fun onClickFinish() {
         finishEvent.value = true
     }
-
-
 }

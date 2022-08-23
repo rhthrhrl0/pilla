@@ -12,19 +12,13 @@ class PillNameCategoryAdapter:RecyclerView.Adapter<PillNameCategoryAdapter.PillN
     inner class PillNameCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding= AddPillCategoryItemBinding.bind(itemView)
         init {
-//            itemView.setOnClickListener {
-//                myItemClickListener.onItemClick(adapterPosition) // adapterPosition을 통해 이 아이템의 위치를 알 수 있다.
-//            }
-//            itemView.setOnLongClickListener {
-//                myItemClickListener.onItemLongClick(adapterPosition)
-//                return@setOnLongClickListener true
-//            }
             binding.deleteIt.setOnClickListener {
                 myItemClickListener.onItemDeleteClick(adapterPosition)
             }
+            binding.pillCategoryBtn.setOnClickListener{
+                myItemClickListener.onPillCategoryChangeClick(adapterPosition)
+            }
         }
-
-
     }
 
     private var mItems: List<PillNameAndCategory> = ArrayList<PillNameAndCategory>() //초반에 그냥 초기화 해놓는게 널에러 안나고 좋음.
@@ -33,7 +27,7 @@ class PillNameCategoryAdapter:RecyclerView.Adapter<PillNameCategoryAdapter.PillN
     interface MyItemClickListener{
         fun onItemDeleteClick(position: Int)
         fun onItemClick(position: Int)
-        fun onItemLongClick(position: Int)
+        fun onPillCategoryChangeClick(position: Int)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
