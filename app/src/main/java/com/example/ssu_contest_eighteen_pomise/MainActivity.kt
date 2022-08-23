@@ -15,6 +15,7 @@ import com.example.ssu_contest_eighteen_pomise.databinding.ActivityMainBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndJustScaleDown
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideUpperAndNone
 import com.example.ssu_contest_eighteen_pomise.mainfragments.pill_manage.PillManageActivity
+import com.yourssu.design.system.component.Toast.Companion.shortToast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.nameToast.observe(this@MainActivity, {
-            Toast.makeText(this, "${viewModel.nameString}님 환영합니다.", Toast.LENGTH_SHORT).show()
+            shortToast("${viewModel.nameString}님 환영합니다.")
         })
 
     }

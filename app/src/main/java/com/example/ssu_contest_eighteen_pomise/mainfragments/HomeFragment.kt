@@ -78,9 +78,7 @@ class HomeFragment : Fragment() {
         binding.pillListRv.adapter = adapter
         binding.refreshLayout.setColorSchemeColors(resources.getColor(R.color.mainColor))
 
-        Log.d("kmj", "뷰모델옵저버 세팅")
         onViewModelInit()
-        Log.d("kmj", "뷰모델옵저버 세팅 끝")
 
         onInitView()
     }
@@ -122,7 +120,7 @@ class HomeFragment : Fragment() {
 
         viewModel.refreshEndEvent.observe(viewLifecycleOwner, {
             binding.refreshLayout.isRefreshing = false
-            Toast.makeText(context, "알람목록을 갱신했습니다.", Toast.LENGTH_SHORT).show()
+            shortToast("알람목록을 갱신했습니다.")
         })
 
         viewModel.refreshInitWithViewModel.observe(viewLifecycleOwner, {
@@ -137,7 +135,6 @@ class HomeFragment : Fragment() {
     fun onInitView() {
         adapter.setMyItemClickListener(object : PillAlarmListAdapter.MyItemClickListener {
             override fun onItemClick(position: Int) {
-                Log.d("kmj", "${position}번쨰입니다.")
                 val intent = Intent(activity, DetailAlarmActivity::class.java)
                 intent.putExtra(
                     DetailAlarmActivity.KEY_PILL_NAME,
