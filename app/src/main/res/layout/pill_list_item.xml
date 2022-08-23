@@ -14,43 +14,55 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/join_btn"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:id="@+id/circle_image"
             android:layout_width="138dp"
             android:layout_height="138dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="16dp"
+            android:background="@drawable/circle_image_background"
             android:padding="22dp"
-            android:background="@drawable/circle_image_background">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/pill_circle_item_image"/>
+                android:src="@drawable/pill_circle_item_image" />
         </LinearLayout>
+
+        <com.yourssu.design.system.atom.IconView
+            android:id="@+id/more_pill_info"
+            icon="@{Icon.ic_dots_horizontal_line}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toEndOf="@id/pill_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"/>
 
         <LinearLayout
             android:id="@+id/text_box"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginHorizontal="16dp"
             android:orientation="vertical"
-            android:weightSum="17"
-            app:layout_constraintStart_toEndOf="@id/circle_image"
-            app:layout_constraintTop_toTopOf="parent"
+            android:weightSum="13"
+            app:layout_constraintBottom_toTopOf="@id/pill_list"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/guide_line"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp">
+            app:layout_constraintStart_toEndOf="@id/circle_image"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 pillIsNextEat="@{pillDTO}"
@@ -58,15 +70,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="4"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
 
             <TextView
+                amPmText="@{pillDTO}"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="5"
-                amPmText="@{pillDTO}"
                 android:textColor="@color/black"
-                android:textSize="25dp"
+                android:textSize="30dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -75,66 +87,27 @@
                 android:layout_height="0dp"
                 android:layout_weight="4"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                android:orientation="horizontal">
-
-                <TextView
-                    pillNameOneVisible="@{pillDTO}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/pill_list_item_for_name"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-
-                <TextView
-                    pillNameTwoVisible="@{pillDTO}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/pill_list_item_for_name"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-
-                <TextView
-                    pillNameThreeVisible="@{pillDTO}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/pill_list_item_for_name"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-            </LinearLayout>
-
+                android:textSize="25dp" />
 
         </LinearLayout>
 
-        <com.yourssu.design.system.atom.IconView
-            android:id="@+id/more_pill_info"
-            android:layout_width="wrap_content"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/pill_list"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guide_line"
-            icon="@{Icon.ic_dots_horizontal_line}"
-            android:layout_marginRight="16dp"
-            />
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="25dp"
-            />
+            android:descendantFocusability="blocksDescendants"
+            app:layout_constraintEnd_toStartOf="@id/more_pill_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/circle_image"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            app:flexWrap="wrap">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sub_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.flexbox.FlexboxLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

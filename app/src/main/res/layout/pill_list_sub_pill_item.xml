@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.yourssu.design.system.foundation.Icon" />
+
+        <variable
+            name="pill"
+            type="com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.PillNameAndCategory" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/item_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/join_btn"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pill_list_item_for_name"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+</layout>
