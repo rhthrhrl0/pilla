@@ -4,16 +4,20 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.SpecificTime
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityPillManageDetailBinding
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.AlarmListDTO
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmActivity
+import com.yourssu.design.system.component.Toast.Companion.shortToast
+import com.yourssu.design.system.component.Toast.Companion.toast
 
 class PillManageDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPillManageDetailBinding
@@ -48,7 +52,16 @@ class PillManageDetailActivity : AppCompatActivity() {
                     }
                 })
                 builder.create().show()
-                Log.d("kmj","아이템 삭제 버튼 클릭")
+            }
+        })
+
+        binding.timeListRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_SETTLING
+                    && !recyclerView.canScrollVertically(1)) {
+                    shortToast(resources.getString(R.string.can_not_load_more_registered_time_list_toast_message))
+                }
             }
         })
 

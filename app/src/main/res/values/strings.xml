@@ -65,4 +65,9 @@
     <string name="title_for_ask_want_to_finish">정말 복용 등록을 종료할까요?</string>
     <string name="message_for_warning_about_ocr">주의: 해당 처방전의 사진이 없다면 신중히 선택해주세요.</string>
     <string name="empty_register_pill_list">추가할 복용 목록이 없어요.\n추가버튼을 눌러서 복용 목록을 추가해보세요.</string>
+    <string name="can_not_load_more_alarm_list_toast_message">더이상 알람이 목록이 없습니다.</string>
+    <string name="can_not_load_more_registered_pill_list_toast_message">더이상 등록된 약 목록이 없습니다.</string>
+    <string name="can_not_load_more_registered_time_list_toast_message">더이상 등록된 시간 목록이 없습니다.</string>
+    <string name="title_delete_all_pill_time">주의: 삭제하면 복구할 수 없습니다.</string>
+    <string name="message_delete_pill_all_time">\n약을 삭제 하시겠습니까?</string>
 </resources>

@@ -2,21 +2,18 @@ package com.example.ssu_contest_eighteen_pomise.mainfragments.pill_manage
 
 import android.app.Application
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.SpecificTime
-import com.example.ssu_contest_eighteen_pomise.network.UserService
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.joda.time.format.DateTimeFormat
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -24,6 +21,9 @@ class PillManageViewModel(application: Application) : AndroidViewModel(applicati
     val finishEvent = MutableLiveData<Boolean>()
     private val shPre = App.token_prefs
     private val settShrpe = SettingSharedPreferences.setInstance(application)
+
+    private val _eventFlow = MutableSharedFlow<MyEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     val registeredPillList = MutableLiveData<List<PillSetDTO>>()
 
@@ -85,14 +85,54 @@ class PillManageViewModel(application: Application) : AndroidViewModel(applicati
                 }
 
                 runBlocking(Dispatchers.Main) {
-                    registeredPillList.value=tempList
+                    registeredPillList.value = tempList
                 }
 
             } else {
                 runBlocking(Dispatchers.Main) {
-                    registeredPillList.value= emptyList()
+                    registeredPillList.value = emptyList()
                 }
             }
+        }
+    }
+
+    fun deleteAllTime(position: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val ids: List<Int> = registeredPillList.value?.get(position)?.id ?: emptyList()
+            val response = App.userService.deleteMyPillTime(shPre.refreshToken!!, ids)
+
+            if (response.isSuccessful) {
+                val temp = mutableListOf<PillSetDTO>()
+                for (cur in registeredPillList.value!!) {
+                    temp.add(
+                        PillSetDTO(
+                            cur.createdAt,
+                            cur.id.toMutableList(),
+                            cur.pillCategory,
+                            cur.pillName,
+                            cur.time.toMutableList(),
+                            cur.expireDateYear,
+                            cur.expireDateMonth,
+                            cur.expireDateDate
+                        )
+                    )
+                }
+                temp.removeAt(position)
+
+                runBlocking(Dispatchers.Main) {
+                    registeredPillList.value=temp
+                    sendEvent(MyEvent.SuccessDeleteAllEvent)
+                }
+            } else {
+                sendEvent(MyEvent.FailedDeleteAllEvent)
+                getRegisteredPillList()
+            }
+        }
+    }
+
+    fun sendEvent(event: MyEvent) {
+        viewModelScope.launch {
+            _eventFlow.emit(event)
         }
     }
 
@@ -114,6 +154,11 @@ class PillManageViewModel(application: Application) : AndroidViewModel(applicati
         val expireDateMonth: Int,
         val expireDateDate: Int
     )
+
+    sealed class MyEvent{
+        object FailedDeleteAllEvent:MyEvent()
+        object SuccessDeleteAllEvent:MyEvent()
+    }
 
     fun convert(string: String): ExpireDate {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

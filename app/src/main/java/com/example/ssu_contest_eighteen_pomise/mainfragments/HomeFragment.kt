@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentHomeBinding
@@ -16,6 +17,7 @@ import com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmAct
 import com.example.ssu_contest_eighteen_pomise.mainfragments.list.PillAlarmListAdapter
 import com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.PatientListAdapter
 import com.yourssu.design.system.atom.ToolTip
+import com.yourssu.design.system.component.Toast.Companion.shortToast
 import com.yourssu.design.undercarriage.size.dpToIntPx
 
 
@@ -110,11 +112,11 @@ class HomeFragment : Fragment() {
         viewModel.pillListItems.observe(viewLifecycleOwner, {
             adapter.updateItems(it ?: emptyList())
             if (it.isEmpty()) {
-                binding.refreshLayout.visibility=View.GONE
-                binding.emptyListExplainText.visibility=View.VISIBLE
+                binding.refreshLayout.visibility = View.GONE
+                binding.emptyListExplainText.visibility = View.VISIBLE
             } else {
-                binding.refreshLayout.visibility=View.VISIBLE
-                binding.emptyListExplainText.visibility=View.GONE
+                binding.refreshLayout.visibility = View.VISIBLE
+                binding.emptyListExplainText.visibility = View.GONE
             }
         })
 
@@ -161,10 +163,19 @@ class HomeFragment : Fragment() {
 
             }
         })
+        binding.pillListRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_SETTLING
+                    && !recyclerView.canScrollVertically(1)
+                ) {
+                    shortToast(resources.getString(R.string.can_not_load_more_alarm_list_toast_message))
+                }
+            }
+        })
 
         patientListAdapter.setMyItemClickListener(object : PatientListAdapter.MyItemClickListener {
             override fun onItemClick(position: Int, email: String) {
-                Log.d("kmj", "$position,$email")
                 viewModel.clickPatientIndex(position, email)
                 val offset = mWidthPixels / 2 - mWidthPatientItems / 2
                 val layoutManager = binding.patientListRv.layoutManager as LinearLayoutManager
@@ -174,7 +185,6 @@ class HomeFragment : Fragment() {
     }
 
     override fun onStart() {
-        Log.d("kmj","스타트")
         val shPre = App.token_prefs
         if (shPre.isGuardian != true) {
             viewModel.setMyData()

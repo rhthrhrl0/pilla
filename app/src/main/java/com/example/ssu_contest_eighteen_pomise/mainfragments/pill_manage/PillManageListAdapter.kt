@@ -23,6 +23,17 @@ class PillManageListAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PillSetDTO) {
             binding.item = item
+
+            binding.itemLayout.setOnClickListener {
+                myItemClickListener?.onItemClick(
+                    adapterPosition
+                )
+            }
+
+            binding.itemLayout.setOnLongClickListener {
+                myItemClickListener?.onLongClick(adapterPosition)
+                return@setOnLongClickListener true
+            }
             binding.executePendingBindings()
         }
     }
@@ -42,6 +53,7 @@ class PillManageListAdapter :
     // 리사이클러뷰는 리스트 뷰와 달리 아이템에 대한 클릭 이벤트 처리를 기본제공하지 않음.
     interface MyItemClickListener {
         fun onItemClick(position: Int)
+        fun onLongClick(position: Int)
     }
 
     private var myItemClickListener: MyItemClickListener? = null
@@ -56,22 +68,14 @@ class PillManageListAdapter :
             parent,
             false
         )
-        val viewHolder = PillListViewHolder(binding)
-        binding.apply {
-            binding.itemLayout.setOnClickListener {
-                myItemClickListener?.onItemClick(
-                    viewHolder.adapterPosition
-                )
-            }
-        }
-        return viewHolder
+        return PillListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PillListViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    companion object{
+    companion object {
         fun timeConvert(string: String): SpecificTime {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -81,7 +85,11 @@ class PillManageListAdapter :
                 //val date = org.joda.time.LocalDateTime.now()
                 val dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
                 val jodatime = dtf.parseDateTime(string)
-                return SpecificTime(jodatime.hourOfDay, jodatime.minuteOfHour, jodatime.secondOfMinute)
+                return SpecificTime(
+                    jodatime.hourOfDay,
+                    jodatime.minuteOfHour,
+                    jodatime.secondOfMinute
+                )
             }
         }
 
@@ -99,27 +107,28 @@ class PillManageListAdapter :
         }
     }
 }
+
 @BindingAdapter("pillName")
-fun pillNameInfo(textView:TextView,item:PillSetDTO){
-    textView.text="약 이름: ${item.pillName}"
+fun pillNameInfo(textView: TextView, item: PillSetDTO) {
+    textView.text = "약 이름: ${item.pillName}"
 }
 
 @BindingAdapter("pillCategory")
-fun pillCategoryInfo(textView:TextView,item:PillSetDTO){
-    textView.text="약 종류: ${item.pillCategory}"
+fun pillCategoryInfo(textView: TextView, item: PillSetDTO) {
+    textView.text = "약 종류: ${item.pillCategory}"
 }
 
 @BindingAdapter("pillSetCount")
-fun pillSetInfo(textView:TextView,item:PillSetDTO){
-    textView.text="등록된 시간 개수: ${item.id.size}"
+fun pillSetInfo(textView: TextView, item: PillSetDTO) {
+    textView.text = "등록된 시간 개수: ${item.id.size}"
 }
 
 @BindingAdapter("pillSetRegisteredDate")
-fun pillSetRegisteredDateInfo(textView:TextView,item:PillSetDTO){
-    textView.text="등록일: "+PillManageListAdapter.dateConvert(item.createdAt)
+fun pillSetRegisteredDateInfo(textView: TextView, item: PillSetDTO) {
+    textView.text = "등록일: " + PillManageListAdapter.dateConvert(item.createdAt)
 }
 
 @BindingAdapter("pillSetExpireDate")
-fun pillSetExpireDateInfo(textView:TextView,item:PillSetDTO){
-    textView.text="복용마감일: ${item.expireDateYear}-${item.expireDateMonth}-${item.expireDateDate}"
+fun pillSetExpireDateInfo(textView: TextView, item: PillSetDTO) {
+    textView.text = "복용마감일: ${item.expireDateYear}-${item.expireDateMonth}-${item.expireDateDate}"
 }

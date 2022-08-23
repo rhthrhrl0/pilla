@@ -23,6 +23,7 @@ import com.example.ssu_contest_eighteen_pomise.databinding.ActivityOcrRegisterBi
 import com.example.ssu_contest_eighteen_pomise.databinding.OcrNonSelectedSetListItemBinding
 import com.example.ssu_contest_eighteen_pomise.databinding.OcrSelectedSetListItemBinding
 import com.example.ssu_contest_eighteen_pomise.dto.OcrAndImageData
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.showAskDialog
 import com.yourssu.design.system.atom.Picker
 import com.yourssu.design.system.foundation.Typo
 import com.yourssu.design.system.language.bottomSheet
@@ -500,16 +501,7 @@ class OcrRegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun showAskDialog(title: String, message: String, onFunc: () -> Unit) {
-        AlertDialog.Builder(this)
-            .setTitle(title)
-            .setMessage(message)
-            .setNegativeButton(R.string.close) { _, _ -> }
-            .setPositiveButton(R.string.confirm) { _, _ ->
-                onFunc()
-            }.setCancelable(false)
-            .show()
-    }
+
 
     override fun onBackPressed() {
         viewModel.sendEvent(AddRegisterOcrViewModel.MyEvent.FinishEvent)

@@ -76,7 +76,13 @@ fun setPillIsNextEat(textView: TextView, store: AlarmListDTO) {
 
 @BindingAdapter("amPmText")
 fun setAmPmText(textView: TextView, store: AlarmListDTO) {
-    if (store.eatHour < 12) {
+    if(store.eatHour==12){
+        textView.text = "오전 12시 ${store.eatMinutes}분"
+    }
+    else if(store.eatHour==0){
+        textView.text = "오후 12시 ${store.eatMinutes}분"
+    }
+    else if (store.eatHour < 12) {
         textView.text = "오전 ${store.eatHour}시 ${store.eatMinutes}분"
     } else {
         textView.text = "오후 ${store.eatHour-12}시 ${store.eatMinutes}분"
