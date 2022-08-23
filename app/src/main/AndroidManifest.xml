@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBLATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -19,6 +22,10 @@
         android:roundIcon="@mipmap/ic_pill_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ssu_contest_eighteen_pomise">
+        <activity
+            android:name=".mypage.UpdatePwdActivity"
+            android:exported="false"
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".camera.add_by_ocr.OcrRegisterActivity"
             android:exported="false" />

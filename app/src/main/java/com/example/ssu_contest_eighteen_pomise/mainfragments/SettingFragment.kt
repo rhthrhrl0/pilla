@@ -9,13 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.mypage.SettingAlarmActivity
-import com.example.ssu_contest_eighteen_pomise.mypage.SettingMealtimeActivity
-import com.example.ssu_contest_eighteen_pomise.mypage.SettingGuardiansActivity
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
 import com.example.ssu_contest_eighteen_pomise.databinding.FragmentSettingBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndNone
-import com.example.ssu_contest_eighteen_pomise.mypage.SettingProtegesActivity
+import com.example.ssu_contest_eighteen_pomise.mypage.*
 
 
 class SettingFragment : Fragment() {
@@ -43,6 +40,7 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         viewModel.getEmail()
+        viewModel.getName()
 
         viewModel.logoutVar.observe(viewLifecycleOwner, {
             logoutAndStartLoginActivity()
@@ -68,6 +66,16 @@ class SettingFragment : Fragment() {
             startSettingProtegesActivity()
         })
 
+        viewModel.startUpdatePwdActivity.observe(viewLifecycleOwner, {
+            startUpdatePwdActivity()
+        })
+
+    }
+
+    private fun startUpdatePwdActivity() {
+        val intent = Intent(activity, UpdatePwdActivity::class.java)
+        startActivity(intent)
+        activity?.slideRightEnterAndNone()
     }
 
     private fun startSettingProtegesActivity() {
