@@ -27,7 +27,7 @@ class SettingAlarmActivity : AppCompatActivity() {
     private val viewModel: SettingAlarmViewModel by viewModels();
     lateinit var notificationManager: NotificationManager
     lateinit var audioManager: AudioManager
-    val MY_PERMISSION_ACCESS_ALL = 100
+//    val MY_PERMISSION_ACCESS_ALL = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

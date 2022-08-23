@@ -14,7 +14,7 @@
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/round_backgrond_border_black.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_add_prescription.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_alarm.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_detail_alarm.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_detail_alarm.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_join.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -28,6 +28,8 @@
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_update_password.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_setting.xml" value="0.33" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/guardians_view.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/pill_alarm_detail.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/protectors_view.xml" value="0.275" />
         <entry key="..\:/Users/rhthr/.gradle/caches/transforms-3/9b1360e1c98a87f51f98a0b33a116a2f/transformed/jetified-YDS-Android-2.1.3/res/drawable/ic_dots_horizontal_line.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/AndroidStudioProjects/ssu_contest_eighteen_pomise/app/src/main/res/drawable-anydpi-v24/ic_stat_name.xml" value="0.1" />

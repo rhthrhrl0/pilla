@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityDetailAlarmBinding
+import java.lang.Thread.sleep
 
 class DetailAlarmActivity : AppCompatActivity() {
     //https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15095677
 
     private lateinit var binding:ActivityDetailAlarmBinding
     private val viewModel:DetailAlarmViewModel by viewModels()
+    private var adapter = DetailAlarmAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +23,30 @@ class DetailAlarmActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
         binding.viewModel=viewModel
 
-        onViewModelInit()
-        Log.d("kmj","여기됨.")
         viewModel.pillAlarmDto= intent.getSerializableExtra(KEY_PILL_NAME) as AlarmListDTO
         viewModel.getPillDetailInfo()
-        Log.d("kmj","여기됨.")
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onViewModelInit()
+    }
+
+    private fun initView() {
+        binding.detailRecyclerView.apply {
+            this.layoutManager = LinearLayoutManager(this@DetailAlarmActivity)
+            this.adapter = this@DetailAlarmActivity.adapter
+        }
     }
 
     fun onViewModelInit() {
+        viewModel.pillList.observe(this, {
+            adapter.updateItems(it)
+            initView()
+            Log.d("kyb", "초기화1")
+        })
+
         viewModel.finishEvent.observe(this@DetailAlarmActivity, {
             onBackPressed()
         })

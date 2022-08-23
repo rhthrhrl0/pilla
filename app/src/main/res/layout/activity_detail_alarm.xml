@@ -31,6 +31,26 @@
             app:startIcon="@{Icon.ic_arrow_left_line}"
             app:title="@{@string/alarm_specific_information}" />
 
+        <com.yourssu.design.system.atom.Divider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="7dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/pill_alarm_detail"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>
