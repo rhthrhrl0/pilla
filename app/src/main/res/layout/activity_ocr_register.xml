@@ -548,6 +548,15 @@
 
         </ScrollView>
 
+        <TextView
+            android:id="@+id/emptyText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/empty_register_pill_list"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/pill_set_rv"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

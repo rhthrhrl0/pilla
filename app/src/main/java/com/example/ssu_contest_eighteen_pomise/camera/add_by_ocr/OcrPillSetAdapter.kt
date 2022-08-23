@@ -64,7 +64,6 @@ class OcrPillSetListAdapter :
             oldItem: AddRegisterOcrViewModel.OcrRegisterDTO,
             newItem: AddRegisterOcrViewModel.OcrRegisterDTO
         ): Boolean {
-            Log.d("kmj","아이템같은지:${oldItem.pillEatCount == newItem.pillEatCount && oldItem.pillEatDay == newItem.pillEatDay && oldItem.pillEatMethod == newItem.pillEatMethod}:${oldItem.pillEatMethod}과${newItem.pillEatMethod}")
             return oldItem.pillEatCount == newItem.pillEatCount && oldItem.pillEatDay == newItem.pillEatDay && oldItem.pillEatMethod == newItem.pillEatMethod
         }
 
@@ -72,7 +71,6 @@ class OcrPillSetListAdapter :
             oldItem: AddRegisterOcrViewModel.OcrRegisterDTO,
             newItem: AddRegisterOcrViewModel.OcrRegisterDTO
         ): Boolean {
-            Log.d("kmj","컨텐츠 같은지.${oldItem == newItem}:${oldItem.pillEatMethod}의${oldItem.typeId},${newItem.pillEatMethod}의${newItem.typeId}")
             return oldItem == newItem
         }
     }
@@ -127,7 +125,6 @@ class OcrPillSetListAdapter :
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("kmj","타입: ${currentList[position].pillEatMethod}:${currentList[position].typeId}")
         return currentList[position].typeId
     }
 

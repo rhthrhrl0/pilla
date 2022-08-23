@@ -335,10 +335,8 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
         pillSetList.value = tempOcrRegisterList
 
         if (tempOcrRegisterList.size == 1) {
-            sendEvent(MyEvent.EmptySetEvent)
             curIndex = -1
         } else {
-            sendEvent(MyEvent.NotEmptySetEvent)
             changeIndex(0)
         }
     }
@@ -674,6 +672,7 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
 
     fun sendEvent(event: MyEvent) {
         viewModelScope.launch {
+            Log.d("kmj","sendEvent:${event}")
             _eventFlow.emit(event)
         }
     }
@@ -758,8 +757,6 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
     }
 
     sealed class MyEvent {
-        object EmptySetEvent : MyEvent()
-        object NotEmptySetEvent : MyEvent()
         object FinishEvent : MyEvent()
         class AddFailedEvent(
             val position: Int,

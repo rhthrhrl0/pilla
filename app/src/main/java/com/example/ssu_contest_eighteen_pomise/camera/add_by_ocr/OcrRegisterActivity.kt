@@ -163,9 +163,11 @@ class OcrRegisterActivity : AppCompatActivity() {
     fun onViewModelInit() {
         viewModel.pillSetList.observe(this, {
             if (it.size == 1) {
-                viewModel.sendEvent(AddRegisterOcrViewModel.MyEvent.EmptySetEvent)
-            } else {
-                viewModel.sendEvent(AddRegisterOcrViewModel.MyEvent.NotEmptySetEvent)
+                binding.scrollView.visibility=View.GONE
+                binding.emptyText.visibility=View.VISIBLE
+            } else if (it.size > 1) {
+                binding.scrollView.visibility=View.VISIBLE
+                binding.emptyText.visibility=View.GONE
             }
             ocrPillSetAdapter.submitList(it)
         })
@@ -460,12 +462,6 @@ class OcrRegisterActivity : AppCompatActivity() {
 
     fun handleEvent(event: AddRegisterOcrViewModel.MyEvent) {
         when (event) {
-            is AddRegisterOcrViewModel.MyEvent.EmptySetEvent -> {
-                binding.scrollView.visibility = View.GONE
-            }
-            is AddRegisterOcrViewModel.MyEvent.NotEmptySetEvent -> {
-                binding.scrollView.visibility = View.VISIBLE
-            }
             is AddRegisterOcrViewModel.MyEvent.FinishEvent -> {
                 showAskDialog(
                     getString(R.string.title_for_ask_want_to_finish),
