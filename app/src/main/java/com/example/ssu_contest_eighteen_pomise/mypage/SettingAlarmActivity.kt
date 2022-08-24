@@ -122,15 +122,15 @@ class SettingAlarmActivity : AppCompatActivity() {
     }
 
     private fun setSound() {
-        if(setting_prefs.sound.equals("on"))
-            audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
-        else
-            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+        if(setting_prefs.sound.equals("off") && setting_prefs.vibrate.equals("off"))
+            audioManager.ringerMode = AudioManager.RINGER_MODE_SILENT
 
         if(setting_prefs.vibrate.equals("on"))
-            audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
-        else
             audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+
+        if(setting_prefs.sound.equals("on"))
+            audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
+
     }
 
     private fun toastSoundOn() {

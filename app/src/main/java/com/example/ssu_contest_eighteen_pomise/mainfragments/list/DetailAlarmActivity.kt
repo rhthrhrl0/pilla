@@ -22,6 +22,7 @@ class DetailAlarmActivity : AppCompatActivity() {
         binding=DataBindingUtil.setContentView(this,R.layout.activity_detail_alarm)
         binding.lifecycleOwner=this
         binding.viewModel=viewModel
+        binding.isLoading = true
 
         viewModel.pillAlarmDto= intent.getSerializableExtra(KEY_PILL_NAME) as AlarmListDTO
         viewModel.getPillDetailInfo()
@@ -43,6 +44,7 @@ class DetailAlarmActivity : AppCompatActivity() {
     fun onViewModelInit() {
         viewModel.pillList.observe(this, {
             adapter.updateItems(it)
+            binding.isLoading = false
             initView()
             Log.d("kyb", "초기화1")
         })

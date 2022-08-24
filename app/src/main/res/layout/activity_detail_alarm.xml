@@ -5,10 +5,16 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <import type="com.yourssu.design.system.foundation.Icon" />
 
         <import type="com.yourssu.design.system.atom.Divider" />
 
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
         <variable
             name="viewModel"
             type="com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmViewModel" />
@@ -19,6 +25,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".mainfragments.list.DetailAlarmActivity">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/green_loading"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:visibility="@{isLoading?View.VISIBLE:View.GONE}"/>
 
         <com.yourssu.design.system.component.TopBar
             android:id="@+id/topbar"
