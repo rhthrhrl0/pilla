@@ -20,7 +20,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prescription_add">처방전 추가</string>
     <string name="support_prescription">OCR 지원하는 처방전 양식</string>
-    <string name="ocr_camera_on">처방전 사진 찾기</string>
+    <string name="ocr_camera_on">처방전 사진 찍기\n(자동으로 저장됩니다)</string>
+    <string name="ocr_gallery_on">처방전 사진 갤러리에서 찾기</string>
     <string name="no_picture">사진 없이 수기로 처방 작성하기</string>
     <string name="prescription_by_ocr">처방전 내용 확인 및 수정</string>
     <string name="prescription_hand_write">처방 수기로 작성</string>
@@ -70,9 +71,12 @@
     <string name="title_for_ask_want_to_finish">정말 복용 등록을 종료할까요?</string>
     <string name="message_for_warning_about_ocr">주의: 해당 처방전의 사진이 없다면 신중히 선택해주세요.</string>
     <string name="empty_register_pill_list">추가할 복용 목록이 없어요.\n추가버튼을 눌러서 복용 목록을 추가해보세요.</string>
-    <string name="can_not_load_more_alarm_list_toast_message">더이상 알람이 목록이 없습니다.</string>
+    <string name="can_not_load_more_alarm_list_toast_message">더이상 알람 목록이 없습니다.</string>
     <string name="can_not_load_more_registered_pill_list_toast_message">더이상 등록된 약 목록이 없습니다.</string>
     <string name="can_not_load_more_registered_time_list_toast_message">더이상 등록된 시간 목록이 없습니다.</string>
     <string name="title_delete_all_pill_time">주의: 삭제하면 복구할 수 없습니다.</string>
     <string name="message_delete_pill_all_time">\n약을 삭제 하시겠습니까?</string>
+    <string name="alarm_list_manage">받은 알림 목록 관리</string>
+    <string name="can_not_load_more_receive_alarm_list_toast_message">더이상 받은 알람 목록이 없습니다.</string>
+    <string name="pill_category">약 목록: </string>
 </resources>

@@ -1,23 +1,18 @@
 package com.example.ssu_contest_eighteen_pomise.auth
 
 import android.app.Application
-import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.ssu_contest_eighteen_pomise.App
-import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.dto.PostSignUpModel
 import com.example.ssu_contest_eighteen_pomise.dto.SignUpDTO
 import com.example.ssu_contest_eighteen_pomise.network.LoginService
-import com.example.ssu_contest_eighteen_pomise.network.LoginService.Companion.getUnsafeOkHttpClient
 import com.yourssu.design.system.atom.Toggle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class JoinViewModel(application: Application) : AndroidViewModel(application) {
     val backBtn = MutableLiveData<Boolean>()
@@ -132,7 +127,7 @@ class JoinViewModel(application: Application) : AndroidViewModel(application) {
 
         for (i in 0 until str.length) {
             temp = str.elementAt(i)
-            if (temp.toInt() < 48 || temp.toInt() > 57) {
+            if (temp.code < 48 || temp.code > 57) {
                 result = false
             }
         }

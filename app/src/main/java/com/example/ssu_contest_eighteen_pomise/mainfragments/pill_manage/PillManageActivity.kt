@@ -60,7 +60,7 @@ class PillManageActivity : AppCompatActivity() {
                 if (recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_SETTLING
                     && !recyclerView.canScrollVertically(1)
                 ) {
-                    shortToast(resources.getString(R.string.can_not_load_more_alarm_list_toast_message))
+                    shortToast(resources.getString(R.string.can_not_load_more_registered_pill_list_toast_message))
                 }
             }
         })

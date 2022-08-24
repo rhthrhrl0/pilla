@@ -4,41 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.ssu_contest_eighteen_pomise.pill_alarm_manager.AlarmBellAndVibeViewModel" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".pill_alarm_manager.AlarmBellAndVibeActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".pill_alarm_manager.AlarmBellAndVibeActivity">
+
+        <TextView
+            android:textSize="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@{viewModel.countTimeString}" />
+
+        <TextView
+            android:textSize="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@{@string/pill_category+viewModel.pillNames}" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieWatchView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:lottie_rawRes="@raw/green_watch_lottie"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_autoPlay="true"/>
+            app:lottie_rawRes="@raw/green_watch_lottie" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="약 복용 완료"
-            android:onClick="@{()->viewModel.stopBell()}"
             android:background="@color/mainColor"
-            android:textColor="@color/black"/>
+            android:onClick="@{()->viewModel.stopBell()}"
+            android:text="약 지금 먹을게"
+            android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="나중에 먹을게\n(보호자에게 메시지가 갑니다)"
-            android:onClick="@{()->viewModel.laterEatStopBell()}"
             android:background="@color/border"
-            android:textColor="@color/black"/>
+            android:onClick="@{()->viewModel.laterEatStopBell()}"
+            android:text="나중에 먹을게\n(보호자에게 알림이 갑니다)"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 </layout>

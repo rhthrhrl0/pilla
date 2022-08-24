@@ -3,10 +3,10 @@ package com.example.ssu_contest_eighteen_pomise
 import android.content.Context
 import android.content.Intent
 import android.os.*
+import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.ssu_contest_eighteen_pomise.alarm.AlarmActivity
@@ -15,7 +15,9 @@ import com.example.ssu_contest_eighteen_pomise.databinding.ActivityMainBinding
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideRightEnterAndJustScaleDown
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideUpperAndNone
 import com.example.ssu_contest_eighteen_pomise.mainfragments.pill_manage.PillManageActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import com.yourssu.design.system.component.Toast.Companion.shortToast
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -38,7 +40,9 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         //requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.d("kmj","fcm토큰:${it}")
+        }
         onViewModelInit()
     }
 
@@ -47,6 +51,14 @@ class MainActivity : AppCompatActivity() {
             if (it) {
                 binding.addPill.visibility = View.GONE //보호자라면 처방기록 추가 기능은 필요없음.
                 binding.pillListMenu.visibility = View.GONE //보호자는 등록된 약 수정 할게 없음. 메뉴 필요없다.
+            }
+        })
+
+        viewModel.noReadAlarmItemExist.observe(this@MainActivity, {
+            if (it) {
+                binding.messageAlarm.visibility = View.VISIBLE
+            } else {
+                binding.messageAlarm.visibility = View.GONE
             }
         })
 
@@ -113,9 +125,13 @@ class MainActivity : AppCompatActivity() {
         slideRightEnterAndJustScaleDown()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        viewModel.getAlarmList()
+    }
+
     override fun onBackPressed() {
         backKeyHandler.onBackPressed()
     }
-
 
 }

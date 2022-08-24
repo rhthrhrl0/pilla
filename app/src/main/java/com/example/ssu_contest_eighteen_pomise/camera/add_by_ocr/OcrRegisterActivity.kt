@@ -1,6 +1,5 @@
 package com.example.ssu_contest_eighteen_pomise.camera.add_by_ocr
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,7 +21,6 @@ import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.SpecificTi
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityOcrRegisterBinding
 import com.example.ssu_contest_eighteen_pomise.databinding.OcrNonSelectedSetListItemBinding
 import com.example.ssu_contest_eighteen_pomise.databinding.OcrSelectedSetListItemBinding
-import com.example.ssu_contest_eighteen_pomise.dto.OcrAndImageData
 import com.example.ssu_contest_eighteen_pomise.extensionfunction.showAskDialog
 import com.yourssu.design.system.atom.Picker
 import com.yourssu.design.system.foundation.Typo
@@ -154,7 +152,7 @@ class OcrRegisterActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         viewModel.ocrImageDataInit =
-            intent.getSerializableExtra(KEY_OCR_DATA_NAME) as OcrAndImageData
+            intent.getSerializableExtra(KEY_OCR_DATA_NAME) as AddRegisterOcrViewModel.TransferOcrDTO
         onViewModelInit()
         initView()
 

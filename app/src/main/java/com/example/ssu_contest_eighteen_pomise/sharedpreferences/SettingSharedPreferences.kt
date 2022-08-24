@@ -33,10 +33,10 @@ object SettingSharedPreferences {
     }
 
     var sound: String?
-        get() = prefs.getString(alarm_sound, "off")
+        get() = prefs.getString(alarm_sound, "on")
         set(value) = prefs.edit().putString(alarm_sound, value).apply()
     var vibrate: String?
-        get() = prefs.getString(alarm_vibrate, "off")
+        get() = prefs.getString(alarm_vibrate, "on")
         set(value) = prefs.edit().putString(alarm_vibrate, value).apply()
     var morningHour: Int?
         get() = prefs.getInt(key_morningHour, 7)

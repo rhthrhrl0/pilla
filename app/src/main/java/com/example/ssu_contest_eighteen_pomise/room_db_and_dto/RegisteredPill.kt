@@ -23,7 +23,6 @@ data class RegisteredPill(
             @TypeConverter
             fun jsonToList(value: String) =
                 Gson().fromJson(value, Array<SpecificTime>::class.java).toList()
-
         }
     }
 }

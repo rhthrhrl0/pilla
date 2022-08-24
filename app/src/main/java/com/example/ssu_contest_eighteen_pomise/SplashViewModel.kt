@@ -9,8 +9,6 @@ import com.example.ssu_contest_eighteen_pomise.network.LoginService
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.TokenSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class SplashViewModel(application: Application) : AndroidViewModel(application) {
     var canLogin=MutableLiveData<Boolean>()
@@ -53,6 +51,9 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
             }
         }
         else{
+            viewModelScope.launch(Dispatchers.IO) {
+                App.loginService.deleteTokenRequest(shPre.refreshToken!!)
+            }
             canNotLogin.postValue(true)
         }
     }

@@ -62,6 +62,12 @@ interface UserService {
         @Body postDTO:UpdatePwDTO
     ): Response<Void>
 
+    @POST("v1/report")
+    suspend fun laterEatPostToGuardian(
+        @Header("Authorization") headerToken: String,
+        @Body pillNames:ReportLaterEatPillNames
+    ):Response<Void>
+
 //    @Headers("Content-Type: application/json")
 //    @GET("getDrugPrdtPrmsnDtlInq01")
 //    suspend fun getPillDetailInfo(

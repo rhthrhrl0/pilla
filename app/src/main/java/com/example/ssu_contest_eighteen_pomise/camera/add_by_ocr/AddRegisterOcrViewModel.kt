@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.ssu_contest_eighteen_pomise.App
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.camera.self_add_no_ocr.*
-import com.example.ssu_contest_eighteen_pomise.dto.OcrAndImageData
 import com.example.ssu_contest_eighteen_pomise.room_db_and_dto.RegisteredPill
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
 import com.yourssu.design.system.atom.Checkbox
@@ -16,14 +15,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import java.io.Serializable
 
 class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(application) {
     private val shPre = App.token_prefs
     private val settShrpe = SettingSharedPreferences.setInstance(application)
     private var addNum = 0
 
-    lateinit var ocrImageDataInit: OcrAndImageData
+    lateinit var ocrImageDataInit: TransferOcrDTO
     var pillSetList = MutableLiveData<MutableList<OcrRegisterDTO>>()
     var curIndex = -1
 
@@ -31,8 +30,6 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
 
     private val _eventFlow = MutableSharedFlow<MyEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
-
-    val addPrescriptionEvent = MutableLiveData<Boolean>()
 
     val isSelect1: MutableLiveData<Boolean> = MutableLiveData(true)
     val isSelect2: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -42,14 +39,14 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
         set(value) {
             field = value
             startTimeString.value = ("$field")
-            cycleTimeList.value=AddSelfNoOcrActivity.timeList.slice(0..23-startTimeInt)
+            cycleTimeList.value = AddSelfNoOcrActivity.timeList.slice(0..23 - startTimeInt)
             if (curIndex >= 0) {
                 pillSetList.value?.elementAt(curIndex)?.startTimeInt = value
             }
         }
     val startTimeString = MutableLiveData<String>("12")
 
-    var cycleTimeList=MutableLiveData(AddSelfNoOcrActivity.timeList.slice(0..11))
+    var cycleTimeList = MutableLiveData(AddSelfNoOcrActivity.timeList.slice(0..11))
     var cycleTimeInt: Int = 0
         set(value) {
             field = value
@@ -281,22 +278,13 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
 
     //초기에 한번만 수행.
     fun classifySet() {
-        val field = ocrImageDataInit.ocrDTO.images.elementAt(0).fields
         val pillList = mutableListOf<OcrPillDTO>()
         val tempSet = mutableSetOf<OcrSetDTO>()
         val tempOcrRegisterList = mutableListOf<OcrRegisterDTO>()
         var i = 0
-
-        for (od in 0..11) {
-            val pillName = field[i++].inferText
-            val pillEatCount = field[i++].inferText
-            val pillEatDay = field[i++].inferText
-            val pillEatMethod = field[i++].inferText
-            if (pillName.isNotBlank()) {
-                pillList.add(OcrPillDTO(pillName, pillEatCount, pillEatDay, pillEatMethod))
-            }
+        if (ocrImageDataInit.pillSetList.isNotEmpty()) {
+            pillList.addAll(ocrImageDataInit.pillSetList)
         }
-
         for (p in pillList) {
             tempSet.add(OcrSetDTO(p.pillEatCount, p.pillEatDay, p.pillEatMethod))
         }
@@ -543,7 +531,7 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
                     return
                 }
 
-                if (timeList.isEmpty()){
+                if (timeList.isEmpty()) {
                     sendEvent(
                         MyEvent.AddFailedEvent(
                             i,
@@ -672,7 +660,6 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
 
     fun sendEvent(event: MyEvent) {
         viewModelScope.launch {
-            Log.d("kmj","sendEvent:${event}")
             _eventFlow.emit(event)
         }
     }
@@ -682,7 +669,11 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
         val pillEatCount: String,
         val pillEatDay: String,
         val pillEatMethod: String
-    )
+    ) : Serializable
+
+    data class TransferOcrDTO(
+        val pillSetList: List<OcrPillDTO>
+    ) : Serializable
 
     data class OcrSetDTO(
         val pillEatCount: String,

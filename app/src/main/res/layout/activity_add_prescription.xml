@@ -36,7 +36,7 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@id/find_picture_btn"
+            app:layout_constraintBottom_toTopOf="@id/take_picture_and_store"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top_bar">
@@ -57,20 +57,35 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/take_picture_and_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:text="@{@string/ocr_camera_on}"
+            android:padding="8dp"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:onClick="@{()->viewModel.onClickCameraOCR()}"
+            app:layout_constraintBottom_toTopOf="@+id/find_picture_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image"/>
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/find_picture_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mainColor"
-            android:onClick="@{()->viewModel.onClickOCR()}"
+            android:onClick="@{()->viewModel.onClickGalleryOCR()}"
             android:padding="8dp"
-            android:text="@{@string/ocr_camera_on}"
+            android:text="@{@string/ocr_gallery_on}"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/self_no_ocr_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image" />
+            app:layout_constraintTop_toBottomOf="@id/take_picture_and_store"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/self_no_ocr_btn"

@@ -58,7 +58,7 @@ class PillManageDetailActivity : AppCompatActivity() {
         binding.timeListRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_SETTLING
+                if (recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_SETTLING
                     && !recyclerView.canScrollVertically(1)) {
                     shortToast(resources.getString(R.string.can_not_load_more_registered_time_list_toast_message))
                 }
