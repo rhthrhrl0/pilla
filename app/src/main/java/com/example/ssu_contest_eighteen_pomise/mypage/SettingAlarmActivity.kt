@@ -50,38 +50,38 @@ class SettingAlarmActivity : AppCompatActivity() {
 
         viewModel.initSoundBtnOn.observe(this, {
             initSoundBtnOn()
-            audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
         })
 
         viewModel.initSoundBtnOff.observe(this, {
             initSoundBtnOff()
-            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
         })
 
         viewModel.initVibrationBtnOn.observe(this, {
             initVibrationBtnOn()
-            audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
         })
 
         viewModel.initVibrationBtnOff.observe(this, {
             initVibrationBtnOff()
-            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
         })
 
         viewModel.toastSoundOn.observe(this, {
             toastSoundOn()
+            setSound()
         })
 
         viewModel.toastSoundOff.observe(this, {
             toastSoundOff()
+            setSound()
         })
 
         viewModel.toastVibrationOn.observe(this, {
             toastVibrationOn()
+            setSound()
         })
 
         viewModel.toastVibrationOff.observe(this, {
             toastVibrationOff()
+            setSound()
         })
 
     }
