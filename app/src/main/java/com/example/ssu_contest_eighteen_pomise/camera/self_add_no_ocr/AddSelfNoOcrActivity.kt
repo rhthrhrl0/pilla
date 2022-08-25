@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAddSelfNoOcrBinding
+import com.example.ssu_contest_eighteen_pomise.extensionfunction.showAskDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.yourssu.design.system.atom.Picker
+import com.yourssu.design.system.component.Toast.Companion.shortToast
 import com.yourssu.design.system.foundation.Typo
 import com.yourssu.design.system.language.bottomSheet
 import com.yourssu.design.system.language.picker
@@ -145,7 +147,11 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
     fun onViewModelInit() {
         viewModel.finishEvent.observe(this@AddSelfNoOcrActivity, {
-            onBackPressed()
+            showAskDialog(
+                getString(R.string.title_for_ask_want_to_finish),
+                "\n",
+                { finish() }
+            )
         })
 
         viewModel.addPrescriptionEvent.observe(this@AddSelfNoOcrActivity, {
@@ -165,7 +171,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
         })
 
         viewModel.addErrorString.observe(this@AddSelfNoOcrActivity, {
-            Toast.makeText(this, viewModel.addErrorString.value?.reason, Toast.LENGTH_SHORT).show()
+            shortToast(viewModel.addErrorString.value?.reason ?: "모든 내용을 기입해주세요.")
         })
     }
 
@@ -394,8 +400,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        //slideNoneAndDownExit()
+        viewModel.onClickFinish()
     }
 
     companion object {

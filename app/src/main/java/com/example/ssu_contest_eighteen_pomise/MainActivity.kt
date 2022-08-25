@@ -17,6 +17,7 @@ import com.example.ssu_contest_eighteen_pomise.extensionfunction.slideUpperAndNo
 import com.example.ssu_contest_eighteen_pomise.mainfragments.pill_manage.PillManageActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.yourssu.design.system.component.Toast.Companion.shortToast
+import com.yourssu.design.undercarriage.animation.startAnim
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         //requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.d("kmj","fcm토큰:${it}")
+            Log.d("kmj", "fcm토큰:${it}")
         }
         onViewModelInit()
     }
@@ -87,19 +88,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun replaceHomeFragment() {
+        binding.home.startAnim(R.anim.bottom_tab_click_anim)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrationService.vibrate(VibrationEffect.createOneShot(20, 50))
+        }
         if (findNavController(binding.fragmentContainerView.id).currentDestination?.id == R.id.settingFragment) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrationService.vibrate(VibrationEffect.createOneShot(20, 50))
-            }
             findNavController(binding.fragmentContainerView.id).navigate(R.id.action_settingFragment_to_homeFragment)
         }
     }
 
     fun replaceSettingFragment() {
+        binding.setting.startAnim(R.anim.bottom_tab_click_anim)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrationService.vibrate(VibrationEffect.createOneShot(20, 50))
+        }
         if (findNavController(binding.fragmentContainerView.id).currentDestination?.id == R.id.homeFragment) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrationService.vibrate(VibrationEffect.createOneShot(20, 50))
-            }
             findNavController(binding.fragmentContainerView.id).navigate(R.id.action_homeFragment_to_settingFragment)
         }
     }
@@ -114,12 +117,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startPillManageActivity() {
+        binding.pillListMenu.startAnim(R.anim.bottom_tab_click_anim)
         val intent = Intent(this, PillManageActivity::class.java)
         startActivity(intent)
         slideRightEnterAndJustScaleDown()
     }
 
     fun startAlarmListActivity() {
+        binding.alarmBell.startAnim(R.anim.bottom_tab_click_anim)
         val intent = Intent(this, AlarmActivity::class.java)
         startActivity(intent)
         slideRightEnterAndJustScaleDown()

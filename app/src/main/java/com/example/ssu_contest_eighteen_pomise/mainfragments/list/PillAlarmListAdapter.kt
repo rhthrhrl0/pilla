@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.PillListItemBinding
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.yourssu.design.undercarriage.animation.startAnim
 
 class PillAlarmListAdapter : RecyclerView.Adapter<PillAlarmListAdapter.PillListViewHolder>() {
     //아이템 뷰 정보를 가지고 있는 클래스임.
@@ -22,8 +23,8 @@ class PillAlarmListAdapter : RecyclerView.Adapter<PillAlarmListAdapter.PillListV
             binding.itemLinearLayout.setOnClickListener {
                 myItemClickListener?.onItemClick(adapterPosition)
             }
-            binding.morePillInfo.setOnClickListener {
-                //myItemClickListener?.onMorePillInfoClick(adapterPosition, binding.morePillInfo)
+            binding.morePillInfoBox.setOnClickListener {
+                binding.morePillInfoImage.startAnim(R.anim.bottom_tab_click_anim)
                 if (!isSelected) {
                     val list = mutableListOf<String>()
                     binding.pillDTO?.pillList?.map { list.add("(${it.pillCategory}): ${it.pillName}") }

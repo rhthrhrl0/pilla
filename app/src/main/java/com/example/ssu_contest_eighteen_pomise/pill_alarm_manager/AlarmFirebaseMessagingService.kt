@@ -87,12 +87,17 @@ class AlarmFirebaseMessagingService : FirebaseMessagingService() {
                     message.data[body]
                 )
                 startActivity(alarmIntent)
+
+                createNotificationChannel()
+                deliverNotification(this, message.data[title], message.data[body], false)
+                wakeLock.release()
+            }
+            else -> {
+                createNotificationChannel()
+                deliverNotification(this, message.data[title], message.data[body])
+                wakeLock.release()
             }
         }
-
-        createNotificationChannel()
-        deliverNotification(this, message.data[title], message.data[body])
-        wakeLock.release()
     }
 
     private fun makeAlarmDtoItem(title: String, body: String) =
@@ -106,7 +111,12 @@ class AlarmFirebaseMessagingService : FirebaseMessagingService() {
         }
 
 
-    private fun deliverNotification(context: Context, title: String? = "", body: String? = "") {
+    private fun deliverNotification(
+        context: Context,
+        title: String? = "",
+        body: String? = "",
+        isStartSlash: Boolean = true
+    ) {
         val contentIntent = Intent(context, SplashActivity::class.java)
         contentIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val contentPendingIntent = PendingIntent.getActivity(
@@ -115,32 +125,36 @@ class AlarmFirebaseMessagingService : FirebaseMessagingService() {
             contentIntent,
             PendingIntent.FLAG_MUTABLE
         )
+
+        var builder: NotificationCompat.Builder
         if (setting_prefs.vibrate == "on") {
-            val builder =
+            builder =
                 NotificationCompat.Builder(context, VIBE_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_stat_name)
                     .setContentTitle(title)
                     .setContentText(body)
-                    .setContentIntent(contentPendingIntent)
                     .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setAutoCancel(true)
                     .setShowWhen(true)
                     .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-            notificationManager.notify(NOTIFICATION_ID, builder.build())
         } else {
-            val builder =
+            builder =
                 NotificationCompat.Builder(context, NO_VIBE_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_stat_name)
                     .setContentTitle(title)
                     .setContentText(body)
-                    .setContentIntent(contentPendingIntent)
                     .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setAutoCancel(true)
                     .setShowWhen(true)
                     .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
                     .setVibrate(longArrayOf(0))
-            notificationManager.notify(NOTIFICATION_ID, builder.build())
         }
+
+        if (isStartSlash) {
+            builder.setContentIntent(contentPendingIntent)
+        }
+
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
     }
 
     fun createNotificationChannel() {
