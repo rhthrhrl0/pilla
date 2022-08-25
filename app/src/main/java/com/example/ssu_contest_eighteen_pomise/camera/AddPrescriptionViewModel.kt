@@ -75,8 +75,6 @@ class AddPrescriptionViewModel(application: Application) : AndroidViewModel(appl
                 Log.d("kmj", "실패!!!")
                 runBlocking(Dispatchers.Main) {
                     failedGetOcrPictureEvent.value = true
-                    Toast.makeText(getApplication(), "지원하는 양식의 처방전이 아닙니다", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }
         }

@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -100,6 +101,10 @@ class HomeFragment : Fragment() {
         viewModel.patientListItems.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 patientListAdapter.submitList(it)
+            } else {
+                binding.patientListRv.visibility=View.GONE
+                binding.nameTopBar.visibility=View.GONE
+                binding.emptyPatientListExplainText.visibility=View.VISIBLE
             }
         })
 
@@ -110,10 +115,10 @@ class HomeFragment : Fragment() {
         viewModel.pillListItems.observe(viewLifecycleOwner, {
             adapter.updateItems(it ?: emptyList())
             if (it.isEmpty()) {
-                binding.refreshLayout.visibility = View.GONE
+                binding.pillListRv.isVisible = false
                 binding.emptyListExplainText.visibility = View.VISIBLE
             } else {
-                binding.refreshLayout.visibility = View.VISIBLE
+                binding.pillListRv.isVisible = true
                 binding.emptyListExplainText.visibility = View.GONE
             }
         })
@@ -172,7 +177,13 @@ class HomeFragment : Fragment() {
         })
 
         patientListAdapter.setMyItemClickListener(object : PatientListAdapter.MyItemClickListener {
-            override fun onItemClick(position: Int, email: String) {
+            override fun onSelectedItemClick(position: Int, email: String) {
+                val offset = mWidthPixels / 2 - mWidthPatientItems / 2
+                val layoutManager = binding.patientListRv.layoutManager as LinearLayoutManager
+                layoutManager.scrollToPositionWithOffset(position, offset)
+            }
+
+            override fun onNonSelectedItemClick(position: Int, email: String) {
                 viewModel.clickPatientIndex(position, email)
                 val offset = mWidthPixels / 2 - mWidthPatientItems / 2
                 val layoutManager = binding.patientListRv.layoutManager as LinearLayoutManager

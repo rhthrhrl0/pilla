@@ -46,7 +46,6 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
             field = value
             curPatientEmail.value = patientListItems.value?.elementAt(value)?.email ?: ""
             nameStringLiveData.value = patientListItems.value?.elementAt(value)?.name ?: ""
-            Log.d("kmj", "스트링 내부:${nameStringLiveData.value}")
         }
 
     var pillListItems = MutableLiveData<List<AlarmListDTO>>()

@@ -13,12 +13,12 @@
     <LinearLayout
         android:id="@+id/item_linear_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/is_non_selected_patient">
 
         <TextView
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:background="@{patient.isSelectedLiveData() ? @drawable/is_selected_patient: @drawable/is_non_selected_patient}"
             android:ellipsize="marquee"
             android:gravity="center"
             android:singleLine="true"

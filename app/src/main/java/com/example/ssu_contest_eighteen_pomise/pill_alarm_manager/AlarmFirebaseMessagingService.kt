@@ -136,16 +136,18 @@ class AlarmFirebaseMessagingService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
                 PRIMARY_CHANNEL_ID,
-                "Stand up notification",
+                "Sound And Vibe Channel",
                 NotificationManager.IMPORTANCE_HIGH
             )
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.vibrationPattern= longArrayOf(0)
 
             if(setting_prefs.vibrate=="on") {
                 notificationChannel.enableVibration(true)
             }else{
-                notificationChannel.enableVibration(false)
+                notificationChannel.enableVibration(true)
                 notificationChannel.vibrationPattern= longArrayOf(0)
             }
 

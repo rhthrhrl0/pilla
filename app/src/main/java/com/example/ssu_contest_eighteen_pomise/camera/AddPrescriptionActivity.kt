@@ -70,7 +70,7 @@ class AddPrescriptionActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             } else if (it.resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show()
+                shortToast("사진 선택 취소")
             } else {
                 Log.d("ActivityResult", "something wrong")
             }
@@ -102,7 +102,7 @@ class AddPrescriptionActivity : AppCompatActivity() {
 
         viewModel.successOcrAndImageData.observe(this@AddPrescriptionActivity, {
             val intent = Intent(this, OcrRegisterActivity::class.java)
-            intent.putExtra(OcrRegisterActivity.KEY_OCR_DATA_NAME,it)
+            intent.putExtra(OcrRegisterActivity.KEY_OCR_DATA_NAME, it)
             startActivity(intent)
             dialog.dismiss()
         })
@@ -121,6 +121,7 @@ class AddPrescriptionActivity : AppCompatActivity() {
 
         viewModel.failedGetOcrPictureEvent.observe(this@AddPrescriptionActivity, {
             dialog.dismiss()
+            shortToast("지원하는 양식의 처방전이 아닙니다")
         })
 
         viewModel.selfAddPrescriptionEvent.observe(this@AddPrescriptionActivity, {
@@ -159,7 +160,7 @@ class AddPrescriptionActivity : AppCompatActivity() {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
                 } else {
-                    shortToast("사진 찍기 취소")
+                    shortToast("사진 촬영 취소")
                 }
             }
         }
@@ -303,7 +304,7 @@ class AddPrescriptionActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             //Q 버전 이상일 경우. (안드로이드 10, API 29 이상일 경우)
             saveImageOnAboveAndroidQ(bitmap)
-            shortToast("이미지 저장이 됐습니다.")
+            //shortToast("이미지 저장이 됐습니다.")
         } else {
             // Q 버전 이하일 경우. 저장소 쓰기 권한을 얻어온다.
             val writePermission =
@@ -311,9 +312,9 @@ class AddPrescriptionActivity : AppCompatActivity() {
 
             if (writePermission == PackageManager.PERMISSION_GRANTED) {
                 saveImageOnUnderAndroidQ(bitmap)
-                shortToast("이미지 저장이 됐습니다.")
+                //shortToast("이미지 저장이 됐습니다.")
             } else {
-                shortToast("이미지 저장 권한이 없습니다.")
+                //shortToast("이미지 저장 권한이 없습니다.")
             }
         }
     }

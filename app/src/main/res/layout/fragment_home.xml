@@ -14,28 +14,34 @@
             type="com.example.ssu_contest_eighteen_pomise.mainfragments.HomeFragmentViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical"
         tools:context=".mainfragments.HomeFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/patient_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:scrollbarFadeDuration="10"
             android:scrollbarSize="5dp"
             android:scrollbarStyle="outsideInset"
             android:scrollbarThumbVertical="@color/black"
-            android:scrollbars="horizontal" />
+            android:scrollbars="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.yourssu.design.system.atom.Divider
+            android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/patient_list_rv"/>
 
         <com.yourssu.design.system.component.TopBar
             android:id="@+id/name_top_bar"
@@ -43,16 +49,19 @@
             onEndSecondIconClick="@{()->viewModel.refreshBtn()}"
             startText="@{viewModel.nameStringLiveData}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.yourssu.design.system.atom.Divider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_top_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:onRefreshListener="@{viewModel.refreshBtn}">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -65,13 +74,30 @@
         <TextView
             android:id="@+id/empty_list_explain_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:text="등록된 복용 목록이 없습니다."
             android:textColor="@color/black"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_top_bar"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <TextView
+            android:id="@+id/empty_patient_list_explain_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="현재 보호자님이 등록한 환자가 없습니다."
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

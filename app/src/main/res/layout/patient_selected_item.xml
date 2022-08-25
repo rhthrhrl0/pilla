@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="patient"
+            type="com.example.ssu_contest_eighteen_pomise.mainfragments.patient_list.PatientListDTO" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/item_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/is_selected_patient">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@{patient.name}"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            tools:text="엄마" />
+
+    </LinearLayout>
+</layout>

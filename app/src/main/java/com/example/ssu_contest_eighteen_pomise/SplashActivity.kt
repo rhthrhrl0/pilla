@@ -5,19 +5,13 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.os.SystemClock.sleep
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
-import com.example.ssu_contest_eighteen_pomise.network.LoginService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+
 
 class SplashActivity : AppCompatActivity() {
     private val viewModel: SplashViewModel by viewModels()
