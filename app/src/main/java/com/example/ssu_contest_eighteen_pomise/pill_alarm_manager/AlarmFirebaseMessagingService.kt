@@ -30,7 +30,8 @@ class AlarmFirebaseMessagingService : FirebaseMessagingService() {
     companion object {
         const val TAG = "kmj"
         const val NOTIFICATION_ID = 0
-        const val PRIMARY_CHANNEL_ID = "primary_notification_channel"
+        const val VIBE_CHANNEL_ID = "vibe_primary_notification_channel"
+        const val NO_VIBE_CHANNEL_ID = "no_vibe_primary_notification_channel"
         const val title = "title"
         const val body = "body"
         const val usage = "usage"
@@ -114,45 +115,60 @@ class AlarmFirebaseMessagingService : FirebaseMessagingService() {
             contentIntent,
             PendingIntent.FLAG_MUTABLE
         )
-        val builder =
-            NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setContentIntent(contentPendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setAutoCancel(true)
-                .setShowWhen(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-//            if()
-//        }
-
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
+        if (setting_prefs.vibrate == "on") {
+            val builder =
+                NotificationCompat.Builder(context, VIBE_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setContentIntent(contentPendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setAutoCancel(true)
+                    .setShowWhen(true)
+                    .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+            notificationManager.notify(NOTIFICATION_ID, builder.build())
+        } else {
+            val builder =
+                NotificationCompat.Builder(context, NO_VIBE_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setContentIntent(contentPendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setAutoCancel(true)
+                    .setShowWhen(true)
+                    .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
+                    .setVibrate(longArrayOf(0))
+            notificationManager.notify(NOTIFICATION_ID, builder.build())
+        }
     }
 
     fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                PRIMARY_CHANNEL_ID,
-                "Sound And Vibe Channel",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
-            notificationChannel.enableVibration(true)
-            notificationChannel.vibrationPattern= longArrayOf(0)
-
-            if(setting_prefs.vibrate=="on") {
+            if (setting_prefs.vibrate == "on") {
+                val notificationChannel = NotificationChannel(
+                    VIBE_CHANNEL_ID,
+                    "Vibe Channel",
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.RED
                 notificationChannel.enableVibration(true)
-            }else{
+                notificationChannel.description = "AlarmManager Tests"
+                notificationManager.createNotificationChannel(notificationChannel)
+            } else {
+                val notificationChannel = NotificationChannel(
+                    NO_VIBE_CHANNEL_ID,
+                    "No Vibe Channel",
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.RED
                 notificationChannel.enableVibration(true)
-                notificationChannel.vibrationPattern= longArrayOf(0)
+                notificationChannel.vibrationPattern = longArrayOf(0)
+                notificationChannel.description = "AlarmManager Tests"
+                notificationManager.createNotificationChannel(notificationChannel)
             }
-
-            notificationChannel.description = "AlarmManager Tests"
-            notificationManager.createNotificationChannel(notificationChannel)
         }
     }
 }

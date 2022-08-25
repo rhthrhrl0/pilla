@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.ssu_contest_eighteen_pomise.auth.LoginActivity
+import com.yourssu.design.system.component.Toast.Companion.shortToast
 
 
 class SplashActivity : AppCompatActivity() {
@@ -47,7 +48,7 @@ class SplashActivity : AppCompatActivity() {
         checkPermissionOverlay(HaveToLoginForOverlay)
     }
 
-    fun checkPermissionOverlay(code: Int){
+    fun checkPermissionOverlay(code: Int) {
         //마시멜로우 이상 버전에서는 화면 오버레이 권한을 얻기 위한 설정창으로 이동해서 사용자가 직접 켜야 함.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             val intent = Intent(
@@ -55,36 +56,32 @@ class SplashActivity : AppCompatActivity() {
                 Uri.parse("package:" + BuildConfig.APPLICATION_ID)
             )
             startActivityForResult(intent, code)
-        }
-        else{
+        } else {
             startActivityNextStep(code)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var isCanUseApp:Boolean=false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(Settings.canDrawOverlays(this)){
-                isCanUseApp=true
-                Toast.makeText(this,"권한부여성공", Toast.LENGTH_SHORT).show()
+            if (Settings.canDrawOverlays(this)) {
+                shortToast("권한부여성공")
+                startActivityNextStep(requestCode)
+            } else {
+                Toast.makeText(this, "권한 부여 실패\n앱을 종료합니다.", Toast.LENGTH_SHORT).show()
+                finish()
             }
-        } else {
-            Toast.makeText(this,"권한 부여 실패\n앱을 종료합니다.", Toast.LENGTH_SHORT).show()
-            finish()
         }
-
-        startActivityNextStep(requestCode)
     }
 
-    fun startActivityNextStep(requestCode:Int){
-        when(requestCode){
-            AutoLoginForOverlay->{
+    fun startActivityNextStep(requestCode: Int) {
+        when (requestCode) {
+            AutoLoginForOverlay -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-            HaveToLoginForOverlay->{
+            HaveToLoginForOverlay -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -92,8 +89,8 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
-        const val AutoLoginForOverlay=1
-        const val HaveToLoginForOverlay=2
+    companion object {
+        const val AutoLoginForOverlay = 1
+        const val HaveToLoginForOverlay = 2
     }
 }

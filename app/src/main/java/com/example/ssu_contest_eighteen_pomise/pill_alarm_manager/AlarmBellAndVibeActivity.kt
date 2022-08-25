@@ -37,7 +37,6 @@ class AlarmBellAndVibeActivity : AppCompatActivity() {
         } else {
             viewModel.pillNames.value = viewModel.body.value?.substring(0 until cutIndex) ?: ""
         }
-        Log.d("kmj","${cutIndex},${viewModel.pillNames.value}")
 
         // 화면 오버레이를 위해. 이게 있어야 잠금화면 위로도 알람액티비티가 뜬다.
         window.addFlags(
