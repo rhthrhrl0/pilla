@@ -46,20 +46,18 @@ class UpdatePwdViewModel(application: Application) : AndroidViewModel(applicatio
         else {
 
             viewModelScope.launch() {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(UserService.BASE_URL)
-                    .addConverterFactory(MoshiConverterFactory.create())
-                    .build()
-
-                val service = retrofit.create(UserService::class.java)
-                val response = service.updatePassword(
+                val response = App.userService.updatePassword(
                     shPre.accessToken!!,
-                    UpdatePwDTO(oldPwd.toString(), newPwd1.toString())
+                    UpdatePwDTO(oldPwd, newPwd1)
                 )
                 if(response.isSuccessful) {
                     Log.d("kyb", "비밀번호 변경 성공?")
                     Toast.makeText(getApplication(), "비밀번호가 변경되었습니다.", Toast.LENGTH_SHORT).show()
                     btn_finish.value = true
+                }
+                else {
+                    Log.d("kyb", "비밀번호 변경 실패")
+                    Toast.makeText(getApplication(), "비밀번호 변경에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
