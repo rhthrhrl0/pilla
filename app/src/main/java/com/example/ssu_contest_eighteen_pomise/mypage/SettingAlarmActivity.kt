@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivitySettingAlarmBinding
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
+import com.yourssu.design.system.component.Toast.Companion.shortToast
 import com.yourssu.design.system.rule.normal
 import java.lang.Exception
 import kotlin.system.exitProcess
@@ -134,19 +135,19 @@ class SettingAlarmActivity : AppCompatActivity() {
     }
 
     private fun toastSoundOn() {
-        Toast.makeText(this, "소리가 켜졌습니다", Toast.LENGTH_SHORT).show()
+        shortToast("소리가 켜졌습니다")
     }
 
     private fun toastSoundOff() {
-        Toast.makeText(this, "소리가 꺼졌습니다", Toast.LENGTH_SHORT).show()
+        shortToast("소리가 꺼졌습니다")
     }
 
     private fun toastVibrationOn() {
-        Toast.makeText(this, "진동이 켜졌습니다", Toast.LENGTH_SHORT).show()
+        shortToast("진동이 켜졌습니다")
     }
 
     private fun toastVibrationOff() {
-        Toast.makeText(this, "진동이 꺼졌습니다", Toast.LENGTH_SHORT).show()
+        shortToast("진동이 꺼졌습니다")
     }
 
     private fun initSoundBtnOn() {

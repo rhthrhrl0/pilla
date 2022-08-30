@@ -115,10 +115,10 @@ class DetailAlarmViewModel(application: Application) : AndroidViewModel(applicat
         //connection에서 읽어올 br 준비
         if (conn.responseCode in 200..300) {
             rd = BufferedReader(InputStreamReader(conn.inputStream))
-            Log.d("kmj", "성공")
+            Log.d("kyb", "성공")
         } else {
             rd = BufferedReader(InputStreamReader(conn.errorStream))
-            Log.d("kmj", "실패")
+            Log.d("kyb", "실패")
 
     //                        finishEvent.value = true
         }

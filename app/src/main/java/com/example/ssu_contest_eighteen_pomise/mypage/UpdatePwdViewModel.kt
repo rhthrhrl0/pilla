@@ -44,7 +44,6 @@ class UpdatePwdViewModel(application: Application) : AndroidViewModel(applicatio
         else if(!newPwd1.equals(newPwd2))
             Toast.makeText(getApplication(), "두 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
         else {
-
             viewModelScope.launch() {
                 val response = App.userService.updatePassword(
                     shPre.accessToken!!,

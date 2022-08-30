@@ -29,16 +29,6 @@
         android:orientation="vertical"
         tools:context=".mainfragments.list.DetailAlarmActivity">
 
-        <TextView
-            android:id="@+id/detail_no_info"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="약 정보를 불러올 수 없습니다."
-            android:textColor="@color/black"
-            android:visibility="@{isEmpty?View.VISIBLE:View.GONE}"/>
-
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_loading"
             android:layout_width="match_parent"
@@ -64,6 +54,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/detail_no_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="약 정보를 불러올 수 없습니다."
+            android:textColor="@color/black"
+            android:visibility="@{isEmpty?View.VISIBLE:View.GONE}"/>
 
         <LinearLayout
             android:layout_width="match_parent"

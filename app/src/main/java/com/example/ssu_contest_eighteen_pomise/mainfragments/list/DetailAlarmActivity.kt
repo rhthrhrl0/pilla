@@ -42,6 +42,7 @@ class DetailAlarmActivity : AppCompatActivity() {
         viewModel.pillList.observe(this, {
             if(viewModel.pillList?.value?.isEmpty() == true) {
                 binding.isEmpty=true
+                binding.isLoading = false
             }
             else {
                 binding.isEmpty = false
