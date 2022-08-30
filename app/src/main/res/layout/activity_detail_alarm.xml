@@ -16,6 +16,9 @@
             name="isLoading"
             type="Boolean" />
         <variable
+            name="isEmpty"
+            type="Boolean" />
+        <variable
             name="viewModel"
             type="com.example.ssu_contest_eighteen_pomise.mainfragments.list.DetailAlarmViewModel" />
     </data>
@@ -25,6 +28,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".mainfragments.list.DetailAlarmActivity">
+
+        <TextView
+            android:id="@+id/detail_no_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="약 정보를 불러올 수 없습니다."
+            android:textColor="@color/black"
+            android:visibility="@{isEmpty?View.VISIBLE:View.GONE}"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_loading"

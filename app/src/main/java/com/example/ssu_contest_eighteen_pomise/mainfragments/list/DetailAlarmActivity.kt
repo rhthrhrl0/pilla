@@ -24,6 +24,8 @@ class DetailAlarmActivity : AppCompatActivity() {
         binding.viewModel=viewModel
         binding.isLoading = true
 
+        initView()
+        onViewModelInit()
         viewModel.pillAlarmDto= intent.getSerializableExtra(KEY_PILL_NAME) as AlarmListDTO
         viewModel.getPillDetailInfo()
 
@@ -31,7 +33,7 @@ class DetailAlarmActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        onViewModelInit()
+        //onViewModelInit()
     }
 
     private fun initView() {
@@ -43,9 +45,15 @@ class DetailAlarmActivity : AppCompatActivity() {
 
     fun onViewModelInit() {
         viewModel.pillList.observe(this, {
-            adapter.updateItems(it)
-            binding.isLoading = false
-            initView()
+            if(viewModel.pillList?.value?.isEmpty() == true) {
+                binding.isEmpty=true
+            }
+            else {
+                binding.isEmpty = false
+                adapter.updateItems(it)
+                binding.isLoading = false
+            }
+            //initView()
             Log.d("kyb", "초기화1")
         })
 
