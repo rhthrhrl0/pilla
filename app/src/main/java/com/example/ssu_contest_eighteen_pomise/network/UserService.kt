@@ -56,7 +56,7 @@ interface UserService {
         @Body ids: List<Int>
     ): Response<Void>
 
-    @POST("v1/updatePw")
+    @POST("v1/changePassword")
     suspend fun updatePassword(
         @Header("Authorization") headerToken: String,
         @Body postDTO:UpdatePwDTO
