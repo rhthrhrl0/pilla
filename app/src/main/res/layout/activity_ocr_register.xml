@@ -409,6 +409,7 @@
                         android:orientation="horizontal">
 
                         <com.yourssu.design.system.atom.SimpleTextField
+                            android:id="@+id/pillNameBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

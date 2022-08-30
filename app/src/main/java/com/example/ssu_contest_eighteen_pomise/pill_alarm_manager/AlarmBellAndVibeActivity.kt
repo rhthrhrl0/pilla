@@ -12,7 +12,6 @@ import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAlarmBellAndVibeBinding
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
 
-
 class AlarmBellAndVibeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAlarmBellAndVibeBinding
     private val viewModel: AlarmBellAndVibeViewModel by viewModels()
@@ -72,6 +71,11 @@ class AlarmBellAndVibeActivity : AppCompatActivity() {
         viewModel.finishEvent.observe(this, {
             finishAndRemoveTask()
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.laterEatStopBell()
     }
 
     override fun onBackPressed() {}

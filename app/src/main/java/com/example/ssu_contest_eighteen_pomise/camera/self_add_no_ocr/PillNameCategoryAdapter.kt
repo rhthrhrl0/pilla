@@ -12,6 +12,9 @@ class PillNameCategoryAdapter:RecyclerView.Adapter<PillNameCategoryAdapter.PillN
     inner class PillNameCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding= AddPillCategoryItemBinding.bind(itemView)
         init {
+            binding.linearLayout.setOnClickListener {
+                myItemClickListener.onItemClick(adapterPosition)
+            }
             binding.deleteIt.setOnClickListener {
                 myItemClickListener.onItemDeleteClick(adapterPosition)
             }

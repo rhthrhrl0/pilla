@@ -84,7 +84,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
 
     var changeCategoryPosition = 0
     val pillNameCategoryListLiveData = MutableLiveData<MutableList<PillNameAndCategory>>()
-    private var pillNameString: String = ""
+    var pillNameString: String = ""
     fun onPillNameTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         pillNameString = s.toString()
         isCanPillAdd()

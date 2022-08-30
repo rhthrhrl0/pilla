@@ -371,7 +371,15 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
             }
 
             override fun onItemClick(position: Int) {
-
+                viewModel.pillNameString =
+                    viewModel.pillNameCategoryListLiveData.value!![position].pillName
+                binding.pillNameBox.setText(
+                    viewModel.pillNameString.toCharArray(),
+                    0,
+                    viewModel.pillNameString.length
+                )
+                viewModel.pillCategoryInt =
+                    AddSelfNoOcrActivity.pillCategoryList.indexOf(viewModel.pillNameCategoryListLiveData.value!![position].pillCategory)
             }
 
             override fun onPillCategoryChangeClick(position: Int) {

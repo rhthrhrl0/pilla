@@ -291,13 +291,23 @@ class AddRegisterOcrViewModel(application: Application) : AndroidViewModel(appli
 
         val tempSetList = tempSet.toMutableList()
         for (tsl in tempSetList) {
-            tempOcrRegisterList.add(
-                OcrRegisterDTO(
-                    tsl.pillEatCount,
-                    tsl.pillEatDay,
-                    tsl.pillEatMethod
+            if (tsl.pillEatMethod.trim().isBlank()) {
+                tempOcrRegisterList.add(
+                    OcrRegisterDTO(
+                        tsl.pillEatCount,
+                        tsl.pillEatDay,
+                        "기타${addNum++}"
+                    )
                 )
-            )
+            } else {
+                tempOcrRegisterList.add(
+                    OcrRegisterDTO(
+                        tsl.pillEatCount,
+                        tsl.pillEatDay,
+                        tsl.pillEatMethod
+                    )
+                )
+            }
         }
 
         for (p in pillList) {

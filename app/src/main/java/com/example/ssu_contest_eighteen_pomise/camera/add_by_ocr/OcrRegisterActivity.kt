@@ -162,11 +162,11 @@ class OcrRegisterActivity : AppCompatActivity() {
     fun onViewModelInit() {
         viewModel.pillSetList.observe(this, {
             if (it.size == 1) {
-                binding.scrollView.visibility=View.GONE
-                binding.emptyText.visibility=View.VISIBLE
+                binding.scrollView.visibility = View.GONE
+                binding.emptyText.visibility = View.VISIBLE
             } else if (it.size > 1) {
-                binding.scrollView.visibility=View.VISIBLE
-                binding.emptyText.visibility=View.GONE
+                binding.scrollView.visibility = View.VISIBLE
+                binding.emptyText.visibility = View.GONE
             }
             ocrPillSetAdapter.submitList(it)
         })
@@ -425,7 +425,15 @@ class OcrRegisterActivity : AppCompatActivity() {
             }
 
             override fun onItemClick(position: Int) {
-
+                viewModel.pillNameString =
+                    viewModel.pillNameCategoryListLiveData.value!![position].pillName
+                binding.pillNameBox.setText(
+                    viewModel.pillNameString.toCharArray(),
+                    0,
+                    viewModel.pillNameString.length
+                )
+                viewModel.pillCategoryInt =
+                    AddSelfNoOcrActivity.pillCategoryList.indexOf(viewModel.pillNameCategoryListLiveData.value!![position].pillCategory)
             }
 
             override fun onPillCategoryChangeClick(position: Int) {
@@ -498,7 +506,6 @@ class OcrRegisterActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
     override fun onBackPressed() {
