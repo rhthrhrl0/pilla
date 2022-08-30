@@ -18,10 +18,10 @@ class PatientListAdapter :
         fun bind(item: PatientListDTO) {
             binding.patient = item
             binding.itemLinearLayout.setOnClickListener {
+                binding.textView.setHorizontallyScrolling(true)
+                binding.textView.isSelected=true
                 myItemClickListener?.onSelectedItemClick(adapterPosition, item.email)
             }
-            binding.textView.setHorizontallyScrolling(true)
-            binding.textView.isSelected=true
             binding.executePendingBindings()
         }
     }

@@ -23,12 +23,12 @@ class OcrPillSetListAdapter :
             binding.executePendingBindings()
             binding.itemLinearLayout.setOnClickListener {
                 myItemClickListener?.onSelectedItemClick(binding, adapterPosition)
+                binding.textView.setHorizontallyScrolling(true)
+                binding.textView.isSelected = true
             }
             binding.deleteIt.setOnClickListener {
                 myItemClickListener?.onDeleteItemSelectedClick(adapterPosition)
             }
-            binding.textView.setHorizontallyScrolling(true)
-            binding.textView.isSelected = true
         }
     }
 

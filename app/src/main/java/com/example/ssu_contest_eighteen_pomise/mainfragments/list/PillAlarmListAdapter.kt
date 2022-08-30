@@ -27,7 +27,7 @@ class PillAlarmListAdapter : RecyclerView.Adapter<PillAlarmListAdapter.PillListV
                 binding.morePillInfoImage.startAnim(R.anim.bottom_tab_click_anim)
                 if (!isSelected) {
                     val list = mutableListOf<String>()
-                    binding.pillDTO?.pillList?.map { list.add("(${it.pillCategory}): ${it.pillName}") }
+                    binding.pillDTO?.pillList?.map { list.add("[${it.pillCategory}]: ${it.pillName}") }
                     (binding.subRv.adapter as SubPillAlarmListAdapter).updateItems(list)
                 } else {
                     val list = mutableListOf<String>()
