@@ -7,38 +7,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.ssu_contest_eighteen_pomise.BuildConfig
 import com.example.ssu_contest_eighteen_pomise.dto.PillAlarmDetail
-import com.example.ssu_contest_eighteen_pomise.network.UserService
-import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
 
-
 class DetailAlarmViewModel(application: Application) : AndroidViewModel(application) {
     val finishEvent = MutableLiveData<Boolean>()
     var pillAlarmDto: AlarmListDTO? = null
-//    lateinit var pillList:ArrayList<PillAlarmDetail>
+
     //list를 감싼 MutableLiveData는 observe에 변화를 알려주지 않음
-    val pillTailArray= arrayOf("(내복)","(외용)","내복","외용","(")
+    val pillTailArray= arrayOf("(","(내복)","(외용)")
     var pillList = MutableLiveData<ArrayList<PillAlarmDetail>>()
-
-    var gson = GsonBuilder()
-        .setLenient()
-        .create()
-
-    val userRetrofit = Retrofit.Builder()
-        .baseUrl(UserService.PILL_OPEN_SOURCE_URL)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-    val userService = userRetrofit.create(UserService::class.java)
 
     fun getPillDetailInfo() {
 
@@ -59,7 +44,7 @@ class DetailAlarmViewModel(application: Application) : AndroidViewModel(applicat
 
 
                     if(getParsingDetailOrEmpty(pillName, threadPillList)){
-                        for(i in 0..3){
+                        for(i in 0 until pillTailArray.size){
                             var cutPillName:String
                             val cutIndex =
                                 pillName.lastIndexOf(pillTailArray[i]) // 못찾으면 -1반환

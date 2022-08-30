@@ -31,11 +31,6 @@ class DetailAlarmActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        //onViewModelInit()
-    }
-
     private fun initView() {
         binding.detailRecyclerView.apply {
             this.layoutManager = LinearLayoutManager(this@DetailAlarmActivity)
@@ -53,8 +48,6 @@ class DetailAlarmActivity : AppCompatActivity() {
                 adapter.updateItems(it)
                 binding.isLoading = false
             }
-            //initView()
-            Log.d("kyb", "초기화1")
         })
 
         viewModel.finishEvent.observe(this@DetailAlarmActivity, {
