@@ -66,11 +66,11 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
         set(value) {
             field = value
             startTimeString.value = ("$field")
-            cycleTimeList.value=AddSelfNoOcrActivity.timeList.slice(0..23-startTimeInt)
+            cycleTimeList.value = AddSelfNoOcrActivity.timeList.slice(0..23 - startTimeInt)
         }
     val startTimeString = MutableLiveData<String>()
 
-    var cycleTimeList=MutableLiveData(AddSelfNoOcrActivity.timeList.slice(0..11))
+    var cycleTimeList = MutableLiveData(AddSelfNoOcrActivity.timeList.slice(0..11))
     var cycleTimeInt: Int = 0
         set(value) {
             field = value
@@ -82,7 +82,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val lunchEatTimeString = MutableLiveData<String>("복용 안함")
     val dinnerEatTimeString = MutableLiveData<String>("복용 안함")
 
-    var changeCategoryPosition=0
+    var changeCategoryPosition = 0
     val pillNameCategoryListLiveData = MutableLiveData<MutableList<PillNameAndCategory>>()
     private var pillNameString: String = ""
     fun onPillNameTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -101,7 +101,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
     val isPillAddButtonisDisabled = MutableLiveData(true)
     fun isCanPillAdd() {
         isPillAddButtonisDisabled.value =
-            pillNameString.isBlank() || pillCategoryInt==0
+            pillNameString.isBlank() || pillCategoryInt == 0
     }
 
     init {
@@ -241,7 +241,7 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
             return
         }
 
-        if(timeList.isEmpty()){
+        if (timeList.isEmpty()) {
             addErrorString.value = PillAddErrorType.ONE_CHOOSE_EAT_TIME
             return
         }
@@ -334,15 +334,14 @@ class AddSelfNoOcrViewModel(application: Application) : AndroidViewModel(applica
 
     fun insert(pillAddContentList: List<RegisteredPill>) {
         //뷰모델에서 코루틴 사용할때는 viewModelScope를 사용함.
-        val job = viewModelScope.launch(Dispatchers.IO) {
-            val response=App.loginService.registerPillRequest(shPre.refreshToken!!,pillAddContentList)
-            if(response.isSuccessful){
+        viewModelScope.launch(Dispatchers.IO) {
+            val response =
+                App.loginService.registerPillRequest(shPre.refreshToken!!, pillAddContentList)
+            if (response.isSuccessful) {
                 runBlocking(Dispatchers.Main) {
                     addPrescriptionEvent.value = true
-                    onClickFinish()
                 }
-            }
-            else{
+            } else {
                 addErrorString.postValue(PillAddErrorType.REGISTER_ERROR)
             }
         }

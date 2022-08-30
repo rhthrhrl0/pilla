@@ -19,8 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@color/white">
 
         <com.yourssu.design.system.component.TopBar
             android:id="@+id/topbar"
@@ -304,7 +303,7 @@
                                 android:id="@+id/specific_time_recycler_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                tools:listitem="@layout/add_element_item_store"/>
+                                tools:listitem="@layout/add_element_item_store" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -356,13 +355,13 @@
                         <com.yourssu.design.system.atom.BoxButton
                             android:id="@+id/add_pill_btn"
                             isDisabled="@{viewModel.isPillAddButtonisDisabled()}"
-                            android:clickable="@{!viewModel.isPillAddButtonisDisabled()}"
                             size="@{BoxButton.Medium}"
                             text="@{@string/add_pill}"
                             type="@{BoxButton.FILLED}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:clickable="@{!viewModel.isPillAddButtonisDisabled()}"
                             android:onClick="@{()->viewModel.addPillNameCategoryItem()}" />
                     </LinearLayout>
 
