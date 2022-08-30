@@ -156,6 +156,7 @@ class AddSelfNoOcrActivity : AppCompatActivity() {
 
         viewModel.addPrescriptionEvent.observe(this@AddSelfNoOcrActivity, {
             Toast.makeText(this, "성공적으로 처방내용이 추가됐습니다", Toast.LENGTH_SHORT).show()
+            finish()
         })
 
         viewModel.failedAddPrescriptionEvent.observe(this@AddSelfNoOcrActivity, {
