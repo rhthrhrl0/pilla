@@ -50,6 +50,7 @@
                         android:gravity="center"
                         android:text="@string/morning"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btn_morning"
@@ -59,12 +60,13 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_morning"
-                        android:layout_width="90dp"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="100dp"
+                        android:layout_marginEnd="65dp"
                         android:background="@color/white"
                         android:onClick="@{()->viewModel.btnMorningClick()}"
                         android:text="@{}"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/morning"
@@ -86,6 +88,7 @@
                         android:gravity="center"
                         android:text="@string/lunch"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btn_lunch"
@@ -95,12 +98,13 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_lunch"
-                        android:layout_width="90dp"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="100dp"
+                        android:layout_marginEnd="65dp"
                         android:background="@color/white"
                         android:onClick="@{()->viewModel.btnLunchClick()}"
                         android:text="@{}"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/lunch"
@@ -112,7 +116,7 @@
                     android:id="@+id/dinnerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="130dp"
+                    android:layout_marginBottom="70dp"
                     android:layout_below="@+id/lunchLayout">
 
                     <TextView
@@ -122,6 +126,7 @@
                         android:gravity="center"
                         android:text="@string/dinner"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btn_dinner"
@@ -131,19 +136,19 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_dinner"
-                        android:layout_width="90dp"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="100dp"
+                        android:layout_marginEnd="65dp"
                         android:background="@color/white"
                         android:onClick="@{()->viewModel.btnDinnerClick()}"
                         android:text="@{}"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/dinner"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </RelativeLayout>
 

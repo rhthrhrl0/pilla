@@ -8,27 +8,37 @@
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable-v24/calendar.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable-v24/circle_right_top.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable-v24/user_icon.xml" value="0.2515625" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/circle_image_background.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/circular_rectangle.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/circular_round.xml" value="0.2864583333333333" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/confirm_btn.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/ic_arrow_right_line.xml" value="2.5821428571428573" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/join_btn.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/round_backgrond_border_black.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/round_edge.xml" value="0.2864583333333333" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/round_edge_black.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/drawable/round_edge_green.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_add_prescription.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_add_protege.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_alarm.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_join.xml" value="0.25317028985507245" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_detail_alarm.xml" value="0.25317028985507245" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_join.xml" value="0.25" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_login.xml" value="0.3016304347826087" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_protectors.xml" value="0.33" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_setting_alarm.xml" value="0.23550724637681159" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_setting_guardians.xml" value="0.2558876811594203" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_setting_mealtime.xml" value="0.25" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_setting_protectors.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_splash.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/activity_update_password.xml" value="0.1" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/add_element_item_store.xml" value="0.2558876811594203" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/fragment_setting.xml" value="0.5" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/guardians_view.xml" value="0.5" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/pill_alarm_detail.xml" value="0.11043566362715299" />
         <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/protectors_view.xml" value="0.275" />
-        <entry key="..\:/Users/HOME/Desktop/study/sw2022/Android/app/src/main/res/layout/activity_add_protege.xml" value="0.264" />
-        <entry key="..\:/Users/HOME/Desktop/study/sw2022/Android/app/src/main/res/layout/activity_detail_alarm.xml" value="0.2" />
-        <entry key="..\:/Users/HOME/Desktop/study/sw2022/Android/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/HOME/Desktop/2022sw-android/Android/app/src/main/res/layout/proteges_view.xml" value="0.33" />
         <entry key="..\:/Users/rhthr/.gradle/caches/transforms-3/9b1360e1c98a87f51f98a0b33a116a2f/transformed/jetified-YDS-Android-2.1.3/res/drawable/ic_arrow_down_line.xml" value="0.1" />
         <entry key="..\:/Users/rhthr/.gradle/caches/transforms-3/9b1360e1c98a87f51f98a0b33a116a2f/transformed/jetified-YDS-Android-2.1.3/res/drawable/ic_bell_line.xml" value="0.125" />
         <entry key="..\:/Users/rhthr/.gradle/caches/transforms-3/9b1360e1c98a87f51f98a0b33a116a2f/transformed/jetified-YDS-Android-2.1.3/res/drawable/ic_dots_horizontal_line.xml" value="0.1" />
