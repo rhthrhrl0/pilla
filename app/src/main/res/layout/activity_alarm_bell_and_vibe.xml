@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
             <TextView
+                android:id="@+id/pill_names_text"
                 android:textSize="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,8 +1,12 @@
 package com.example.ssu_contest_eighteen_pomise.pill_alarm_manager
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -11,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.ssu_contest_eighteen_pomise.R
 import com.example.ssu_contest_eighteen_pomise.databinding.ActivityAlarmBellAndVibeBinding
 import com.example.ssu_contest_eighteen_pomise.sharedpreferences.SettingSharedPreferences
+
 
 class AlarmBellAndVibeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAlarmBellAndVibeBinding
@@ -48,13 +53,13 @@ class AlarmBellAndVibeActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.be_happy)
         vibe = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-        if (setting_prefs.vibrate == "on") {
-            vibe.vibrate(pattern, 0)
-        }
-
-        if (setting_prefs.sound == "on") {
-            viewModel.startBell(mediaPlayer)
-        }
+//        if (setting_prefs.vibrate == "on") {
+//            viewModel.startVibe(vibe)
+//        }
+//
+//        if (setting_prefs.sound == "on") {
+//            viewModel.startBell(mediaPlayer)
+//        }
 
         viewModel.timerJob.start()
         onViewModelInit()
@@ -83,6 +88,7 @@ class AlarmBellAndVibeActivity : AppCompatActivity() {
     companion object {
         const val EAT_ALARM_TITLE_KEY = "_eat_alarm_title_key_"
         const val EAT_ALARM_BODY_KEY = "_eat_alarm_body_key_"
-        val pattern = longArrayOf(0, 400, 800, 600, 800, 800, 800, 1000)
+        //val pattern = longArrayOf(0, 400, 800, 600, 800, 800, 800, 1000)
+        val pattern = longArrayOf(1000,1000,1000,1000)
     }
 }

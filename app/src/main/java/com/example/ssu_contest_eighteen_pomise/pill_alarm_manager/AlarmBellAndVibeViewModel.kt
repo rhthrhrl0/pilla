@@ -2,6 +2,9 @@ package com.example.ssu_contest_eighteen_pomise.pill_alarm_manager
 
 import android.app.Application
 import android.media.MediaPlayer
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -99,6 +102,16 @@ class AlarmBellAndVibeViewModel(application: Application) : AndroidViewModel(app
         val finishJob = viewModelScope.launch {
             delay(1000L)
             finishEvent.value = true
+        }
+    }
+
+    fun startVibe(vibe: Vibrator) {
+        viewModelScope.launch {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibe.vibrate(VibrationEffect.createWaveform(AlarmBellAndVibeActivity.pattern, 0))
+            } else {
+                vibe.vibrate(AlarmBellAndVibeActivity.pattern, 0)
+            }
         }
     }
 

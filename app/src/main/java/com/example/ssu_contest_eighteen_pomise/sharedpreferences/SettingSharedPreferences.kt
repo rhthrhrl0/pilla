@@ -8,8 +8,8 @@ object SettingSharedPreferences {
 
     private val shPre = App.token_prefs
     private lateinit var prefs: SharedPreferences
-    private val alarm_sound = "soundOn"
-    private val alarm_vibrate = "vibrateOn"
+    private val alarm_sound = "sound_mode_"
+    private val alarm_vibrate = "vibrate_mode_"
     private val key_morningHour = "morningHour"
     private val key_morningMin = "morningMin"
     private val key_lunchHour = "lunchHour"
@@ -19,13 +19,6 @@ object SettingSharedPreferences {
     private val key_birthYear="birthYear"
     private val key_birthMonth="birthMonth"
     private val key_birthDay="birthDay"
-
-//    fun getInstance(context: Context):SharedPreferences{
-//        if (prefs==null){
-//            prefs = context.getSharedPreferences("shpre-${shPre.email}", 0)
-//        }
-//        return prefs!!
-//    }
 
     fun setInstance(context: Context):SettingSharedPreferences {
         prefs = context.getSharedPreferences("shpre-${shPre.email}", 0)
