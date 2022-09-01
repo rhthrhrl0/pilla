@@ -53,13 +53,13 @@ class AlarmBellAndVibeActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.be_happy)
         vibe = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-//        if (setting_prefs.vibrate == "on") {
-//            viewModel.startVibe(vibe)
-//        }
-//
-//        if (setting_prefs.sound == "on") {
-//            viewModel.startBell(mediaPlayer)
-//        }
+        if (setting_prefs.vibrate == "on") {
+            viewModel.startVibe(vibe)
+        }
+
+        if (setting_prefs.sound == "on") {
+            viewModel.startBell(mediaPlayer)
+        }
 
         viewModel.timerJob.start()
         onViewModelInit()
