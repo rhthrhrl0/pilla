@@ -25,14 +25,19 @@
             android:gravity="center"
             android:text="@{viewModel.countTimeString}" />
 
-        <TextView
-            android:textSize="25dp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="@{@string/pill_category+viewModel.pillNames}" />
+            android:layout_height="200dp">
+            <TextView
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@{@string/pill_category+viewModel.pillNames}"
+                android:textStyle="bold"/>
+        </ScrollView>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieWatchView"
