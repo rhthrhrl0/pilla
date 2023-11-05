@@ -26,10 +26,11 @@
 - **피보호자 등록**: 보호자는 자신이 케어하고 싶은 피보호자를 등록할 수 있습니다. 약 복용 시간에 알람이 울리고 시간 내에 종료하지 않으면 등록된 보호자에게 알림을 보내서, 보호자가 피보호자의 약 복용 유무를 인지할 수 있습니다.
 
 ### 이미지 및 영상
-- ocr API로 처방전을 등록하는 이미지 및 영상
+- ocr API로 처방전을 등록하는 이미지 및 영상 (피보호자 화면 기준)
   
-  ![1104193658429899](https://github.com/rhthrhrl0/pilla/assets/67176829/e71f87bf-60a3-4733-b8c4-661d6742dcf3)
+  ![1105113958459693](https://github.com/rhthrhrl0/pilla/assets/67176829/0c7ad6f3-e004-490a-915c-fec187b01593)
+
 
   https://github.com/rhthrhrl0/pilla/assets/67176829/8f423818-cc73-43da-8499-fdf1afaf21bb
 
-- [더 상세한 약쏙 서비스 안드로이드 기능 설명](https://giant-cloche-9c9.notion.site/fb1c277c419f488fa5f9b029e82389bf?pvs=4)
+- [더 상세한 기능 소개 링크](https://giant-cloche-9c9.notion.site/fb1c277c419f488fa5f9b029e82389bf?pvs=4)
